@@ -9,9 +9,9 @@ namespace GM07.Map
         private TableManager _tableManager;
         [SerializeField] 
         private GameObject _customerPrefab;
+        [Header("Test")]
         [SerializeField, Min(0.1f)]
         private float _spawnInterval;
-        [Header("Test")]
         [SerializeField, Min(0.1f)]
         private float _customerStayDuration = 3f;
 
