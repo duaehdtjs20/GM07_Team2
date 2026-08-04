@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2553280175efb0648b13849878903309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameFlowManager
-  _openDuration: 5
+  _openDuration: 30
 --- !u!4 &376652403
 Transform:
   m_ObjectHideFlags: 0
@@ -381,9 +381,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GM07.Map.CustomerSpawner
   _tableManager: {fileID: 600416285}
   _gameFlowManager: {fileID: 376652402}
-  _customerPrefab: {fileID: 6190463955069198436, guid: f5d9478157146324b93d5c5c7e895097, type: 3}
+  _customerPrefab: {fileID: 276700891561280678, guid: 435ee7fdbb678124ea57bbbeffd9b0cd, type: 3}
   _spawnPoint: {fileID: 451488421}
-  _spawnInterval: 1
+  _spawnSettings: {fileID: 11400000, guid: 3d246583d7b46e846ad7880a3a85e1f1, type: 2}
 --- !u!4 &1040424332
 Transform:
   m_ObjectHideFlags: 0
@@ -668,7 +668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2061095876772987139, guid: e1ea3c596faa6794087acb0dc2fe055f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.41
       objectReference: {fileID: 0}
     - target: {fileID: 2061095876772987139, guid: e1ea3c596faa6794087acb0dc2fe055f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -773,10 +773,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 8757497746740065766}
+  - {fileID: 7905339407779218228}
   - {fileID: 451213797}
   - {fileID: 376652403}
   - {fileID: 600416286}
   - {fileID: 1040424332}
-  - {fileID: 7905339407779218228}
   - {fileID: 7710086044700178827}
   - {fileID: 1154500416}
