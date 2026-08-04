@@ -6,16 +6,29 @@ public class CustomerSeat : CustomerStateBase
     public CustomerSeat(Customer customer) : base(customer) { }
     public override void Enter()
     {
-        // 자리에 앉기
+        // 자리에 앉기(임시로 색상만 변경, 추후에 앉는 자세와 Seat위치에 배치 로직 추가 예정)
+        _customer.SetColor(Color.yellow);
 
         // 주문 신청 알림
+        _customer.OrderMenu();
     }
     public override void Update()
     {
-        // 대기 타이머 초과되면 퇴장(확장 영역)
+        // 주문 접수 전 이면 종료
+        if (!_customer.IsOrder)
+        {
+            _customer.Ordering(); // test
+            return;
+        }
 
-        // 주문 접수 완료되면 (타이머 멈추고) 음식 대기
-        
+        if (!_customer.IsOrder)
+        {
+            _customer.Watting(); // test
+            return;
+        }
+
+        // 음식 받으면 식사 상태로 변경
+        _customer.StateMachine.TransitionTo(_customer.StateMachine.EatState);
     }
     public override void Exit()
     {

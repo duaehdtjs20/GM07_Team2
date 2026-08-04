@@ -8,11 +8,14 @@ public class CustomerEnter : CustomerStateBase
     {
         // 빈 자리를 목표로 지정
         _customer.SetDestination(_customer.Seat.Anchor);
+
+        // 상태 변경 임시 확인
+        _customer.SetColor(Color.red);
     }
     public override void Update()
     {
         // 일정 거리 이상 일 때는 무시
-        if(_customer.CalculateDistance() > 0.1f)
+        if(_customer.CalculateSqrMagnitude() > 1f)
         {
             return;
         }
