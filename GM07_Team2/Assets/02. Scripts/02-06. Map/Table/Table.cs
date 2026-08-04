@@ -7,7 +7,7 @@ namespace GM07.Map
     public sealed class Table : MonoBehaviour
     {
         [SerializeField]
-        private List<Transform> _seatAndhorList;
+        private List<Transform> _seatAnchorList;
 
         private readonly List<Seat> _seats = new();
 
@@ -34,9 +34,13 @@ namespace GM07.Map
             TableId = id;
             _seats.Clear();
 
-            for(int i=0;i<_seatAndhorList.Count; i++)
+            for(int i=0;i< _seatAnchorList.Count; i++)
             {
-                Transform anchor = _seatAndhorList[i];
+                Transform anchor = _seatAnchorList[i];
+                if(anchor == null)
+                {
+                    continue;
+                }
                 Seat seat = new Seat(i, anchor);
                 _seats.Add(seat);
             }
