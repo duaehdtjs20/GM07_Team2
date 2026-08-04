@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56bf782b18a74f0880ad223bccba5246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GM07.Map.Table
-  _seatAndhorList:
+  _seatAnchorList:
   - {fileID: 7143469238538547118}
   - {fileID: 8592264697218593313}
   - {fileID: 6234439216287812452}
