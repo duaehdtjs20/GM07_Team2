@@ -17,8 +17,6 @@ namespace GM07.Map
         private readonly List<Table> _tableList = new();
         private int _nextTableId = 1;
 
-        public IReadOnlyList<Table> TableList => _tableList;
-
         private void Start()
         {
             InitTable();
@@ -31,8 +29,7 @@ namespace GM07.Map
                 return null;
             }
 
-            Transform spawnPoint =
-                _tableSpawnPointList[_tableList.Count];
+            Transform spawnPoint = _tableSpawnPointList[_tableList.Count];
 
             Table table = Instantiate(
                 _tablePrefab,
@@ -47,9 +44,7 @@ namespace GM07.Map
             return table;
         }
 
-        public bool TryUseSeat(
-            out Table selectedTable,
-            out Seat selectedSeat)
+        public bool TryUseSeat(out Table selectedTable, out Seat selectedSeat)
         {
             int maximumRemainingSeatCount = 0;
             List<Table> candidateTableList = new();
@@ -66,8 +61,7 @@ namespace GM07.Map
 
                 if (remainingSeatCount > maximumRemainingSeatCount)
                 {
-                    maximumRemainingSeatCount =
-                        remainingSeatCount;
+                    maximumRemainingSeatCount = remainingSeatCount;
 
                     candidateTableList.Clear();
                     candidateTableList.Add(table);
@@ -87,9 +81,7 @@ namespace GM07.Map
                 return false;
             }
 
-            int randomIndex = Random.Range(
-                0,
-                candidateTableList.Count);
+            int randomIndex = Random.Range(0, candidateTableList.Count);
 
             selectedTable = candidateTableList[randomIndex];
 
