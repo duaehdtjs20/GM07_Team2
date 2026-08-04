@@ -13,9 +13,8 @@ namespace GM07.Map
         private GameObject _customerPrefab;
         [SerializeField]
         private Transform _spawnPoint;
-
-        [SerializeField, Min(0.1f)]
-        private float _spawnInterval;
+        [SerializeField]
+        private CustomerSpawnSettings _spawnSettings;
 
         private Coroutine _spawnCoroutine;
 
@@ -77,12 +76,26 @@ namespace GM07.Map
             {
                 _tableManager = FindFirstObjectByType<TableManager>();
             }
-            var wait = new WaitForSeconds(_spawnInterval);
-            while (true)
+
+            while(_gameFlowManager.GameState == EGameState.Open)
             {
-                yield return wait;
+                if (!TryGetSpawnInterval(out float spawnInterval))
+                {
+                    _spawnCoroutine = null;
+                    yield break;
+                }
+
+                yield return new WaitForSeconds(spawnInterval);
+                Debug.Log($"{nameof(CustomerSpawner)}: Spawn Interval: {spawnInterval}");
+
+                if (_gameFlowManager.GameState != EGameState.Open)
+                {
+                    break;
+                }
+
                 TrySpawn();
             }
+            _spawnCoroutine = null;
         }
 
         public bool TrySpawn()
@@ -103,6 +116,37 @@ namespace GM07.Map
                 _tableManager.ReleaseSeat(table, seat);
                 return false;
             }
+        }
+
+        private bool TryGetSpawnInterval(out float spawnInterval)
+        {
+            spawnInterval = 0f;
+            if (_spawnSettings == null)
+            {
+                return false;
+            }
+            float openProgress = GetOpenProgress();
+            if (!_spawnSettings.TryGetSpawnPeriod(openProgress, out CustomerSpawnPeriod spawnPeriod))
+            {
+                return false;
+            }
+
+            float baseInterval = spawnPeriod.GetRandomInterval();
+            float storeLevelSpawnRate = _spawnSettings.GetStoreLevelSpawnRate(0); //매장의 레벨에 따라 속도 조절 / 현재는 1로 고정
+            spawnInterval = baseInterval / storeLevelSpawnRate;
+            return true;
+        }
+
+        private float GetOpenProgress()
+        {
+            if (_gameFlowManager.OpenDuration <= 0f)
+            {
+                return 0f;
+            }
+
+            float elapsedTime = _gameFlowManager.OpenDuration - _gameFlowManager.RemainingTime;
+
+            return Mathf.Clamp01( elapsedTime / _gameFlowManager.OpenDuration);
         }
     }
 }
