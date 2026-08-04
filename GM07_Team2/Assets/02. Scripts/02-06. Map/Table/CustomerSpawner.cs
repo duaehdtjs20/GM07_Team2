@@ -9,11 +9,11 @@ namespace GM07.Map
         private TableManager _tableManager;
         [SerializeField] 
         private GameObject _customerPrefab;
-        [Header("Test")]
+        [SerializeField]
+        private Transform _spawnPoint;
+
         [SerializeField, Min(0.1f)]
         private float _spawnInterval;
-        [SerializeField, Min(0.1f)]
-        private float _customerStayDuration = 3f;
 
         private IEnumerator Start()
         {
@@ -29,36 +29,22 @@ namespace GM07.Map
             }
         }
 
-
-        // test
         public bool TrySpawn()
         {
             if (_tableManager == null || !_tableManager.TryUseSeat(out Table table, out Seat seat) || _customerPrefab == null)
             {
                 return false;
             }
-            GameObject customer = Instantiate(_customerPrefab, transform.position, Quaternion.identity);
-            customer.name = $"Customer_T{table.TableId:00}_S{seat.SeatId:00}";
-            customer.transform.position = seat.Anchor.position;
-            customer.transform.rotation = seat.Anchor.rotation;
-
-            StartCoroutine(StayAndRelease(customer, table, seat, _customerStayDuration));
-
-            return true;
-        }
-
-        private IEnumerator StayAndRelease(GameObject customer, Table table, Seat seat, float stayDuration)
-        {
-            yield return new WaitForSeconds(stayDuration);
-
-            if (_tableManager != null)
+            GameObject customer = Instantiate(_customerPrefab, _spawnPoint.position, _spawnPoint.rotation);
+            if(customer.TryGetComponent<Customer>(out Customer customerComponent))
             {
-                _tableManager.ReleaseSeat(table, seat);
+                customerComponent.Init(table, seat);
+                return true;
             }
-
-            if (customer != null)
+            else
             {
                 Destroy(customer);
+                return false;
             }
         }
     }
