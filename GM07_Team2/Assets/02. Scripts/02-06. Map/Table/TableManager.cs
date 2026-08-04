@@ -17,8 +17,6 @@ namespace GM07.Map
         private readonly List<Table> _tableList = new();
         private int _nextTableId = 1;
 
-        public IReadOnlyList<Table> TableList => _tableList;
-
         private void Start()
         {
             InitTable();

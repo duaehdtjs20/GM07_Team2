@@ -7,6 +7,8 @@ namespace GM07.Map
     {
         [SerializeField] 
         private TableManager _tableManager;
+        [SerializeField]
+        private GameFlowManager _gameFlowManager;
         [SerializeField] 
         private GameObject _customerPrefab;
         [SerializeField]
@@ -15,7 +17,61 @@ namespace GM07.Map
         [SerializeField, Min(0.1f)]
         private float _spawnInterval;
 
-        private IEnumerator Start()
+        private Coroutine _spawnCoroutine;
+
+        private void OnEnable()
+        {
+            if (_gameFlowManager != null)
+            {
+                _gameFlowManager.OnGameStateChanged += OnGameStateChanged;
+
+                OnGameStateChanged(_gameFlowManager.GameState);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (_gameFlowManager != null)
+            {
+                _gameFlowManager.OnGameStateChanged -= OnGameStateChanged;
+            }
+
+            StopSpawn();
+        }
+
+        private void OnGameStateChanged(EGameState gameState)
+        {
+            if (gameState == EGameState.Open)
+            {
+                StartSpawn();
+                return;
+            }
+
+            StopSpawn();
+        }
+
+        private void StartSpawn()
+        {
+            if (_spawnCoroutine != null)
+            {
+                return;
+            }
+
+            _spawnCoroutine = StartCoroutine(StartSpawnCo());
+        }
+
+        private void StopSpawn()
+        {
+            if (_spawnCoroutine == null)
+            {
+                return;
+            }
+
+            StopCoroutine(_spawnCoroutine);
+            _spawnCoroutine = null;
+        }
+
+        private IEnumerator StartSpawnCo()
         {
             if (_tableManager == null)
             {
@@ -44,6 +100,7 @@ namespace GM07.Map
             else
             {
                 Destroy(customer);
+                _tableManager.ReleaseSeat(table, seat);
                 return false;
             }
         }
