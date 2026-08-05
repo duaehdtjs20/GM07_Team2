@@ -14,6 +14,7 @@ public class Customer : MonoBehaviour
     private NavMeshAgent _agent;
 
     private float _eatTimer = 0.0f;
+    private TableManager _tableManager;
 
     public CustomerStateMachine StateMachine { get; private set; }
     public Table Table { get; private set; }
@@ -36,8 +37,9 @@ public class Customer : MonoBehaviour
     }
 
     // 스폰 시 호출되는 초기화 메서드
-    public void Init(Table table, Seat seat)
+    public void Init(TableManager tableManager, Table table, Seat seat)
     {
+        _tableManager = tableManager;
         Table = table;
         Seat = seat;
 
@@ -122,10 +124,11 @@ public class Customer : MonoBehaviour
         // 결제 로직 추가 예정
         
         // 자리 반환
-        if (Table != null && Seat != null)
+        if (_tableManager != null && Table != null && Seat != null)
         {
-            Table.ReleaseSeat(Seat);
+            _tableManager.ReleaseSeat(Table, Seat);
         }
+        _tableManager = null;
         Table = null;
         Seat = null;
         
