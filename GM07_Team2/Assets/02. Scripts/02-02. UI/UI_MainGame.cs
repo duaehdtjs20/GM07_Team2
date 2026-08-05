@@ -22,7 +22,7 @@ public class UI_MainGame : MonoBehaviour
     [SerializeField]
     private GameObject _closePanel;
 
-    private void OnEnable()
+    private void Start()
     {
         if(_gameFlowManager == null)
         {

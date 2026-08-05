@@ -39,17 +39,23 @@ public class UI_ClosePanel : MonoBehaviour
             return;
         }
 
-        _dayText.text = $"{data.Day}일차 정산\n";
+        _dayText.text = $"Day - {data.Day}\n";
 
         _settlementText.text =
-            $"{data.CustomerCount}명의 손님 방문\n" +
-            $"판매 금액 : {data.SalesRevenue:N0}\n" +
-            $"팁 : {data.TipRevenue:N0}\n" +
-            $"총 매출 : {data.TotalRevenue:N0}\n" +
-            $"가게 임대료 : {data.RentExpense:N0}\n" +
-            $"직원 임금 : {data.WageExpense:N0}\n" +
-            $"기타 지출 : {data.OtherExpense:N0}\n" +
-            $"순이익 : {data.NetProfit:N0}\n" +
-            $"현재 자금 : {CurrencyManager.Instance.Money:N0}";
+            $"CustomerCount : {data.CustomerCount}\n" +
+            $"SalesRevenue : {data.SalesRevenue:N0}\n" +
+            $"TipRevenue : {data.TipRevenue:N0}\n" +
+            "======================\n" +
+            $"TotalRevenue : {data.TotalRevenue:N0}\n\n" +
+
+            $"RentExpense : {data.RentExpense:N0}\n" +
+            $"WageExpense : {data.WageExpense:N0}\n" +
+            $"OtherExpense : {data.OtherExpense:N0}\n" +
+            $"OtherExpense : {data.OtherExpense:N0}\n" +
+            "======================\n" +
+            $"TotalExpense : {data.TotalExpense:N0}\n\n" +
+
+            $"NetProfit : {data.NetProfit:N0}\n" +
+            $"Money : {CurrencyManager.Instance.Money:N0}";
     }
 }
