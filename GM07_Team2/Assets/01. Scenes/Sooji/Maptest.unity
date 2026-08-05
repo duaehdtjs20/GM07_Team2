@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2553280175efb0648b13849878903309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameFlowManager
+  _tableManager: {fileID: 600416285}
   _openDuration: 30
 --- !u!4 &376652403
 Transform:
