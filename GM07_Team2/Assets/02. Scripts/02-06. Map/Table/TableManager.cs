@@ -129,7 +129,7 @@ namespace GM07.Map
 
         public bool RemoveTable(Table table)
         {
-            if (table == null || table.IsFull)
+            if (table == null || !table.IsFull)
             {
                 return false;
             }

@@ -72,6 +72,7 @@ public class GameFlowManager : MonoBehaviour
         _openCoroutine = null;
 
         SetGameState(EGameState.ClosingWait);
+        OnAllTablesEmpty();
     }
 
     private void OnAllTablesEmpty()

@@ -14,7 +14,7 @@ namespace GM07.Map
         [SerializeField]
         private Transform _spawnPoint;
         [SerializeField]
-        private CustomerSpawnSettings _spawnSettings;
+        private CustomerSpawnSettingData _spawnSettings;
 
         private Coroutine _spawnCoroutine;
 
