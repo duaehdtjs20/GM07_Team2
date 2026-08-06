@@ -32,6 +32,7 @@ namespace GM07.Map
                 return true;
             }
         }
+        public int TableCount => _tableList.Count;
 
         public Action OnAllTablesEmpty;
 
