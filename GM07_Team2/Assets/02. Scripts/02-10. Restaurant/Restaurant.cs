@@ -8,9 +8,11 @@ using UnityEngine;
 public class Restaurant : MonoBehaviour
 {
     private List<Staff> _staffs = new List<Staff>();
-    private int _upgrade = 1;
+    private int _level = 1;
+    private int _upgradeCost = 10; // 임시 업그레이드 비용
 
-    public int Upgrade => _upgrade;
+    public IReadOnlyList<Staff> Staffs => _staffs;
+    public int Level => _level;
 
     private void Start()
     {
@@ -30,5 +32,16 @@ public class Restaurant : MonoBehaviour
             return null;
         }
         return _staffs[index];
+    }
+    public void Upgrade()
+    {
+        if (CurrencyManager.Instance == null)
+        {
+            return;
+        }
+        if(CurrencyManager.Instance.TrySpendMoney(_upgradeCost, ECurrencyTransactionType.Sale))
+        {
+            _level++;
+        }
     }
 }

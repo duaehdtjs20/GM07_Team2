@@ -1,13 +1,25 @@
-﻿public class RecipeSaveData
+﻿using System;
+
+using UnityEngine;
+
+[Serializable]
+public class RecipeSaveData
 {
-    public int RecipeId { get; private set; }
-    public ERecipeGrade Grade { get; private set; }
-    public bool Unlocked { get; private set; }
+    [SerializeField]
+    private int _recipeId;
+    [SerializeField]
+    private ERecipeGrade _grade;
+    [SerializeField]
+    private bool _unlocked;
+
+    public int RecipeId => _recipeId;
+    public ERecipeGrade Grade => _grade;
+    public bool Unlocked => _unlocked;
 
     public RecipeSaveData(int recipeId, ERecipeGrade grade, bool unlocked)
     {
-        RecipeId = recipeId;
-        Grade = grade;
-        Unlocked = unlocked;
+        _recipeId = recipeId;
+        _grade = grade;
+        _unlocked = unlocked;
     }
 }
