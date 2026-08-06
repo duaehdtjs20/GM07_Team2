@@ -51,6 +51,7 @@ public class DailySettlementManager : MonoBehaviour
             case ECurrencyTransactionType.None:
                 break;
             case ECurrencyTransactionType.Sale:
+                RecordCustomerVisit();
                 _dailySettlementData.SalesRevenue += amount;
                 break;
             case ECurrencyTransactionType.Tip:
