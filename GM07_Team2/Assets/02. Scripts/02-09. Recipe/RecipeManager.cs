@@ -9,7 +9,7 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
     private RecipeDataBase _dataBase;
 
     private List<Recipe> _recipes;
-    
+    public IReadOnlyList<Recipe> Recipes => _recipes;
     public int Count => _recipes.Count;
 
     protected override void Awake()
@@ -42,5 +42,18 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
 
         recipe = _recipes[index];
         return recipe != null;
+    }
+    public bool TryGetRecipeId(int recipeId, out RecipeData recipeData)
+    {
+        foreach(RecipeData data in _dataBase.RecipeDatas)
+        {
+            if(data.RecipeId == recipeId)
+            {
+                recipeData = data;
+                return true;
+            }
+        }
+        recipeData = null;
+        return false;
     }
 }
