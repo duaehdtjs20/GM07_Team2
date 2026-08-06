@@ -36,7 +36,7 @@ public class SaveManager : MonoBehaviourSingleton<SaveManager>
         (
             RecipeManager.Instance.Recipes,
             restaurant.Staffs,
-            restaurant.Upgrade,
+            restaurant.Level,
             CurrencyManager.Instance.Money,
             flow.CurrentDay
         );
