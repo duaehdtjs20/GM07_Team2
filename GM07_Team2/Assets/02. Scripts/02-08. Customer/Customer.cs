@@ -93,7 +93,7 @@ public class Customer : MonoBehaviour
             List<Recipe> recipes = new List<Recipe>();
             for (int i = 0; i < RecipeManager.Instance.Count; i++)
             {
-                if (RecipeManager.Instance.TryGetRecipeIndex(i, out Recipe recipe) && recipe.Unlocked)
+                if (RecipeManager.Instance.TryGetRecipeIndex(i, out Recipe recipe)/* && recipe.Unlocked*/)
                 {
                     recipes.Add(recipe);
                 }
