@@ -6,5 +6,9 @@ namespace GM07.Order
     {
         public Seat Seat;
         public float OrderRequestTime;
+        public Customer Customer;
+        public Recipe Recipe;
+        public EOrderState State = EOrderState.Waiting;
+        public float CookStartTime;
     }
 }

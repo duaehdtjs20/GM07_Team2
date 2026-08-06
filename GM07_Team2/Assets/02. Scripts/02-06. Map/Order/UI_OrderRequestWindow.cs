@@ -6,15 +6,12 @@ namespace GM07.Order
 {
     public class UI_OrderRequestWindow : MonoBehaviour
     {
-       
         [SerializeField]
         private Button _closeButton;
 
-       
         [SerializeField]
         private Transform _listContentParent;
 
-       
         [SerializeField]
         private UI_OrderListItem _orderListItemPrefab;
 
@@ -52,10 +49,12 @@ namespace GM07.Order
         {
             ClearItems();
 
+            bool isTableCooking = _table.IsCooking;
+
             foreach (OrderData order in _table.Orders)
             {
                 UI_OrderListItem item = Instantiate(_orderListItemPrefab, _listContentParent);
-                item.InitItem(order, OnClickStartCook);
+                item.InitItem(order, isTableCooking, OnClickAction);
                 _spawnedItems.Add(item);
             }
         }
@@ -69,9 +68,17 @@ namespace GM07.Order
             _spawnedItems.Clear();
         }
 
-        private void OnClickStartCook(OrderData order)
+        // 아이템의 상태에 따라 요리시작 / 서빙으로 분기
+        private void OnClickAction(OrderData order)
         {
-            _table.StartCooking(order);
+            if (order.State == EOrderState.Ready)
+            {
+                _table.ServeOrder(order);
+            }
+            else
+            {
+                _table.StartCooking(order);
+            }
         }
 
         private void OnClickClose()

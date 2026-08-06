@@ -27,12 +27,6 @@ public class Customer : MonoBehaviour
     public bool IsAte => _eatTimer >= _data.EatTime;
     public bool IsReceived { get; private set; }
 
-    #region Test Fields
-    private float _receiveTimer = 0.0f; // test
-    private float _receiveTime = 2.0f; // test
-    public bool IsReceiveFood => _receiveTimer >= _receiveTime; // test
-    #endregion
-
     private void Update()
     {
         StateMachine.UpdateState();
@@ -48,7 +42,7 @@ public class Customer : MonoBehaviour
         _eatTimer = 0.0f;
         IsReceived = false;
 
-        if(_agent == null)
+        if (_agent == null)
         {
             TryGetComponent(out _agent);
         }
@@ -65,13 +59,13 @@ public class Customer : MonoBehaviour
     public void SetDestination(Transform target)
     {
         // 방어 코드
-        if(target == null)
+        if (target == null)
         {
             Debug.LogWarning("NULL target 접근");
             return;
         }
 
-        if(!_agent.SetDestination(target.position))
+        if (!_agent.SetDestination(target.position))
         {
             Debug.LogWarning(transform.name + " 경로 찾기 실패");
         }
@@ -79,7 +73,7 @@ public class Customer : MonoBehaviour
     // 오버로딩
     public void SetDestination(Vector3 target)
     {
-        if(!_agent.SetDestination(target))
+        if (!_agent.SetDestination(target))
         {
             Debug.LogWarning(transform.name + " 경로 찾기 실패");
         }
@@ -88,7 +82,7 @@ public class Customer : MonoBehaviour
     // 현재 설정된 목적지 까지의 거리를 반환하는 메서드
     public float CalculateSqrMagnitude()
     {
-        return Vector3.SqrMagnitude(transform.position -_agent.destination);
+        return Vector3.SqrMagnitude(transform.position - _agent.destination);
     }
 
     // 메뉴 주문하는 메서드
@@ -99,7 +93,7 @@ public class Customer : MonoBehaviour
             List<Recipe> recipes = new List<Recipe>();
             for (int i = 0; i < RecipeManager.Instance.Count; i++)
             {
-                if(RecipeManager.Instance.TryGetRecipeIndex(i, out Recipe recipe) && recipe.Unlocked)
+                if (RecipeManager.Instance.TryGetRecipeIndex(i, out Recipe recipe) && recipe.Unlocked)
                 {
                     recipes.Add(recipe);
                 }
@@ -108,15 +102,9 @@ public class Customer : MonoBehaviour
             // 해금된 레시피 랜덤으로 선택
             Recipe selectRecipe = recipes[Random.Range(0, recipes.Count)];
             _recipe = selectRecipe;
-            // 주문 요청 (레시피 제공 예정)
-            order.RequestOrder(Seat);
+            // 주문 요청 (좌석/손님/레시피 정보 전달)
+            order.RequestOrder(Seat, this, selectRecipe);
         }
-
-        _receiveTimer = 0.0f; // test
-    }
-    public void Watting() // test
-    {
-        _receiveTimer += Time.deltaTime;
     }
     public void Receive()
     {
@@ -145,7 +133,7 @@ public class Customer : MonoBehaviour
         _tableManager = null;
         Table = null;
         Seat = null;
-        
+
         // 임시로 파괴 로직으로 구현(풀링 예정)
         Destroy(gameObject);
     }
