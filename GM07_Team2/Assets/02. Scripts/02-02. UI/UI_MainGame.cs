@@ -21,6 +21,15 @@ public class UI_MainGame : MonoBehaviour
     private Button _nextdayButton;
     [SerializeField]
     private GameObject _closePanel;
+    [SerializeField]
+    private Image _clockImage;
+
+    private const int OpenHour = 10;
+    private const int CloseHour = 21;
+    private const int PreparingHour = 9;
+    private const float MorningEndProgress = 0.33f;
+    private const float LunchEndProgress = 0.66f;
+    private const float ClockMaxFillAmount = (CloseHour - OpenHour) / 12f;
 
     private void Start()
     {
@@ -63,35 +72,77 @@ public class UI_MainGame : MonoBehaviour
 
     private void RefreshGameState(EGameState gameState)
     {
-        if(_gameStateText == null)
-        {
-            return;
-        }
-
         RefreshButton();
-        _gameStateText.text = GetGameStateText(gameState);
+        RefreshRemainingTime(_gameFlowManager.RemainingTime);
+
+        if(_gameStateText != null)
+        {
+            _gameStateText.text = GetGameStateText(gameState, out Color color);
+            _gameStateText.color = color;
+        }
     }
     private void RefreshRemainingTime(float remainingTime)
     {
-        if(_remainingTimeText == null)
+        float openDuration = _gameFlowManager.OpenDuration;
+        float progress = openDuration > 0f
+            ? 1f - Mathf.Clamp01(remainingTime / openDuration)
+            : 0f;
+        bool isPreparing = _gameFlowManager.GameState == EGameState.Preparing;
+
+        if(_remainingTimeText != null)
         {
-            return;
+            int totalMinutes = isPreparing
+                ? PreparingHour * 60
+                : Mathf.FloorToInt(Mathf.Lerp(OpenHour * 60f, CloseHour * 60f, progress));
+            int hour = (totalMinutes / 60) % 12;
+            int minute = totalMinutes % 60;
+
+            if (hour == 0)
+            {
+                hour = 12;
+            }
+
+            _remainingTimeText.text = $"{hour:00} : {minute:00}";
         }
 
-        int totalSeconds = Mathf.CeilToInt(remainingTime);
+        if(_clockImage != null)
+        {
+            _clockImage.fillAmount = isPreparing
+                ? 0f
+                : progress * ClockMaxFillAmount;
+        }
 
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
-
-        _remainingTimeText.text = $"{minutes:00}:{seconds:00}";
+        RefreshDayPeriod(progress);
     }
     private void RefreshDay(int day)
+    {
+        RefreshDayPeriod(GetOpenProgress());
+    }
+
+    private void RefreshDayPeriod(float progress)
     {
         if(_dayText == null)
         {
             return;
         }
-        _dayText.text = $"Day - {day}";
+
+        string period = progress <= MorningEndProgress
+            ? "아침"
+            : progress <= LunchEndProgress
+            ? "점심"
+            : "저녁";
+
+        _dayText.text = $"{_gameFlowManager.CurrentDay}일차 - {period}";
+    }
+
+    private float GetOpenProgress()
+    {
+        if(_gameFlowManager.OpenDuration <= 0f)
+        {
+            return 0f;
+        }
+
+        return 1f - Mathf.Clamp01(_gameFlowManager.RemainingTime / _gameFlowManager.OpenDuration);
     }
     private void RefreshMoney(int money)
     {
@@ -115,15 +166,25 @@ public class UI_MainGame : MonoBehaviour
             _closePanel.SetActive(isClosed);
         }
     }
-    private string GetGameStateText(EGameState gameState)
+    private string GetGameStateText(EGameState gameState, out Color color)
     {
-        return gameState switch
+        switch(gameState)
         {
-            EGameState.Preparing => "Preparing",
-            EGameState.Open => "Open",
-            EGameState.ClosingWait => "Closing Wait",
-            EGameState.Close => "Close",
-            _ => ""
-        };
+            case EGameState.Preparing:
+                color = Color.black;
+                return "영업준비중";
+            case EGameState.Open:
+                color = Color.darkGreen;
+                return "영업중";
+            case EGameState.ClosingWait:
+                color = Color.red;
+                return "영업종료대기";
+            case EGameState.Close:
+                color = Color.red;
+                return "영업종료";
+            default:
+                color = Color.black;
+                return null;
+        }
     }
 }

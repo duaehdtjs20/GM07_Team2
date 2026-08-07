@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class UI_RecipePanel : MonoBehaviour
 {
-    [SerializeField] private UI_RecipeView _recipeViewPrefab;
+    [SerializeField]
+    private UI_RecipeView _recipeViewPrefab;
+    [SerializeField]
+    private Transform _ListRoot;
+    [SerializeField]
+    private UI_RecipeDetailView _recipeDetailView;
 
     private List<UI_RecipeView> _recipeViews;
     private void Awake()
@@ -31,8 +36,8 @@ public class UI_RecipePanel : MonoBehaviour
             {
                 continue;
             }
-            UI_RecipeView view = Instantiate(_recipeViewPrefab, transform);
-            view.Bind(recipe);
+            UI_RecipeView view = Instantiate(_recipeViewPrefab, _ListRoot);
+            view.Bind(recipe, _recipeDetailView);
             view.Draw();
             _recipeViews.Add(view);
         }
