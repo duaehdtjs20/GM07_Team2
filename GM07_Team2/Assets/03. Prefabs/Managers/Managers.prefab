@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1160191705941900197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8449083020229961203}
+  m_Layer: 0
+  m_Name: Level2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8449083020229961203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160191705941900197}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 18, y: 0, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2914235498156878174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185151041879823316
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,11 +146,12 @@ Transform:
   m_GameObject: {fileID: 1652185732167004073}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2649070669843713506}
+  - {fileID: 8449083020229961203}
   m_Father: {fileID: 743337883198676059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2088317991109438606
@@ -170,7 +202,8 @@ MonoBehaviour:
   _tablePrefab: {fileID: 5747516792906418647, guid: 50bdb381cfd7b5549a7946c0ec71dc86, type: 3}
   _tableSpawnPointList:
   - {fileID: 2649070669843713506}
-  _initialTableCount: 1
+  - {fileID: 8449083020229961203}
+  _initialTableCount: 2
 --- !u!1 &2662281981965283989
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2649070669843713506}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: Level1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 3503390375196499553}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
