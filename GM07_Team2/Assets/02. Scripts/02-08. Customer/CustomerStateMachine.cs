@@ -1,15 +1,17 @@
-﻿public class CustomerStateMachine : StateMachineBase
+﻿using UnityEngine;
+
+public class CustomerStateMachine : StateMachineBase
 {
     public CustomerEnter EnterState { get; private set; }
     public CustomerSeat SeatState { get; private set; }
     public CustomerEat EatState { get; private set; }
     public CustomerExit ExitState { get; private set; }
 
-    public CustomerStateMachine(Customer customer)
+    public CustomerStateMachine(Customer customer, Animator animator)
     {
-        EnterState = new CustomerEnter(customer);
-        SeatState = new CustomerSeat(customer);
-        EatState = new CustomerEat(customer);
-        ExitState = new CustomerExit(customer);
+        EnterState = new CustomerEnter(customer, animator);
+        SeatState = new CustomerSeat(customer, animator);
+        EatState = new CustomerEat(customer, animator);
+        ExitState = new CustomerExit(customer, animator);
     }
 }

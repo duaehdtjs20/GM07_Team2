@@ -3,13 +3,14 @@
 // 
 public class CustomerExit : CustomerStateBase
 {
-    public CustomerExit(Customer customer) : base(customer) { }
+    public CustomerExit(Customer customer, Animator animator) : base(customer, animator, Animator.StringToHash("Walk")) { }
     public override void Enter()
     {
+        base.Enter();
+
+        _customer.SetOffsetStandUp();
         // 목적지를 출구(시작 위치)로 지정
         _customer.SetDestination(_customer.StartPos);
-        // 애니메이션 변경
-        _customer.SetColor(Color.blue);
     }
     public override void Update()
     {
@@ -23,9 +24,5 @@ public class CustomerExit : CustomerStateBase
 
         // 반환
         _customer.Release();
-    }
-    public override void Exit()
-    {
-
     }
 }
