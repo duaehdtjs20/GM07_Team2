@@ -39,23 +39,17 @@ public class UI_ClosePanel : MonoBehaviour
             return;
         }
 
-        _dayText.text = $"Day - {data.Day}\n";
-
+        _dayText.text = $"{data.Day}일차 정산\n";
         _settlementText.text =
-            $"CustomerCount : {data.CustomerCount}\n" +
-            $"SalesRevenue : {data.SalesRevenue:N0}\n" +
-            $"TipRevenue : {data.TipRevenue:N0}\n" +
-            "======================\n" +
-            $"TotalRevenue : {data.TotalRevenue:N0}\n\n" +
-
-            $"RentExpense : {data.RentExpense:N0}\n" +
-            $"WageExpense : {data.WageExpense:N0}\n" +
-            $"OtherExpense : {data.OtherExpense:N0}\n" +
-            $"OtherExpense : {data.OtherExpense:N0}\n" +
-            "======================\n" +
-            $"TotalExpense : {data.TotalExpense:N0}\n\n" +
-
-            $"NetProfit : {data.NetProfit:N0}\n" +
-            $"Money : {CurrencyManager.Instance.Money:N0}";
+            $"{data.CustomerCount}\n\n" +
+            $"{data.SalesRevenue:N0}\n" +
+            $"{data.TipRevenue:N0}\n\n" +
+            $"{data.TotalRevenue:N0}\n\n\n" +
+            $"{data.RentExpense:N0}\n" +
+            $"{data.WageExpense:N0}\n" +
+            $"{data.OtherExpense:N0}\n\n" +
+            $"{data.TotalExpense:N0}\n\n" +
+            $"{data.NetProfit:N0}\n" +
+            $"{CurrencyManager.Instance.Money:N0}";
     }
 }
