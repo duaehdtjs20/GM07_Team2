@@ -26,10 +26,23 @@ public class Recipe
             _unlocked = saveData.Unlocked;
         }
     }
-    public void Unlock()
+    public bool Unlock()
     {
-        _grade = (ERecipeGrade)UnityEngine.Random.Range(0, (int)ERecipeGrade.Size);
-        _unlocked = true;
+        if(CurrencyManager.Instance==null)
+        {
+            return false;
+        }
+
+        if (CurrencyManager.Instance.TrySpendMoney(_data.Cost,ECurrencyTransactionType.OtherExpense))
+        {
+            _grade = (ERecipeGrade)UnityEngine.Random.Range(0, (int)ERecipeGrade.Size);
+            _unlocked = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public RecipeSaveData Save()
     {

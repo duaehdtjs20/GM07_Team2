@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameFlowManager
   _tableManager: {fileID: 651524392246781576}
-  _openDuration: 30
+  _openDuration: 5
 --- !u!1 &1581640782619587822
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   _tableSpawnPointList:
   - {fileID: 2649070669843713506}
   - {fileID: 8449083020229961203}
-  _initialTableCount: 2
+  _initialTableCount: 1
 --- !u!1 &2662281981965283989
 GameObject:
   m_ObjectHideFlags: 0
