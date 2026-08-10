@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-
+using System.Runtime.InteropServices.WindowsRuntime;
 using NUnit.Framework;
 
 using UnityEngine;
@@ -8,6 +9,11 @@ using UnityEngine;
 public class SaveManager : MonoBehaviourSingleton<SaveManager>
 {
     private string _path = "SaveData.json";
+    private string _savePath => Path.Combine(Application.persistentDataPath, _path);
+    public bool HasSaveData()
+    {
+        return File.Exists(_savePath);
+    }
     public void Save()
     {
         var restaurant = FindFirstObjectByType<Restaurant>();
@@ -17,7 +23,7 @@ public class SaveManager : MonoBehaviourSingleton<SaveManager>
             Debug.LogWarning("Restaurant를 찾지 못함");
             return;
         }
-        if (flow == null)
+        if (flow == null)                          
         {
             Debug.LogWarning("GameFlowManager를 찾지 못함");
             return;
@@ -41,14 +47,39 @@ public class SaveManager : MonoBehaviourSingleton<SaveManager>
             flow.CurrentDay
         );
 
-        string text = JsonUtility.ToJson(saveData);
-        Debug.Log(text);
-        File.WriteAllText(Application.persistentDataPath + _path, text);
+        try
+        {
+            string json = JsonUtility.ToJson(saveData, true);
+            string temPath = _savePath + ".tmp";
+
+            File.WriteAllText(temPath, json);
+            File.Delete(_savePath);
+            File.Move(temPath, _savePath);
+
+            Debug.Log("게임 저장 완료");
+        }
+        catch(Exception ex)
+        {
+            Debug.LogWarning($"게임 저장 실패{ex}");
+        }
     }
     public SaveData Load()
     {
-        string text = File.ReadAllText(Application.persistentDataPath + _path);
-        SaveData saveData = JsonUtility.FromJson<SaveData>(text);
-        return saveData;
+        if (!HasSaveData())
+        {
+            return null;
+        }
+
+        try
+        {
+            string text = File.ReadAllText(_savePath);
+            SaveData saveData = JsonUtility.FromJson<SaveData>(text);
+            return saveData;
+        }
+        catch
+        {
+            Debug.LogWarning("게임 불러오기 실패");
+            return null;
+        }
     }
 }
