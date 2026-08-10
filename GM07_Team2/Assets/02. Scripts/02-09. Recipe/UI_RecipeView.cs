@@ -1,35 +1,30 @@
 ﻿using TMPro;
-
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_RecipeView : MonoBehaviour
 {
-    [SerializeField] private Image _icon;
-    [SerializeField] private TMP_Text _nameText;
-    [SerializeField] private TMP_Text _costText;
-    [SerializeField] private TMP_Text _priceText;
-    [SerializeField] private TMP_Text _gradeText;
-    [SerializeField] private TMP_Text _unlockedText;
-    [SerializeField] private Button _unlockButton;
+    [SerializeField]
+    private Image _icon;
+    [SerializeField]
+    private TMP_Text _nameText;
+    [SerializeField]
+    private TMP_Text _stateText;
+    [SerializeField]
+    private GameObject _unlockImage;
 
     private Recipe _recipe;
-    public void Bind(Recipe recipe)
+    private UI_RecipeDetailView _recipeDetailView;
+    public void Bind(Recipe recipe, UI_RecipeDetailView recipeDetailView)
     {
-        if (recipe == null)
+        if (recipe == null || recipeDetailView == null)
         {
             return;
         }
 
         _recipe = recipe;
-        _unlockButton.onClick.AddListener(Unlock);
-    }
-
-    // 호출 순서 명시하기 위한 메서드
-    private void Unlock()
-    {
-        _recipe.Unlock();
-        Draw();
+        _recipeDetailView = recipeDetailView;
     }
     public void Draw()
     {
@@ -46,21 +41,25 @@ public class UI_RecipeView : MonoBehaviour
         {
             _nameText.text = _recipe.Data.Name;
         }
-        if(_costText != null)
+        if(_stateText != null)
         {
-            _costText.text =  "Cost:" + _recipe.Data.Cost.ToString();
+            _stateText.text = (_recipe.Unlocked) ? "보유중" : "잠김";
         }
-        if(_priceText != null)
+        if( _unlockImage != null)
         {
-            _priceText.text = "Price:" + _recipe.Data.Price.ToString();
+            if (_recipe.Unlocked)
+            {
+                _unlockImage.SetActive(!_recipe.Unlocked);
+            }
         }
-        if(_gradeText != null)
+    }
+    public void OnClick()
+    {
+        if(_recipeDetailView == null || _recipe  == null)
         {
-            _gradeText.text = "Grade:" + _recipe.Grade.ToString();
+            return;
         }
-        if(_unlockedText != null)
-        {
-            _unlockedText.text = "Unlocked:"+_recipe.Unlocked.ToString();
-        }
+
+        _recipeDetailView.Bind(_recipe, Draw);
     }
 }
