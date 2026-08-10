@@ -42,4 +42,8 @@ public class UI_RecipePanel : MonoBehaviour
             _recipeViews.Add(view);
         }
     }
+    private void OnClickExit()
+    {
+        gameObject.SetActive(false);
+    }
 }

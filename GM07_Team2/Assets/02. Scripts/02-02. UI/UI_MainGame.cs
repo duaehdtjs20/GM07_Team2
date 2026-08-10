@@ -24,6 +24,10 @@ public class UI_MainGame : MonoBehaviour
     [SerializeField]
     private Image _clockImage;
 
+    [Header("Preparing Panel")]
+    [SerializeField]
+    private GameObject _preparingPanel;
+
     private const int OpenHour = 10;
     private const int CloseHour = 21;
     private const int PreparingHour = 9;
@@ -49,6 +53,8 @@ public class UI_MainGame : MonoBehaviour
         _gameFlowManager.OnRemainingTimeChanged += RefreshRemainingTime;
         _gameFlowManager.OnDayChanged += RefreshDay;
         CurrencyManager.Instance.OnMoneyChanged += RefreshMoney;
+
+        RefreshPreparingPanel(_gameFlowManager.GameState);
     }
     private void OnDisable()
     {
@@ -74,11 +80,19 @@ public class UI_MainGame : MonoBehaviour
     {
         RefreshButton();
         RefreshRemainingTime(_gameFlowManager.RemainingTime);
+        RefreshPreparingPanel(gameState);
 
-        if(_gameStateText != null)
+        if (_gameStateText != null)
         {
             _gameStateText.text = GetGameStateText(gameState, out Color color);
             _gameStateText.color = color;
+        }
+    }
+    private void RefreshPreparingPanel(EGameState gameState)
+    {
+        if (_preparingPanel != null)
+        {
+            _preparingPanel.SetActive(gameState == EGameState.Preparing);
         }
     }
     private void RefreshRemainingTime(float remainingTime)

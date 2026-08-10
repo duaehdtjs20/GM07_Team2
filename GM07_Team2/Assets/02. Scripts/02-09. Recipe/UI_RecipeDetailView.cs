@@ -78,8 +78,15 @@ public class UI_RecipeDetailView : MonoBehaviour
         {
             return;
         }
-        _recipe.Unlock();
-        Draw();
-        _onUnlocked?.Invoke();
+
+        if (_recipe.Unlock())
+        {
+            Draw();
+            _onUnlocked?.Invoke();
+        }
+        else
+        {
+            return;
+        }
     }
 }
