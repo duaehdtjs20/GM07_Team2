@@ -18,6 +18,7 @@ public class Customer : MonoBehaviour
     [SerializeField]
     private NavMeshAgent _agent;
 
+    // 기능 구현 전용 필드
     private float _eatTimer = 0.0f;
     private TableManager _tableManager;
     private Recipe _recipe;
@@ -49,6 +50,7 @@ public class Customer : MonoBehaviour
         if (_animator == null && _modelDatas != null && _modelDatas.Count > 0)
         {
             _model = Instantiate(_modelDatas.Models[Random.Range(0, _modelDatas.Count)], transform).transform;
+            _model.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             _model.localPosition = new Vector3(0.0f, -1.0f, 0.0f);
             _animator = _model.GetComponent<Animator>();
         }
@@ -97,7 +99,8 @@ public class Customer : MonoBehaviour
     // 의자에 앉기 전 이동을 멈추는 메서드
     public void StopAgent()
     {
-        _agent.SetDestination(transform.position);
+        _agent.isStopped = true;
+        _agent.velocity = Vector3.zero;
     }
 
     // 현재 설정된 목적지 까지의 거리를 반환하는 메서드
@@ -117,7 +120,7 @@ public class Customer : MonoBehaviour
         float rotate = 90.0f * (id + 2);
         transform.rotation = Quaternion.Euler(0.0f, rotate, 0.0f);
         _model.position = Seat.Anchor.position;
-        _model.localPosition += new Vector3(0.0f, 0.85f, 0.3f);
+        _model.localPosition += new Vector3(0.0f, 0.7f, 0.3f);
     }
     // 의자에서 일어날 때 위치와 회전을 초기화 하는 메서드
     public void SetOffsetStandUp()
@@ -131,6 +134,7 @@ public class Customer : MonoBehaviour
         float rotate = 90.0f * id;
         transform.rotation = Quaternion.Euler(0.0f, rotate, 0.0f);
         _model.localPosition = new Vector3(0.0f, -1.0f, 0.0f);
+        _agent.isStopped = false;
     }
 
     // 메뉴 주문하는 메서드
