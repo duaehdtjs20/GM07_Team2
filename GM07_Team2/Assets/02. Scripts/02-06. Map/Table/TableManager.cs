@@ -18,6 +18,7 @@ namespace GM07.Map
         private readonly List<Table> _tableList = new();
         private int _nextTableId = 1;
 
+
         public bool IsAllTablesEmpty
         {
             get
@@ -39,6 +40,19 @@ namespace GM07.Map
         private void Start()
         {
             InitTable();
+        }
+
+        private void InitTable()
+        {
+            for (int index = 0;
+                 index < _initialTableCount;
+                 index++)
+            {
+                if (AddTable() == null)
+                {
+                    return;
+                }
+            }
         }
 
         public Table AddTable()
@@ -142,19 +156,6 @@ namespace GM07.Map
 
             Destroy(table.gameObject);
             return true;
-        }
-
-        private void InitTable()
-        {
-            for (int index = 0;
-                 index < _initialTableCount;
-                 index++)
-            {
-                if (AddTable() == null)
-                {
-                    return;
-                }
-            }
         }
 
         private int GetNextTableId()

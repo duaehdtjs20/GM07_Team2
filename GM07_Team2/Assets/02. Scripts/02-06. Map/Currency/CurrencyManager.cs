@@ -11,17 +11,15 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
     public Action<int, ECurrencyTransactionType> OnMoneyTransaction;
     public Action<int> OnMoneyChanged;
 
-    private void Start()
+    public void InitNewGame()
     {
         InitMoney(_initialMoney);
     }
-
     public void InitMoney(int money)
     {
         Money = money;
         OnMoneyChanged?.Invoke(Money);
     }
-
     public void AddMoney(int amount, ECurrencyTransactionType transactionType)
     {
         if(amount <= 0)

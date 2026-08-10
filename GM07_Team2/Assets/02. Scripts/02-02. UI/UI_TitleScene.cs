@@ -29,10 +29,12 @@ public class UI_TitleScene : MonoBehaviour
 
     private void OnClickNewGame()
     {
+        GameSession.StartMode = EGameStartMode.NewGame;
         SceneManager.LoadScene(ESceneName.Maptest.ToString());
     }
     private void OnClickContinue()
     {
+        GameSession.StartMode = EGameStartMode.Continue;
         SceneManager.LoadScene(ESceneName.Maptest.ToString());
     }
 

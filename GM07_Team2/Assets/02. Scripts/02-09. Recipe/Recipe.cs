@@ -44,6 +44,11 @@ public class Recipe
             return false;
         }
     }
+    public void ApplySaveData(RecipeSaveData data)
+    {
+        _grade = data.Grade;
+        _unlocked = data.Unlocked;
+    }
     public RecipeSaveData Save()
     {
         return new RecipeSaveData(RecipeId, Grade, Unlocked);

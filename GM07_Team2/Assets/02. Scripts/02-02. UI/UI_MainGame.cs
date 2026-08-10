@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_MainGame : MonoBehaviour
@@ -17,6 +18,8 @@ public class UI_MainGame : MonoBehaviour
     private TMP_Text _moneyText;
     [SerializeField]
     private Button _openButton;
+    [SerializeField]
+    private Button _homeButton;
     [SerializeField]
     private Button _nextdayButton;
     [SerializeField]
@@ -45,6 +48,10 @@ public class UI_MainGame : MonoBehaviour
         {
             _openButton.onClick.AddListener(() => _gameFlowManager.OnClickOpen());
         }
+        if(_homeButton != null)
+        {
+            _homeButton.onClick.AddListener(OnclickHome);
+        }
         if(_nextdayButton != null)
         {
             _nextdayButton.onClick.AddListener(() => _gameFlowManager.OnClickNextDay());
@@ -65,6 +72,10 @@ public class UI_MainGame : MonoBehaviour
         if (_openButton != null)
         {
             _openButton.onClick.RemoveListener(() => _gameFlowManager.OnClickOpen());
+        }
+        if (_homeButton != null)
+        {
+            _homeButton.onClick.RemoveListener(OnclickHome);
         }
         if (_nextdayButton != null)
         {
@@ -175,7 +186,11 @@ public class UI_MainGame : MonoBehaviour
         {
             _openButton.gameObject.SetActive(isPreparing);
         }
-        if(_closePanel != null)
+        if (_homeButton != null)
+        {
+            _homeButton.gameObject.SetActive(isPreparing);
+        }
+        if (_closePanel != null)
         {
             _closePanel.SetActive(isClosed);
         }
@@ -200,5 +215,9 @@ public class UI_MainGame : MonoBehaviour
                 color = Color.black;
                 return null;
         }
+    }
+    private void OnclickHome()
+    {
+        SceneManager.LoadScene(ESceneName.Title.ToString());
     }
 }

@@ -18,6 +18,35 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
         Init();
     }
 
+    public void InitNewGame()
+    {
+        Init();
+    }
+
+    public void InitSaveData(IReadOnlyList<RecipeSaveData> saveRecipes)
+    {
+        Init();
+
+        if(saveRecipes.Count == 0)
+        {
+            return;
+        }
+
+        foreach(RecipeSaveData saveData in saveRecipes)
+        {
+            for(int i = 0; i < _recipes.Count; i++)
+            {
+                if (_recipes[i].RecipeId != saveData.RecipeId)
+                {
+                    continue;
+                }
+
+                _recipes[i].ApplySaveData(saveData);
+                break;
+            }
+        }
+    }
+
     private void Init()
     {
         _recipes = new List<Recipe>();

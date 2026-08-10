@@ -15,6 +15,6 @@ MonoBehaviour:
   <RecipeId>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 0}
   <Name>k__BackingField: RecipeName1
-  <Cost>k__BackingField: 100000
-  <Price>k__BackingField: 100000
+  <Cost>k__BackingField: 100
+  <Price>k__BackingField: 300
   <CookingTime>k__BackingField: 1

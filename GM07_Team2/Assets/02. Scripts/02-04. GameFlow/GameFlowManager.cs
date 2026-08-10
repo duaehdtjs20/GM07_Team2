@@ -23,14 +23,6 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-        CurrentDay = 1;
-        RemainingTime = _openDuration;
-        GameState = EGameState.Preparing;
-
-        OnDayChanged?.Invoke(CurrentDay);
-        OnRemainingTimeChanged?.Invoke(RemainingTime);
-        OnGameStateChanged?.Invoke(GameState);
-
         if(_tableManager != null)
         {
             _tableManager.OnAllTablesEmpty += OnAllTablesEmpty;
@@ -43,6 +35,22 @@ public class GameFlowManager : MonoBehaviour
             _tableManager.OnAllTablesEmpty -= OnAllTablesEmpty;
         }
         StopOpenCo();
+    }
+    public void InitNewGame()
+    {
+        InitDay(1);
+    }
+    public void InitDay(int day)
+    {
+        StopOpenCo();
+
+        CurrentDay = day;
+        RemainingTime = _openDuration;
+        GameState = EGameState.Preparing;
+
+        OnDayChanged?.Invoke(CurrentDay);
+        OnRemainingTimeChanged?.Invoke(RemainingTime);
+        OnGameStateChanged?.Invoke(GameState);
     }
     private void StartOpen()
     {
@@ -151,5 +159,10 @@ public class GameFlowManager : MonoBehaviour
         OnRemainingTimeChanged?.Invoke(RemainingTime);
 
         SetGameState(EGameState.Preparing);
+
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.Save();
+        }
     }
 }
