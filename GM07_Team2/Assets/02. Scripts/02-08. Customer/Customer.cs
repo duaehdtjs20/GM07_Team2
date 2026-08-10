@@ -12,13 +12,18 @@ public class Customer : MonoBehaviour
     [Header("손님 데이터")]
     [SerializeField]
     private CustomerData _data;
+    [SerializeField]
+    private CustomerModelDatas _modelDatas;
     [Header("네비게이션")]
     [SerializeField]
     private NavMeshAgent _agent;
 
+    // 기능 구현 전용 필드
     private float _eatTimer = 0.0f;
     private TableManager _tableManager;
     private Recipe _recipe;
+    private Animator _animator;
+    private Transform _model;
 
     public CustomerStateMachine StateMachine { get; private set; }
     public Table Table { get; private set; }
@@ -42,17 +47,30 @@ public class Customer : MonoBehaviour
         _eatTimer = 0.0f;
         IsReceived = false;
 
+        if (_animator == null && _modelDatas != null && _modelDatas.Count > 0)
+        {
+            _model = Instantiate(_modelDatas.Models[Random.Range(0, _modelDatas.Count)], transform).transform;
+            _model.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            _model.localPosition = new Vector3(0.0f, -1.0f, 0.0f);
+            _animator = _model.GetComponent<Animator>();
+        }
+
         if (_agent == null)
         {
             TryGetComponent(out _agent);
         }
-        StartPos = transform.position;
 
-        if (StateMachine == null)
+        StartPos = transform.position;
+        transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+
+        if (StateMachine == null && _animator != null)
         {
-            StateMachine = new CustomerStateMachine(this);
+            StateMachine = new CustomerStateMachine(this, _animator);
         }
-        StateMachine.Initialize(StateMachine.EnterState);
+        if (StateMachine != null)
+        {
+            StateMachine.Initialize(StateMachine.EnterState);
+        }
     }
 
     // parameter로 주어진 목적지 까지의 경로를 생성하는 메서드
@@ -78,11 +96,45 @@ public class Customer : MonoBehaviour
             Debug.LogWarning(transform.name + " 경로 찾기 실패");
         }
     }
+    // 의자에 앉기 전 이동을 멈추는 메서드
+    public void StopAgent()
+    {
+        _agent.isStopped = true;
+        _agent.velocity = Vector3.zero;
+    }
 
     // 현재 설정된 목적지 까지의 거리를 반환하는 메서드
     public float CalculateSqrMagnitude()
     {
         return Vector3.SqrMagnitude(transform.position - _agent.destination);
+    }
+    // 의자에 맞춰 위치와 회전을 초기화 하는 메서드
+    public void SetOffsetSeat()
+    {
+        if (Seat == null)
+        {
+            return;
+        }
+        int id = Seat.SeatId;
+        id /= 2;
+        float rotate = 90.0f * (id + 2);
+        transform.rotation = Quaternion.Euler(0.0f, rotate, 0.0f);
+        _model.position = Seat.Anchor.position;
+        _model.localPosition += new Vector3(0.0f, 0.7f, 0.3f);
+    }
+    // 의자에서 일어날 때 위치와 회전을 초기화 하는 메서드
+    public void SetOffsetStandUp()
+    {
+        if (Seat == null)
+        {
+            return;
+        }
+        int id = Seat.SeatId;
+        id /= 2;
+        float rotate = 90.0f * id;
+        transform.rotation = Quaternion.Euler(0.0f, rotate, 0.0f);
+        _model.localPosition = new Vector3(0.0f, -1.0f, 0.0f);
+        _agent.isStopped = false;
     }
 
     // 메뉴 주문하는 메서드
@@ -137,9 +189,16 @@ public class Customer : MonoBehaviour
         // 임시로 파괴 로직으로 구현(풀링 예정)
         Destroy(gameObject);
     }
-    // 애니메이션 적용 전, 상태 변경 시각화를 위한 색상 변경 메서드
-    public void SetColor(Color color)
+    private void OnDrawGizmos()
     {
-        GetComponent<Renderer>().material.color = color;
+        if (_agent.path == null)
+        {
+            return;
+        }
+        Gizmos.color = Color.green;
+        for (int i = 0; i < _agent.path.corners.Length - 1; i++)
+        {
+            Gizmos.DrawLine(_agent.path.corners[i], _agent.path.corners[i + 1]);
+        }
     }
 }
