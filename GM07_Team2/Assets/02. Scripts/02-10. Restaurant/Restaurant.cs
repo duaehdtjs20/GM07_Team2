@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using GM07.Map;
 using UnityEngine;
 
@@ -10,12 +9,16 @@ public class Restaurant : MonoBehaviour
     private TableManager _tableManager;
     [Header("Level Settings")]
     [SerializeField]
-    private List<RestaurantLevelData> _levelDataList;
+    private List<RestaurantLevelData> _levelDataList = new();
+    [Header("Staff Settings")]
+    [SerializeField]
+    private StaffUpgradeDataBase _staffUpgradeDataBase;
 
     private readonly List<Staff> _staffs = new();
     private int _level = 1;
 
     public IReadOnlyList<Staff> Staffs => _staffs;
+    public int StaffCount => _staffs.Count;
     public int Level => _level;
     public int MaxLevel => _levelDataList.Count;
     public bool IsMaxLevel => _level >= _levelDataList.Count;
@@ -31,28 +34,23 @@ public class Restaurant : MonoBehaviour
         ApplyLevel(1);
     }
 
-    public void InitSaveData(int level, IReadOnlyList<Staff> savedStaffs)
+    public void InitSaveData(int level, IReadOnlyList<StaffSaveData> savedStaffs)
     {
         _level = Mathf.Clamp(level, 1, MaxLevel);
         _staffs.Clear();
 
         if (savedStaffs != null)
         {
-            foreach (Staff staff in savedStaffs)
+            foreach (StaffSaveData staff in savedStaffs)
             {
                 if (staff != null)
                 {
-                    _staffs.Add(new Staff(staff.Name, staff.CookSpeed, staff.Upgrade));
+                    _staffs.Add(new Staff(staff.Name,staff.Upgrade ,_staffUpgradeDataBase));
                 }
             }
         }
 
         SyncRestaurantState();
-    }
-
-    public Staff GetStaff(int index)
-    {
-        return index >= 0 && index < _staffs.Count ? _staffs[index] : null;
     }
     public int GetTableCount(int level)
     {
@@ -122,12 +120,14 @@ public class Restaurant : MonoBehaviour
 
     private void SyncChefCount(int targetCount)
     {
-        //추후에 변경 필요
+        if(_staffUpgradeDataBase == null)
+        {
+            return;
+        }
         while (_staffs.Count < targetCount)
         {
-            _staffs.Add(new Staff($"요리사 {_staffs.Count + 1}", 2f, 1));
+            _staffs.Add(new Staff($"요리사 {_staffs.Count + 1}", 1, _staffUpgradeDataBase));
         }
-
         while(_staffs.Count > targetCount)
         {
             _staffs.RemoveAt(_staffs.Count - 1);
@@ -141,5 +141,17 @@ public class Restaurant : MonoBehaviour
             return null;
         }
         return _levelDataList[Mathf.Clamp(level - 1, 0, _levelDataList.Count - 1)];
+    }
+
+    public bool TryGetStaffIndex(int index, out Staff staff)
+    {
+        if(index<0|| index >= _staffs.Count)
+        {
+            staff = null;
+            return false;
+        }
+
+        staff = _staffs[index];
+        return staff != null;
     }
 }

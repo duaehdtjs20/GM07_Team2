@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UI_RecipePanel : MonoBehaviour
 {
@@ -12,11 +10,7 @@ public class UI_RecipePanel : MonoBehaviour
     [SerializeField]
     private UI_RecipeDetailView _recipeDetailView;
 
-    private List<UI_RecipeView> _recipeViews;
-    private void Awake()
-    {
-        _recipeViews = new List<UI_RecipeView>();
-    }
+    private List<UI_RecipeView> _recipeViews = new();
     private void Start()
     {
         Init();
@@ -41,9 +35,5 @@ public class UI_RecipePanel : MonoBehaviour
             view.Draw();
             _recipeViews.Add(view);
         }
-    }
-    private void OnClickExit()
-    {
-        gameObject.SetActive(false);
     }
 }
