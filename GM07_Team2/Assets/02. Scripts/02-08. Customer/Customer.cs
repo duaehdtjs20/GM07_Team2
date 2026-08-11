@@ -19,6 +19,7 @@ public class Customer : MonoBehaviour
     private NavMeshAgent _agent;
 
     // 기능 구현 전용 필드
+    private float _waitTimer = 0.0f;
     private float _eatTimer = 0.0f;
     private TableManager _tableManager;
     private Recipe _recipe;
@@ -29,8 +30,10 @@ public class Customer : MonoBehaviour
     public Table Table { get; private set; }
     public Seat Seat { get; private set; }
     public Vector3 StartPos { get; private set; }
+    public bool IsWaited => _waitTimer >= _data.WaitTime;
     public bool IsAte => _eatTimer >= _data.EatTime;
     public bool IsReceived { get; private set; }
+    public bool IsOrdered { get; private set; }
 
     private void Update()
     {
@@ -45,8 +48,11 @@ public class Customer : MonoBehaviour
         Seat = seat;
 
         _eatTimer = 0.0f;
+        _waitTimer = 0.0f;
         IsReceived = false;
+        IsOrdered = false;
 
+        // 최초 모델 생성
         if (_animator == null && _modelDatas != null && _modelDatas.Count > 0)
         {
             _model = Instantiate(_modelDatas.Models[Random.Range(0, _modelDatas.Count)], transform).transform;
@@ -158,6 +164,23 @@ public class Customer : MonoBehaviour
             order.RequestOrder(Seat, this, selectRecipe);
         }
     }
+    // 주문 취소 메서드
+    public void CancelOrder()
+    {
+        _recipe = null;
+        if(Table.TryGetComponent(out TableOrderController order))
+        {
+            // 주문 취소
+        }
+    }
+    public void Waiting()
+    {
+        _waitTimer += Time.deltaTime;
+    }
+    public void Eating()
+    {
+        _eatTimer += Time.deltaTime;
+    }
     public void Receive()
     {
         IsReceived = true;
@@ -169,12 +192,6 @@ public class Customer : MonoBehaviour
             CurrencyManager.Instance.AddMoney(_recipe.Data.Price, ECurrencyTransactionType.Sale);
         }
     }
-
-    public void Eating()
-    {
-        _eatTimer += Time.deltaTime;
-    }
-
     public void Release()
     {
         // 자리 반환
