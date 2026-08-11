@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class DailySettlementManager : MonoBehaviour
 {
     [SerializeField]
     private GameFlowManager _gameFlowManager;
+    [SerializeField]
+    private Restaurant _restaurant;
 
     private DailySettlementData _dailySettlementData = new DailySettlementData();
     public DailySettlementData DailySettlementData => _dailySettlementData;
@@ -32,6 +34,7 @@ public class DailySettlementManager : MonoBehaviour
         }
         if (_gameFlowManager != null)
         {
+            _gameFlowManager.OnDayChanged -= OnDayChanged;
             _gameFlowManager.OnGameStateChanged -= OnGameStateChanged;
         }
     }
@@ -73,6 +76,7 @@ public class DailySettlementManager : MonoBehaviour
         switch (gameState)
         {
             case EGameState.Close:
+                ChargeRent();
                 OnSettlementCompleted?.Invoke(_dailySettlementData);
                 return;
         }
@@ -81,4 +85,19 @@ public class DailySettlementManager : MonoBehaviour
     {
         _dailySettlementData.Day = day;
     }
+
+    private void ChargeRent()
+    {
+        if (_restaurant == null || CurrencyManager.Instance == null)
+        {
+            return;
+        }
+
+        int rent = _restaurant.Rent;
+        if (!CurrencyManager.Instance.TrySpendMoney(rent,ECurrencyTransactionType.RentExpense))
+        {
+            Debug.LogWarning("임대료 부족");
+        }
+    }
 }
+

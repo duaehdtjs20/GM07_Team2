@@ -44,43 +44,27 @@ public class UI_MainGame : MonoBehaviour
         {
             return;
         }
-        if(_openButton != null)
-        {
-            _openButton.onClick.AddListener(() => _gameFlowManager.OnClickOpen());
-        }
-        if(_homeButton != null)
-        {
-            _homeButton.onClick.AddListener(OnclickHome);
-        }
-        if(_nextdayButton != null)
-        {
-            _nextdayButton.onClick.AddListener(() => _gameFlowManager.OnClickNextDay());
-        }
+        _openButton?.onClick.AddListener(OnClickOpen);
+        _homeButton?.onClick.AddListener(OnclickHome);
+        _nextdayButton?.onClick.AddListener(OnClickNextDay);
         _gameFlowManager.OnGameStateChanged += RefreshGameState;
         _gameFlowManager.OnRemainingTimeChanged += RefreshRemainingTime;
         _gameFlowManager.OnDayChanged += RefreshDay;
         CurrencyManager.Instance.OnMoneyChanged += RefreshMoney;
-
+        RefreshMoney(CurrencyManager.Instance.Money);
+        RefreshGameState(_gameFlowManager.GameState);
+        RefreshDay(_gameFlowManager.CurrentDay);
         RefreshPreparingPanel(_gameFlowManager.GameState);
     }
     private void OnDisable()
     {
-        if(_gameFlowManager == null)
+        if (_gameFlowManager == null)
         {
             return;
         }
-        if (_openButton != null)
-        {
-            _openButton.onClick.RemoveListener(() => _gameFlowManager.OnClickOpen());
-        }
-        if (_homeButton != null)
-        {
-            _homeButton.onClick.RemoveListener(OnclickHome);
-        }
-        if (_nextdayButton != null)
-        {
-            _nextdayButton.onClick.RemoveListener(() => _gameFlowManager.OnClickNextDay());
-        }
+        _openButton?.onClick.RemoveListener(OnClickOpen);
+        _homeButton?.onClick.RemoveListener(OnclickHome);
+        _nextdayButton?.onClick.RemoveListener(OnClickNextDay);
         _gameFlowManager.OnGameStateChanged -= RefreshGameState;
         _gameFlowManager.OnRemainingTimeChanged -= RefreshRemainingTime;
         _gameFlowManager.OnDayChanged -= RefreshDay;
@@ -219,5 +203,13 @@ public class UI_MainGame : MonoBehaviour
     private void OnclickHome()
     {
         SceneManager.LoadScene(ESceneName.Title.ToString());
+    }
+    private void OnClickOpen()
+    {
+        _gameFlowManager.OnClickOpen();
+    }
+    private void OnClickNextDay()
+    {
+        _gameFlowManager.OnClickNextDay();
     }
 }
