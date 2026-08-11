@@ -3544,6 +3544,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1247751064992047092, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1792538340387495705, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: _clockImage
       value: 
