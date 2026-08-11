@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +17,7 @@ namespace GM07.Map
 
         private readonly List<Table> _tableList = new();
         private int _nextTableId = 1;
+        private bool _isInitialized;
 
 
         public bool IsAllTablesEmpty
@@ -44,14 +45,37 @@ namespace GM07.Map
 
         private void InitTable()
         {
-            for (int index = 0;
-                 index < _initialTableCount;
-                 index++)
+            if (_isInitialized)
+            {
+                return;
+            }
+
+            _isInitialized = true;
+            SetTableCount(_initialTableCount);
+        }
+
+        public void SetTableCount(int targetCount)
+        {
+            _isInitialized = true;
+
+            int clampedCount = Mathf.Clamp(
+                targetCount,
+                0,
+                _tableSpawnPointList.Count);
+
+            while (_tableList.Count < clampedCount)
             {
                 if (AddTable() == null)
                 {
-                    return;
+                    break;
                 }
+            }
+
+            while (_tableList.Count > clampedCount)
+            {
+                Table lastTable = _tableList[_tableList.Count - 1];
+                _tableList.RemoveAt(_tableList.Count - 1);
+                Destroy(lastTable.gameObject);
             }
         }
 
@@ -64,11 +88,7 @@ namespace GM07.Map
 
             Transform spawnPoint = _tableSpawnPointList[_tableList.Count];
 
-            Table table = Instantiate(
-                _tablePrefab,
-                spawnPoint.position,
-                spawnPoint.rotation,
-                transform);
+            Table table = Instantiate(_tablePrefab,spawnPoint.position,spawnPoint.rotation,transform);
 
             int tableId = GetNextTableId();
             table.Initialize(tableId);
@@ -84,8 +104,7 @@ namespace GM07.Map
 
             foreach (Table table in _tableList)
             {
-                int remainingSeatCount =
-                    table.RemainingSeatsCount;
+                int remainingSeatCount = table.RemainingSeatsCount;
 
                 if (remainingSeatCount == 0)
                 {
@@ -140,22 +159,6 @@ namespace GM07.Map
             {
                 OnAllTablesEmpty?.Invoke();
             }
-        }
-
-        public bool RemoveTable(Table table)
-        {
-            if (table == null || !table.IsFull)
-            {
-                return false;
-            }
-
-            if (!_tableList.Remove(table))
-            {
-                return false;
-            }
-
-            Destroy(table.gameObject);
-            return true;
         }
 
         private int GetNextTableId()

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class GameBootstrap : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class GameBootstrap : MonoBehaviour
             _gameFlowManager == null ||
             _restaurant == null)
         {
-            Debug.LogWarning("ÃÊ±âÈ­½ÇÆÐ");
+            Debug.LogWarning("ì´ˆê¸°í™”ì‹¤íŒ¨");
             return;
         }
 
@@ -33,8 +33,8 @@ public class GameBootstrap : MonoBehaviour
     {
         CurrencyManager.Instance.InitNewGame();
         RecipeManager.Instance.InitNewGame();
+        _restaurant.InitNewGame();
         _gameFlowManager.InitNewGame();
-        //_restaurant.InitNewGame();
     }
 
     private void InitSaveData(SaveData saveData)
@@ -47,7 +47,8 @@ public class GameBootstrap : MonoBehaviour
 
         CurrencyManager.Instance.InitMoney(saveData.Money);
         RecipeManager.Instance.InitSaveData(saveData.Recipes);
+        _restaurant.InitSaveData(saveData.RestaurantUpgrade,saveData.Staffs);
         _gameFlowManager.InitDay(saveData.Day);
-        //_restaurant
     }
 }
+
