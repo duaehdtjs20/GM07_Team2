@@ -51,7 +51,10 @@ public class UI_StaffDetailView : MonoBehaviour
         if (_staff.IsMexLevel)
         {
             _maxImage?.SetActive(true);
-            return;
+        }
+        else
+        {
+            _maxImage?.SetActive(false);
         }
         if (_name != null)
         {
@@ -70,14 +73,28 @@ public class UI_StaffDetailView : MonoBehaviour
 
         if(_nextLevel != null)
         {
-            _nextLevel.text = $"Lv.{_staff.Upgrade + 1}";
+            if (_staff.IsMexLevel)
+            {
+                _nextLevel.text = string.Empty;
+            }
+            else
+            {
+                _nextLevel.text = $"Lv.{_staff.Upgrade + 1}";
+            }
         }
-        if (_nextDetails != null && nextData != null)
+        if (_nextDetails != null)
         {
-            _nextDetails.text = 
+            if (_staff.IsMexLevel)
+            {
+                _nextDetails.text = string.Empty;
+            }
+            else
+            {
+                _nextDetails.text =
                 $"{nextData.CookSpeed}\n\n" +
                 $"{nextData.Wage:N0}\n\n" +
                 $"{nextData.UpgradeCost:N0}";
+            }
         }
     }
     private void OnClickUpgrade()
