@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-// 
 public class CustomerExit : CustomerStateBase
 {
     public CustomerExit(Customer customer, Animator animator) : base(customer, animator, Animator.StringToHash("Walk")) { }
