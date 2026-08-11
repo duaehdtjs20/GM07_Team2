@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
   <RecipeId>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: RecipeName1
-  <Cost>k__BackingField: 100
-  <Price>k__BackingField: 300
+  <Name>k__BackingField: "\uCC38\uCE58\uBC43\uC0B4\uCD08\uBC25"
+  <Cost>k__BackingField: 800
+  <Price>k__BackingField: 2800
   <CookingTime>k__BackingField: 1
+  <MenuGrade>k__BackingField: 2
