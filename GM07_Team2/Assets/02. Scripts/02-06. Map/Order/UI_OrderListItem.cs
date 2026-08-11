@@ -11,6 +11,15 @@ namespace GM07.Order
         private TMP_Text _seatInfoText;
 
         [SerializeField]
+        private Image _recipeIconImage;
+
+        [SerializeField]
+        private TMP_Text _recipeNameText;
+
+        [SerializeField]
+        private TMP_Text _priceText;
+
+        [SerializeField]
         private Button _actionButton;
 
         [SerializeField]
@@ -55,8 +64,8 @@ namespace GM07.Order
 
         private void RefreshItem(bool isTableCooking)
         {
-            // TODO: 메뉴 데이터 연결 후 메뉴 이름/가격/이미지 표시 추가
             _seatInfoText.text = $"{_order.Seat.SeatId}번 좌석";
+            RefreshRecipeInfo();
 
             bool isCooking = _order.State == EOrderState.Cooking;
             _actionButton.gameObject.SetActive(!isCooking);
@@ -71,6 +80,14 @@ namespace GM07.Order
             bool isReady = _order.State == EOrderState.Ready;
             _actionButtonText.text = isReady ? "서빙" : "요리시작";
             _actionButton.interactable = isReady || !isTableCooking;
+        }
+
+        private void RefreshRecipeInfo()
+        {
+            RecipeData data = _order.Recipe.Data;
+            _recipeIconImage.sprite = data.Icon;
+            _recipeNameText.text = data.Name;
+            _priceText.text = $"{data.Price}원";
         }
 
         private void RefreshTimerText()

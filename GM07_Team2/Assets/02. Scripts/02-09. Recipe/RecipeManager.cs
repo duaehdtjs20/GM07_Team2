@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
 {
     [SerializeField]
     private RecipeDataBase _dataBase;
-
     private List<Recipe> _recipes;
     public IReadOnlyList<Recipe> Recipes => _recipes;
     public int Count => _recipes.Count;
@@ -21,26 +19,29 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
     public void InitNewGame()
     {
         Init();
+
+        // 기본 제공 레시피: 리스트 0번(하등급) 자동 해금
+        if (_recipes.Count > 0)
+        {
+            _recipes[0].ForceUnlock();
+        }
     }
 
     public void InitSaveData(IReadOnlyList<RecipeSaveData> saveRecipes)
     {
         Init();
-
-        if(saveRecipes.Count == 0)
+        if (saveRecipes.Count == 0)
         {
             return;
         }
-
-        foreach(RecipeSaveData saveData in saveRecipes)
+        foreach (RecipeSaveData saveData in saveRecipes)
         {
-            for(int i = 0; i < _recipes.Count; i++)
+            for (int i = 0; i < _recipes.Count; i++)
             {
                 if (_recipes[i].RecipeId != saveData.RecipeId)
                 {
                     continue;
                 }
-
                 _recipes[i].ApplySaveData(saveData);
                 break;
             }
@@ -50,7 +51,7 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
     private void Init()
     {
         _recipes = new List<Recipe>();
-        if(_dataBase != null)
+        if (_dataBase != null)
         {
             foreach (RecipeData data in _dataBase.RecipeDatas)
             {
@@ -62,21 +63,20 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
 
     public bool TryGetRecipeIndex(int index, out Recipe recipe)
     {
-        // index 범위 제한
         if (index < 0 || index >= _recipes.Count)
         {
             recipe = null;
             return false;
         }
-
         recipe = _recipes[index];
         return recipe != null;
     }
+
     public bool TryGetRecipeId(int recipeId, out RecipeData recipeData)
     {
-        foreach(RecipeData data in _dataBase.RecipeDatas)
+        foreach (RecipeData data in _dataBase.RecipeDatas)
         {
-            if(data.RecipeId == recipeId)
+            if (data.RecipeId == recipeId)
             {
                 recipeData = data;
                 return true;
@@ -84,5 +84,31 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
         }
         recipeData = null;
         return false;
+    }
+
+    // 순차 해금 규칙: Low는 항상 해금 가능,
+    // Mid는 Low 전체가 Unlocked여야 가능, High는 Mid 전체가 Unlocked여야 가능
+    public bool CanUnlock(Recipe recipe)
+    {
+        if (recipe == null || recipe.Data == null)
+        {
+            return false;
+        }
+
+        EMenuGrade grade = recipe.Data.MenuGrade;
+        if (grade == EMenuGrade.Low)
+        {
+            return true;
+        }
+
+        EMenuGrade previousGrade = grade - 1;
+        foreach (Recipe r in _recipes)
+        {
+            if (r.Data.MenuGrade == previousGrade && !r.Unlocked)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
