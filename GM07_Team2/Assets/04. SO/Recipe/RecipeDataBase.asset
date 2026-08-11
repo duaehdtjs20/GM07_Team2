@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: RecipeDataBase
   m_EditorClassIdentifier: Assembly-CSharp::RecipeDataBase
   _recipeDatas:
+  - {fileID: 11400000, guid: 3d83702cdf91bc044b6f9150e33739a0, type: 2}
+  - {fileID: 11400000, guid: d33b7ef0e2bf1004abe79f0071be8d7f, type: 2}
+  - {fileID: 11400000, guid: 393222c6bda8d8e4e91b4278bd42b066, type: 2}
+  - {fileID: 11400000, guid: c0e2dd8d3ce36eb4f959324092a03c3e, type: 2}
+  - {fileID: 11400000, guid: 79fbb778bf3b38e40bf02cc149969f1a, type: 2}
+  - {fileID: 11400000, guid: e4c69553f54a15140a3d30d54f87cf2e, type: 2}
+  - {fileID: 11400000, guid: ef1b13b9cf64c2d4ba04e897951d8860, type: 2}
   - {fileID: 11400000, guid: cf243ba6c104f3d4f8734cb29ec0fac1, type: 2}

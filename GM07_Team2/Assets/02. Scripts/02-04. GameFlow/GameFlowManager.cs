@@ -38,6 +38,10 @@ public class GameFlowManager : MonoBehaviour
     }
     public void InitNewGame()
     {
+        if (RecipeManager.Instance != null)
+        {
+            RecipeManager.Instance.InitNewGame();
+        }
         InitDay(1);
     }
     public void InitDay(int day)

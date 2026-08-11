@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce0eb87398b7cb549b0639e0490a60b6, type: 3}
-  m_Name: RecipeData
+  m_Name: RecipeData_7
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
   <RecipeId>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: RecipeName1
-  <Cost>k__BackingField: 100
-  <Price>k__BackingField: 300
+  <Name>k__BackingField: "\uB808\uC2DC\uD53C \uC774\uB984"
+  <Cost>k__BackingField: 0
+  <Price>k__BackingField: 0
   <CookingTime>k__BackingField: 1
