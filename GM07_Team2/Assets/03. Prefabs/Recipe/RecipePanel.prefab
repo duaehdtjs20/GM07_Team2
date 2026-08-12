@@ -300,6 +300,9 @@ MonoBehaviour:
   _recipeViewPrefab: {fileID: 1553486325101743187, guid: 0fa386e611d47104bbfb12ae52aaaf3a, type: 3}
   _ListRoot: {fileID: 4051579691234583454}
   _recipeDetailView: {fileID: 4284229563025365260}
+  _previousButton: {fileID: 9190735617979819390}
+  _nextButton: {fileID: 8481906787967072584}
+  _pageText: {fileID: 8859787778357646225}
 --- !u!1 &1088458398682219051
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,10 +47,7 @@ public class UI_RecipeView : MonoBehaviour
         }
         if( _unlockImage != null)
         {
-            if (_recipe.Unlocked)
-            {
-                _unlockImage.SetActive(!_recipe.Unlocked);
-            }
+            _unlockImage.SetActive(!_recipe.Unlocked);
         }
     }
     public void OnClick()

@@ -19,12 +19,7 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
     public void InitNewGame()
     {
         Init();
-
-        // 기본 제공 레시피: 리스트 0번(하등급) 자동 해금
-        if (_recipes.Count > 0)
-        {
-            _recipes[0].ForceUnlock();
-        }
+        DefaultUnlock(true);
     }
 
     public void InitSaveData(IReadOnlyList<RecipeSaveData> saveRecipes)
@@ -46,6 +41,16 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
                 break;
             }
         }
+        DefaultUnlock(false);
+    }
+    private void DefaultUnlock(bool isNewGame)
+    {
+        // 기본 제공 레시피: 리스트 0번(하등급) 자동 해금
+        if (_recipes == null || _recipes.Count == 0)
+        {
+            return;
+        }
+        _recipes[0].ForceUnlock(isNewGame);
     }
 
     private void Init()

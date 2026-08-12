@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0eb87398b7cb549b0639e0490a60b6, type: 3}
   m_Name: RecipeData_3
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
-  <RecipeId>k__BackingField: 0
+  <RecipeId>k__BackingField: 2
   <Icon>k__BackingField: {fileID: 0}
   <Name>k__BackingField: "\uC5F0\uC5B4\uCD08\uBC25"
   <Cost>k__BackingField: 150
