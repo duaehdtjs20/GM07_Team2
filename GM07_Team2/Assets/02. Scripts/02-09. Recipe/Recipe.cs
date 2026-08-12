@@ -17,7 +17,6 @@ public class Recipe
     {
         _data = data;
     }
-
     public Recipe(RecipeSaveData saveData)
     {
         if (RecipeManager.Instance.TryGetRecipeId(saveData.RecipeId, out RecipeData data))
@@ -27,7 +26,6 @@ public class Recipe
             _unlocked = saveData.Unlocked;
         }
     }
-
     public bool Unlock()
     {
         if (CurrencyManager.Instance == null || RecipeManager.Instance == null)
@@ -51,25 +49,19 @@ public class Recipe
             return false;
         }
     }
-
-
     // 게임 시작 시 기본 제공되는 레시피를 위한 강제 해금 (돈 소모 없음)
-    public void ForceUnlock()
+    public void ForceUnlock(bool isNewGame)
     {
-        _grade = (ERecipeGrade)UnityEngine.Random.Range(0, (int)ERecipeGrade.Size);
+        if (isNewGame)
+        {
+            _grade = (ERecipeGrade)UnityEngine.Random.Range(0, (int)ERecipeGrade.Size);
+        }
         _unlocked = true;
     }
-
-
 
     public void ApplySaveData(RecipeSaveData data)
     {
         _grade = data.Grade;
         _unlocked = data.Unlocked;
-    }
-
-    public RecipeSaveData Save()
-    {
-        return new RecipeSaveData(RecipeId, Grade, Unlocked);
     }
 }

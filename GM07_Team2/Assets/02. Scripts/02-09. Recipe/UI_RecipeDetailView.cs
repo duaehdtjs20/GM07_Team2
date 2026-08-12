@@ -65,7 +65,7 @@ public class UI_RecipeDetailView : MonoBehaviour
         }
         if( _rank != null)
         {
-            _rank.text = _recipe.Grade.ToString();
+            _rank.text = _recipe.Data.MenuGrade.ToString();
         }
         if( _unlockButton != null)
         {
