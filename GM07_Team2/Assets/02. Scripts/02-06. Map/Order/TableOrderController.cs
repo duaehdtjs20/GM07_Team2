@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using GM07.Map;
 using UnityEngine;
@@ -9,37 +9,56 @@ namespace GM07.Order
     {
         public Action OnOrderListChanged;
 
+        [SerializeField]
+        private Table _table;
+        [SerializeField]
+        private Restaurant _restaurant;
+
         private readonly List<OrderData> _orders = new();
 
         public IReadOnlyList<OrderData> Orders => _orders;
 
-        // Å×ÀÌºí¿¡ ¿ä¸®»ç°¡ ÇÑ ¸í °íÁ¤ÀÌ¹Ç·Î, Á¶¸®ÁßÀÎ ÁÖ¹®ÀÌ ÀÖÀ¸¸é true
+        // í…Œì´ë¸”ì— ìš”ë¦¬ì‚¬ê°€ í•œ ëª… ê³ ì •ì´ë¯€ë¡œ, ì¡°ë¦¬ì¤‘ì¸ ì£¼ë¬¸ì´ ìžˆìœ¼ë©´ true
         public bool IsCooking => _orders.Exists(order => order.State == EOrderState.Cooking);
+
+        private void Awake()
+        {
+            if(_table == null)
+            {
+                _table = GetComponent<Table>();
+            }
+            if(_restaurant == null)
+            {
+                _restaurant = FindFirstObjectByType<Restaurant>();
+            }
+        }
 
         private void Update()
         {
             UpdateCookingOrders();
         }
 
-        // µ¿¼±´Ô ÆÄÆ®(¼Õ´Ô Âø¼® ¿Ï·á ½ÃÁ¡)¿¡¼­ È£Ãâ
-        // seat: ¼Õ´ÔÀÌ Âø¼®ÇÑ ÁÂ¼® Á¤º¸
-        // customer: ÁÖ¹®ÇÑ ¼Õ´Ô
-        // recipe: ÁÖ¹®ÇÑ ¸Þ´º
+        // ë™ì„ ë‹˜ íŒŒíŠ¸(ì†ë‹˜ ì°©ì„ ì™„ë£Œ ì‹œì )ì—ì„œ í˜¸ì¶œ
+        // seat: ì†ë‹˜ì´ ì°©ì„í•œ ì¢Œì„ ì •ë³´
+        // customer: ì£¼ë¬¸í•œ ì†ë‹˜
+        // recipe: ì£¼ë¬¸í•œ ë©”ë‰´
         public void RequestOrder(Seat seat, Customer customer, Recipe recipe)
         {
+            _restaurant.TryGetStaffIndex(_table.TableId - 1, out Staff staff);
             OrderData order = new OrderData
             {
                 Seat = seat,
                 OrderRequestTime = Time.time,
                 Customer = customer,
-                Recipe = recipe
+                Recipe = recipe,
+                Staff = staff
             };
             _orders.Add(order);
             OnOrderListChanged?.Invoke();
         }
 
-        // ÁÖ¹® È®ÀÎ Ã¢¿¡¼­ "¿ä¸®½ÃÀÛ" ´­·¶À» ¶§ È£Ãâ
-        // ÀÌ¹Ì Á¶¸®ÁßÀÎ ÁÖ¹®ÀÌ ÀÖÀ¸¸é ¹«½Ã (Å×ÀÌºí´ç ¿ä¸®»ç 1¸í)
+        // ì£¼ë¬¸ í™•ì¸ ì°½ì—ì„œ "ìš”ë¦¬ì‹œìž‘" ëˆŒë €ì„ ë•Œ í˜¸ì¶œ
+        // ì´ë¯¸ ì¡°ë¦¬ì¤‘ì¸ ì£¼ë¬¸ì´ ìžˆìœ¼ë©´ ë¬´ì‹œ (í…Œì´ë¸”ë‹¹ ìš”ë¦¬ì‚¬ 1ëª…)
         public void StartCooking(OrderData order)
         {
             if (IsCooking || order.State != EOrderState.Waiting)
@@ -52,7 +71,7 @@ namespace GM07.Order
             OnOrderListChanged?.Invoke();
         }
 
-        // ÁÖ¹® È®ÀÎ Ã¢¿¡¼­ "¼­ºù" ´­·¶À» ¶§ È£Ãâ
+        // ì£¼ë¬¸ í™•ì¸ ì°½ì—ì„œ "ì„œë¹™" ëˆŒë €ì„ ë•Œ í˜¸ì¶œ
         public void ServeOrder(OrderData order)
         {
             if (order.State != EOrderState.Ready)
@@ -65,7 +84,7 @@ namespace GM07.Order
             OnOrderListChanged?.Invoke();
         }
 
-        // Á¶¸®ÁßÀÎ ÁÖ¹®ÀÇ ¿Ï¼º ¿©ºÎ¸¦ ¸Å ÇÁ·¹ÀÓ È®ÀÎ, ¿Ï¼ºµÇ¸é Ready·Î ÀüÈ¯
+        // ì¡°ë¦¬ì¤‘ì¸ ì£¼ë¬¸ì˜ ì™„ì„± ì—¬ë¶€ë¥¼ ë§¤ í”„ë ˆìž„ í™•ì¸, ì™„ì„±ë˜ë©´ Readyë¡œ ì „í™˜
         private void UpdateCookingOrders()
         {
             bool isChanged = false;
@@ -78,6 +97,10 @@ namespace GM07.Order
                 }
 
                 float cookingTime = order.Recipe.Data.CookingTime;
+                if(order.Staff != null)
+                {
+                    cookingTime /= order.Staff.CookSpeed;
+                }
                 if (Time.time - order.CookStartTime >= cookingTime)
                 {
                     order.State = EOrderState.Ready;

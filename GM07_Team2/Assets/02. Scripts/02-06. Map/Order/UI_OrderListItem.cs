@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,7 +54,7 @@ namespace GM07.Order
             RefreshTimerText();
         }
 
-        // isTableCooking: ÀÌ Å×ÀÌºí¿¡¼­ (´Ù¸¥ ÁÖ¹®ÀÌ) Á¶¸®ÁßÀÎÁö ¿©ºÎ
+        // isTableCooking: ì´ í…Œì´ë¸”ì—ì„œ (ë‹¤ë¥¸ ì£¼ë¬¸ì´) ì¡°ë¦¬ì¤‘ì¸ì§€ ì—¬ë¶€
         public void InitItem(OrderData order, bool isTableCooking, Action<OrderData> onClickAction)
         {
             _order = order;
@@ -64,7 +64,7 @@ namespace GM07.Order
 
         private void RefreshItem(bool isTableCooking)
         {
-            _seatInfoText.text = $"{_order.Seat.SeatId}¹ø ÁÂ¼®";
+            _seatInfoText.text = $"{_order.Seat.SeatId}ë²ˆ ì¢Œì„";
             RefreshRecipeInfo();
 
             bool isCooking = _order.State == EOrderState.Cooking;
@@ -78,7 +78,7 @@ namespace GM07.Order
             }
 
             bool isReady = _order.State == EOrderState.Ready;
-            _actionButtonText.text = isReady ? "¼­ºù" : "¿ä¸®½ÃÀÛ";
+            _actionButtonText.text = isReady ? "ì„œë¹™" : "ìš”ë¦¬ì‹œì‘";
             _actionButton.interactable = isReady || !isTableCooking;
         }
 
@@ -87,14 +87,18 @@ namespace GM07.Order
             RecipeData data = _order.Recipe.Data;
             _recipeIconImage.sprite = data.Icon;
             _recipeNameText.text = data.Name;
-            _priceText.text = $"{data.Price}¿ø";
+            _priceText.text = $"{data.Price}ì›";
         }
 
         private void RefreshTimerText()
         {
             float cookingTime = _order.Recipe.Data.CookingTime;
+            if (_order.Staff != null)
+            {
+                cookingTime /= _order.Staff.CookSpeed;
+            }
             float remainingTime = Mathf.Max(cookingTime - (Time.time - _order.CookStartTime), 0.0f);
-            _timerText.text = $"{remainingTime:F1}ÃÊ";
+            _timerText.text = $"{remainingTime:F1}ì´ˆ";
         }
 
         private void OnClickActionButton()
