@@ -24,6 +24,7 @@ public class Customer : MonoBehaviour
     private TableManager _tableManager;
     private Recipe _recipe;
     private Transform _model;
+    private GM07.Order.EQuality _quality = GM07.Order.EQuality.Normal;
     private Stack<GameObject> _pool;
     private List<GameObject> _models = new List<GameObject>();
     private List<CustomerStateMachine> _stateMachines = new List<CustomerStateMachine>();
@@ -198,15 +199,22 @@ public class Customer : MonoBehaviour
     {
         _eatTimer += Time.deltaTime;
     }
-    public void Receive()
+    public void Receive(GM07.Order.EQuality quality)
     {
         IsReceived = true;
+        _quality = quality;
     }
     public void PayMoney()
     {
         if (CurrencyManager.Instance != null && _recipe != null)
         {
-            CurrencyManager.Instance.AddMoney(_recipe.Data.Price, ECurrencyTransactionType.Sale);
+            float multiplier = 1.0f;
+            if (QualityManager.Instance != null)
+            {
+                multiplier = QualityManager.Instance.GetPriceMultiplier(_quality);
+            }
+            int finalPrice = Mathf.RoundToInt(_recipe.Data.Price * multiplier);
+            CurrencyManager.Instance.AddMoney(finalPrice, ECurrencyTransactionType.Sale);
         }
     }
     public void Release()

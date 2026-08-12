@@ -27,7 +27,7 @@ public class SaveData
     {
         foreach (var recipe in recipes)
         {
-            _recipes.Add(new RecipeSaveData(recipe.RecipeId, recipe.Grade, recipe.Unlocked));
+            _recipes.Add(new RecipeSaveData(recipe.RecipeId, recipe.Unlocked));
         }
         foreach (var staff in staffs)
         {

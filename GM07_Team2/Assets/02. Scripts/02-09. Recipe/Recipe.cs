@@ -5,12 +5,12 @@ using UnityEngine;
 public class Recipe
 {
     private RecipeData _data;
-    private ERecipeGrade _grade = ERecipeGrade.Normal;
+    
     private bool _unlocked = false;
 
     public RecipeData Data => _data;
     public int RecipeId => Data.RecipeId;
-    public ERecipeGrade Grade => _grade;
+    
     public bool Unlocked => _unlocked;
 
     public Recipe(RecipeData data)
@@ -22,7 +22,7 @@ public class Recipe
         if (RecipeManager.Instance.TryGetRecipeId(saveData.RecipeId, out RecipeData data))
         {
             _data = data;
-            _grade = saveData.Grade;
+           
             _unlocked = saveData.Unlocked;
         }
     }
@@ -40,7 +40,7 @@ public class Recipe
 
         if (CurrencyManager.Instance.TrySpendMoney(_data.Cost, ECurrencyTransactionType.OtherExpense))
         {
-            _grade = (ERecipeGrade)UnityEngine.Random.Range(0, (int)ERecipeGrade.Size);
+           
             _unlocked = true;
             return true;
         }
@@ -54,14 +54,14 @@ public class Recipe
     {
         if (isNewGame)
         {
-            _grade = (ERecipeGrade)UnityEngine.Random.Range(0, (int)ERecipeGrade.Size);
+           
         }
         _unlocked = true;
     }
 
     public void ApplySaveData(RecipeSaveData data)
     {
-        _grade = data.Grade;
+      
         _unlocked = data.Unlocked;
     }
 }
