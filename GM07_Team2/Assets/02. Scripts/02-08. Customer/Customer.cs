@@ -23,9 +23,10 @@ public class Customer : MonoBehaviour
     private float _eatTimer = 0.0f;
     private TableManager _tableManager;
     private Recipe _recipe;
-    private Animator _animator;
     private Transform _model;
     private Stack<GameObject> _pool;
+    private List<GameObject> _models = new List<GameObject>();
+    private List<CustomerStateMachine> _stateMachines = new List<CustomerStateMachine>();
 
     public CustomerStateMachine StateMachine { get; private set; }
     public Table Table { get; private set; }
@@ -54,31 +55,45 @@ public class Customer : MonoBehaviour
         IsReceived = false;
         IsOrdered = false;
 
-        // 최초 모델 생성
-        if (_animator == null && _modelDatas != null && _modelDatas.Count > 0)
-        {
-            _model = Instantiate(_modelDatas.Models[Random.Range(0, _modelDatas.Count)], transform).transform;
-            _model.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-            _model.localPosition = new Vector3(0.0f, -1.0f, 0.0f);
-            _animator = _model.GetComponent<Animator>();
-        }
-
         if (_agent == null)
         {
             TryGetComponent(out _agent);
         }
 
+        // 최초 모델 생성
+        if (_models.Count <= 0 && _modelDatas != null && _modelDatas.Count > 0)
+        {
+            foreach (var model in _modelDatas.Models)
+            {
+                // 모델 생성
+                GameObject modelObj = Instantiate(model, transform);
+
+                // 모델 초기화
+                modelObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                modelObj.transform.localPosition = new Vector3(0.0f, -1.0f, 0.0f);
+                modelObj.SetActive(false);
+
+                // 애니메이터 캐싱
+                Animator animator = modelObj.GetComponent<Animator>();
+
+                // 리스트에 넣어서 모델 관리
+                _models.Add(modelObj);
+                // 캐싱한 애니메이터로 상태머신 생성 후 리스트에 보관
+                _stateMachines.Add(new CustomerStateMachine(this, animator));
+            }
+        }
+        // 랜덤 모델과 그에 맞는 상태 머신 불러오기
+        int randomIndex = Random.Range(0, _models.Count);
+        _model = _models[randomIndex].transform;
+        StateMachine = _stateMachines[randomIndex];
+
+        // 활성화 후 위치, 회전, 상태 초기화
+        _model.gameObject.SetActive(true);
+
         StartPos = transform.position;
         transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
 
-        if (StateMachine == null && _animator != null)
-        {
-            StateMachine = new CustomerStateMachine(this, _animator);
-        }
-        if (StateMachine != null)
-        {
-            StateMachine.Initialize(StateMachine.EnterState);
-        }
+        StateMachine.Initialize(StateMachine.EnterState);
     }
 
     // parameter로 주어진 목적지 까지의 경로를 생성하는 메서드
@@ -205,8 +220,8 @@ public class Customer : MonoBehaviour
         Table = null;
         Seat = null;
 
-        // 임시로 파괴 로직으로 구현(풀링 예정)
         _pool.Push(gameObject);
+        _model.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
     private void OnDrawGizmos()
