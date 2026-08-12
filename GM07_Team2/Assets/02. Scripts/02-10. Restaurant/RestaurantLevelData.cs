@@ -13,7 +13,7 @@ public class RestaurantLevelData
     private int _upgradeCost; //해당 레벨로 업그레이드 할 때 필요한 비용
     [Header("Unlock Objects")]
     [SerializeField]
-    private List<GameObject> _unlockObjectList;
+    private List<GameObject> _unlockObjectList = new();
 
     public int TableCount => _tableCount;
     public int ChefCount => _tableCount;
