@@ -103,6 +103,11 @@ public class CameraController : MonoBehaviour
     }
     private void Zoom()
     {
+        // 마우스가 UI위에 있으면 줌X
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         float size = Mouse.current.scroll.ReadValue().y;
         if (size == 0)
         {
