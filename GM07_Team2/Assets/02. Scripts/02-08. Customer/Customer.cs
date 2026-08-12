@@ -25,6 +25,7 @@ public class Customer : MonoBehaviour
     private Recipe _recipe;
     private Animator _animator;
     private Transform _model;
+    private GM07.Order.EQuality _quality = GM07.Order.EQuality.Normal;
 
     public CustomerStateMachine StateMachine { get; private set; }
     public Table Table { get; private set; }
@@ -181,15 +182,22 @@ public class Customer : MonoBehaviour
     {
         _eatTimer += Time.deltaTime;
     }
-    public void Receive()
+    public void Receive(GM07.Order.EQuality quality)
     {
         IsReceived = true;
+        _quality = quality;
     }
     public void PayMoney()
     {
         if (CurrencyManager.Instance != null && _recipe != null)
         {
-            CurrencyManager.Instance.AddMoney(_recipe.Data.Price, ECurrencyTransactionType.Sale);
+            float multiplier = 1.0f;
+            if (QualityManager.Instance != null)
+            {
+                multiplier = QualityManager.Instance.GetPriceMultiplier(_quality);
+            }
+            int finalPrice = Mathf.RoundToInt(_recipe.Data.Price * multiplier);
+            CurrencyManager.Instance.AddMoney(finalPrice, ECurrencyTransactionType.Sale);
         }
     }
     public void Release()

@@ -10,5 +10,6 @@ namespace GM07.Order
         public Recipe Recipe;
         public EOrderState State = EOrderState.Waiting;
         public float CookStartTime;
+        public EQuality Quality = EQuality.Normal;
     }
 }

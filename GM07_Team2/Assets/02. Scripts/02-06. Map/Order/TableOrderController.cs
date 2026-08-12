@@ -59,9 +59,8 @@ namespace GM07.Order
             {
                 return;
             }
-
             _orders.Remove(order);
-            order.Customer.Receive();
+            order.Customer.Receive(order.Quality);
             OnOrderListChanged?.Invoke();
         }
 
@@ -81,6 +80,10 @@ namespace GM07.Order
                 if (Time.time - order.CookStartTime >= cookingTime)
                 {
                     order.State = EOrderState.Ready;
+                    if (QualityManager.Instance != null)
+                    {
+                        order.Quality = QualityManager.Instance.RollQuality();
+                    }
                     isChanged = true;
                 }
             }
