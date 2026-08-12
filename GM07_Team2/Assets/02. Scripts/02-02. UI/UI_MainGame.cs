@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,23 +7,33 @@ using UnityEngine.UI;
 
 public class UI_MainGame : MonoBehaviour
 {
-    [Header("Heirarchy")]
+    [Header("GameFlowManager")]
     [SerializeField]
     private GameFlowManager _gameFlowManager;
+    [Header("GameState")]
     [SerializeField]
     private TMP_Text _dayText;
     [SerializeField]
     private TMP_Text _remainingTimeText;
     [SerializeField]
     private TMP_Text _gameStateText;
+    [Header("Money")]
     [SerializeField]
     private TMP_Text _moneyText;
+    [SerializeField]
+    private Transform _moneyChangeRoot;
+    [SerializeField]
+    private TMP_Text _moneyChangeTextPrefab;
+    [SerializeField]
+    private float _moneyChangeDuration;
+    [Header("Buttons")]
     [SerializeField]
     private Button _openButton;
     [SerializeField]
     private Button _homeButton;
     [SerializeField]
     private Button _nextdayButton;
+    [Header("ClosePanel")]
     [SerializeField]
     private GameObject _closePanel;
     [SerializeField]
@@ -31,6 +43,8 @@ public class UI_MainGame : MonoBehaviour
     [SerializeField]
     private GameObject _preparingPanel;
 
+    private List<TMP_Text> _moneyChangeList = new();
+
     private const int OpenHour = 10;
     private const int CloseHour = 21;
     private const int PreparingHour = 9;
@@ -38,6 +52,7 @@ public class UI_MainGame : MonoBehaviour
     private const float LunchEndProgress = 0.66f;
     private const float ClockMaxFillAmount = (CloseHour - OpenHour) / 12f;
 
+    #region Init
     private void Start()
     {
         if(_gameFlowManager == null)
@@ -51,6 +66,7 @@ public class UI_MainGame : MonoBehaviour
         _gameFlowManager.OnRemainingTimeChanged += RefreshRemainingTime;
         _gameFlowManager.OnDayChanged += RefreshDay;
         CurrencyManager.Instance.OnMoneyChanged += RefreshMoney;
+        CurrencyManager.Instance.OnMoneyTransaction += ShowMoneyChange;
         RefreshMoney(CurrencyManager.Instance.Money);
         RefreshGameState(_gameFlowManager.GameState);
         RefreshDay(_gameFlowManager.CurrentDay);
@@ -69,8 +85,11 @@ public class UI_MainGame : MonoBehaviour
         _gameFlowManager.OnRemainingTimeChanged -= RefreshRemainingTime;
         _gameFlowManager.OnDayChanged -= RefreshDay;
         CurrencyManager.Instance.OnMoneyChanged -= RefreshMoney;
+        CurrencyManager.Instance.OnMoneyTransaction -= ShowMoneyChange;
     }
+    #endregion
 
+    #region GameState
     private void RefreshGameState(EGameState gameState)
     {
         RefreshButton();
@@ -153,35 +172,9 @@ public class UI_MainGame : MonoBehaviour
 
         return 1f - Mathf.Clamp01(_gameFlowManager.RemainingTime / _gameFlowManager.OpenDuration);
     }
-    private void RefreshMoney(int money)
-    {
-        if(_moneyText == null)
-        {
-            return;
-        }
-        _moneyText.text = $"{money:N0}";
-    }
-    private void RefreshButton()
-    {
-        bool isPreparing = _gameFlowManager.GameState == EGameState.Preparing;
-        bool isClosed = _gameFlowManager.GameState == EGameState.Close;
-
-        if(_openButton != null)
-        {
-            _openButton.gameObject.SetActive(isPreparing);
-        }
-        if (_homeButton != null)
-        {
-            _homeButton.gameObject.SetActive(isPreparing);
-        }
-        if (_closePanel != null)
-        {
-            _closePanel.SetActive(isClosed);
-        }
-    }
     private string GetGameStateText(EGameState gameState, out Color color)
     {
-        switch(gameState)
+        switch (gameState)
         {
             case EGameState.Preparing:
                 color = Color.black;
@@ -200,6 +193,65 @@ public class UI_MainGame : MonoBehaviour
                 return null;
         }
     }
+    #endregion
+
+    #region Money
+    private void RefreshMoney(int money)
+    {
+        if (_moneyText == null)
+        {
+            return;
+        }
+        _moneyText.text = $"{money:N0}";
+        _moneyText.color = money < 0 ? Color.red : Color.black;
+    }
+    private void ShowMoneyChange(int amout, ECurrencyTransactionType transactionType)
+    {
+        if(_moneyChangeRoot == null || _moneyChangeTextPrefab == null ||
+            transactionType == ECurrencyTransactionType.None ||
+            transactionType ==ECurrencyTransactionType.RentExpense ||
+            transactionType==ECurrencyTransactionType.WageExpense)
+        {
+            return;
+        }
+
+        bool isExpense = transactionType == ECurrencyTransactionType.OtherExpense ? true : false;
+
+        TMP_Text changeText = Instantiate(_moneyChangeTextPrefab, _moneyChangeRoot);
+        changeText.text = isExpense ? $"-{amout}" : $"+{amout}";
+        changeText.color = isExpense ? Color.red : Color.black;
+
+        _moneyChangeList.Add(changeText);
+        StartCoroutine(ShowMoneyChangeCo(changeText));
+    }
+    IEnumerator ShowMoneyChangeCo(TMP_Text changeText)
+    {
+        yield return new WaitForSeconds(_moneyChangeDuration);
+
+        _moneyChangeList.Remove(changeText);
+        Destroy(changeText.gameObject);
+    }
+    #endregion
+
+    #region Button
+    private void RefreshButton()
+    {
+        bool isPreparing = _gameFlowManager.GameState == EGameState.Preparing;
+        bool isClosed = _gameFlowManager.GameState == EGameState.Close;
+
+        if (_openButton != null)
+        {
+            _openButton.gameObject.SetActive(isPreparing);
+        }
+        if (_homeButton != null)
+        {
+            _homeButton.gameObject.SetActive(isPreparing);
+        }
+        if (_closePanel != null)
+        {
+            _closePanel.SetActive(isClosed);
+        }
+    }
     private void OnclickHome()
     {
         SceneManager.LoadScene(ESceneName.Title.ToString());
@@ -212,4 +264,5 @@ public class UI_MainGame : MonoBehaviour
     {
         _gameFlowManager.OnClickNextDay();
     }
+    #endregion
 }
