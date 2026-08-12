@@ -15,10 +15,6 @@ public class UI_ToastMessage : MonoBehaviourSingleton<UI_ToastMessage>
 
     private void Start()
     {
-        if(_messageObject != null)
-        {
-            _messageObject.SetActive(false);
-        }
         if(_messageCoroutine != null)
         {
             StopCoroutine(_messageCoroutine);
