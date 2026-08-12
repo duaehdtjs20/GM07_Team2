@@ -1,4 +1,6 @@
 using System;
+using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
@@ -33,8 +35,19 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
 
     public bool TrySpendMoney(int amount, ECurrencyTransactionType transactionType)
     {
-        if (amount <= 0 || Money < amount)
+        if (amount < 0)
         {
+            return false;
+        }
+
+        bool isDailySettlement = transactionType == ECurrencyTransactionType.RentExpense ||
+                                 transactionType == ECurrencyTransactionType.WageExpense;
+        if(Money<amount && !isDailySettlement)
+        {
+            if(UI_ToastMessage.Instance != null)
+            {
+                UI_ToastMessage.Instance.Show("돈이 부족합니다");
+            }
             return false;
         }
         Money -= amount;

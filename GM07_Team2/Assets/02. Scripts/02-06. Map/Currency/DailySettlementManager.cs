@@ -77,13 +77,14 @@ public class DailySettlementManager : MonoBehaviour
         {
             case EGameState.Close:
                 ChargeRent();
+                ChargeWages();
                 OnSettlementCompleted?.Invoke(_dailySettlementData);
                 return;
         }
     }
     private void OnDayChanged(int day)
     {
-        _dailySettlementData.Day = day;
+        _dailySettlementData = new DailySettlementData { Day = day };
     }
 
     private void ChargeRent()
@@ -97,6 +98,18 @@ public class DailySettlementManager : MonoBehaviour
         if (!CurrencyManager.Instance.TrySpendMoney(rent,ECurrencyTransactionType.RentExpense))
         {
             Debug.LogWarning("임대료 부족");
+        }
+    }
+
+    private void ChargeWages()
+    {
+        if(_restaurant == null || CurrencyManager.Instance == null)
+        {
+            return;
+        }
+        if (!CurrencyManager.Instance.TrySpendMoney(_restaurant.TotalWage, ECurrencyTransactionType.WageExpense))
+        {
+            Debug.LogWarning("돈 부족");
         }
     }
 }

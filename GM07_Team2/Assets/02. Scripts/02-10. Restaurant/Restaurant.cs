@@ -26,6 +26,18 @@ public class Restaurant : MonoBehaviour
     public int ChefCount => GetLevelData(_level).ChefCount;
     public int Rent => GetLevelData(_level).Rent;
     public int UpgradeCost => IsMaxLevel? 0 : GetLevelData(_level + 1).UpgradeCost;
+    public int TotalWage
+    {
+        get
+        {
+            int totalWage = 0;
+            foreach (Staff staff in Staffs)
+            {
+                totalWage += staff.Wage;
+            }
+            return totalWage;
+        }
+    }
 
     public event Action OnRestaurantChanged;
 

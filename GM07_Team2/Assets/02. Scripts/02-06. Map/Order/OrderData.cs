@@ -1,4 +1,4 @@
-using GM07.Map;
+﻿using GM07.Map;
 
 namespace GM07.Order
 {
@@ -11,5 +11,6 @@ namespace GM07.Order
         public EOrderState State = EOrderState.Waiting;
         public float CookStartTime;
         public EQuality Quality = EQuality.Normal;
+        public Staff Staff;
     }
 }
