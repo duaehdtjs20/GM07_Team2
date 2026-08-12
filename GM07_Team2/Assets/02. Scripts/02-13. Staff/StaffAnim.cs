@@ -9,6 +9,8 @@ public class StaffAnim : MonoBehaviour
     [SerializeField]
     private Animator _animator;
 
+    private bool _isCooking = false;
+
     void Awake()
     {
         if (_animator == null)
@@ -27,14 +29,11 @@ public class StaffAnim : MonoBehaviour
         {
             return;
         }
-        foreach (OrderData order in  _orderController.Orders)
+        if (_isCooking == _orderController.IsCooking)
         {
-            if (order.State == EOrderState.Cooking)
-            {
-                _animator.SetBool("Work", true);
-                return;
-            }
+            return;
         }
-        _animator.SetBool("Work", false);
+        _isCooking = _orderController.IsCooking;
+        _animator.SetBool("Work", _isCooking);
     }
 }
