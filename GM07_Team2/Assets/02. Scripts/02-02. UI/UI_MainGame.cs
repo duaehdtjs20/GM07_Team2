@@ -155,11 +155,12 @@ public class UI_MainGame : MonoBehaviour
     }
     private void RefreshMoney(int money)
     {
-        if(_moneyText == null)
+        if (_moneyText == null)
         {
             return;
         }
         _moneyText.text = $"{money:N0}";
+        _moneyText.color = money < 0 ? Color.red : Color.black;
     }
     private void RefreshButton()
     {
