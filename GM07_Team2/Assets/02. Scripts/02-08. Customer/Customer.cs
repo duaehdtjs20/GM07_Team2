@@ -25,6 +25,7 @@ public class Customer : MonoBehaviour
     private Recipe _recipe;
     private Animator _animator;
     private Transform _model;
+    private Stack<GameObject> _pool;
 
     public CustomerStateMachine StateMachine { get; private set; }
     public Table Table { get; private set; }
@@ -41,11 +42,12 @@ public class Customer : MonoBehaviour
     }
 
     // 스폰 시 호출되는 초기화 메서드
-    public void Init(TableManager tableManager, Table table, Seat seat)
+    public void Init(TableManager tableManager, Table table, Seat seat, Stack<GameObject> pool)
     {
         _tableManager = tableManager;
         Table = table;
         Seat = seat;
+        _pool = pool;
 
         _eatTimer = 0.0f;
         _waitTimer = 0.0f;
@@ -204,7 +206,8 @@ public class Customer : MonoBehaviour
         Seat = null;
 
         // 임시로 파괴 로직으로 구현(풀링 예정)
-        Destroy(gameObject);
+        _pool.Push(gameObject);
+        gameObject.SetActive(false);
     }
     private void OnDrawGizmos()
     {

@@ -1,4 +1,6 @@
-using System.Collections;
+ï»¿using System.Collections;
+using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace GM07.Map
@@ -15,6 +17,8 @@ namespace GM07.Map
         private Transform _spawnPoint;
         [SerializeField]
         private CustomerSpawnSettingData _spawnSettings;
+
+        private Stack<GameObject> _customerPool = new();
 
         private Coroutine _spawnCoroutine;
 
@@ -103,10 +107,20 @@ namespace GM07.Map
             {
                 return false;
             }
-            GameObject customer = Instantiate(_customerPrefab, _spawnPoint.position, _spawnPoint.rotation);
+
+            GameObject customer;
+            if (_customerPool.Count > 0)
+            {
+                customer = _customerPool.Pop();
+            }
+            else
+            {
+                customer = Instantiate(_customerPrefab, _spawnPoint.position, _spawnPoint.rotation, transform);
+            }
             if(customer.TryGetComponent<Customer>(out Customer customerComponent))
             {
-                customerComponent.Init(_tableManager, table, seat);
+                customer.SetActive(true);
+                customerComponent.Init(_tableManager, table, seat, _customerPool);
                 return true;
             }
             else
@@ -131,7 +145,7 @@ namespace GM07.Map
             }
 
             float baseInterval = spawnPeriod.GetRandomInterval();
-            float storeLevelSpawnRate = _spawnSettings.GetStoreLevelSpawnRate(0); //¸ÅÀåÀÇ ·¹º§¿¡ µû¶ó ¼Óµµ Á¶Àı / ÇöÀç´Â 1·Î °íÁ¤
+            float storeLevelSpawnRate = _spawnSettings.GetStoreLevelSpawnRate(0); //ë§¤ì¥ì˜ ë ˆë²¨ì— ë”°ë¼ ì†ë„ ì¡°ì ˆ / í˜„ì¬ëŠ” 1ë¡œ ê³ ì •
             spawnInterval = baseInterval / storeLevelSpawnRate;
             return true;
         }
