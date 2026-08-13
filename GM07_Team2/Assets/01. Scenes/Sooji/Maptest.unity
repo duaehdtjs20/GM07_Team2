@@ -991,11 +991,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3078696610239843990, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1000
+      value: 1200
       objectReference: {fileID: 0}
     - target: {fileID: 3078696610239843990, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 800
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 3078696610239843990, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1031,7 +1031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3078696610239843990, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 3078696610239843990, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1799,7 +1799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1010040567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2278,7 +2278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1308443083
 RectTransform:
   m_ObjectHideFlags: 0
