@@ -13,7 +13,7 @@ public class DailySettlementManager : MonoBehaviour
 
     public Action<DailySettlementData> OnSettlementCompleted;
 
-    private void OnEnable()
+    private void Start()
     {
         if (CurrencyManager.Instance != null)
         {
