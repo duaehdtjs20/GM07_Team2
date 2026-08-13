@@ -8,6 +8,8 @@ public class RecipeData : ScriptableObject
     [field: SerializeField]
     public Sprite Icon { get; private set; }
     [field: SerializeField]
+    public Sprite IngredientIcon { get; private set; }
+    [field: SerializeField]
     public string Name { get; private set; } = "레시피 이름";
     [field: SerializeField]
     public int Cost { get; private set; } = 0; // 레시피 제작 비용
