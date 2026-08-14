@@ -15,6 +15,9 @@ namespace GM07.Order
         [SerializeField]
         private UI_OrderListItem _orderListItemPrefab;
 
+        [SerializeField]
+        private UI_SushiMiniGame _sushiMiniGame; //미니게임추가
+
         private TableOrderController _table;
         private readonly List<UI_OrderListItem> _spawnedItems = new();
 
@@ -69,16 +72,20 @@ namespace GM07.Order
         }
 
         // 아이템의 상태에 따라 요리시작 / 서빙으로 분기
+        // 미니게임을 시작하는 코드 추가
         private void OnClickAction(OrderData order)
         {
             if (order.State == EOrderState.Ready)
             {
                 _table.ServeOrder(order);
+                return;
             }
-            else
+            if (!_table.StartCooking(order))
             {
-                _table.StartCooking(order);
+                return;
             }
+            UI_OrderRequestWindowManager.Instance.CloseWindow();
+            _sushiMiniGame.Open(order, quality => { _table.CompleteCooking(order, quality); });
         }
 
         private void OnClickClose()
