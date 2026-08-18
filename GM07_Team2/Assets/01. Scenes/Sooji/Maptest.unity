@@ -3559,6 +3559,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1085892271}
     m_Modifications:
+    - target: {fileID: 582385999659779305, guid: 89e3a7c8b040581428782a12a6385f77, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 582385999659779305, guid: 89e3a7c8b040581428782a12a6385f77, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2081050970985260649, guid: 89e3a7c8b040581428782a12a6385f77, type: 3}
       propertyPath: m_Name
       value: MiniGame
@@ -3641,6 +3649,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3551949891066504978, guid: 89e3a7c8b040581428782a12a6385f77, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481143437703241824, guid: 89e3a7c8b040581428782a12a6385f77, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

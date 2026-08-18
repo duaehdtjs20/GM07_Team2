@@ -15,9 +15,7 @@ namespace GM07.Order
         private GameObject[] _dishes;
 
         private readonly List<OrderData> _orders = new();
-
         public Restaurant Restaurant => _restaurant;
-        private readonly List<OrderData> _orders = new();
         public IReadOnlyList<OrderData> Orders => _orders;
         // 테이블에 요리사가 한 명 고정이므로, 조리중인 주문이 있으면 true
         public bool IsCooking => _orders.Exists(order => order.State == EOrderState.Cooking);
