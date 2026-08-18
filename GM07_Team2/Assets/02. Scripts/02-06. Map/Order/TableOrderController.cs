@@ -13,9 +13,12 @@ namespace GM07.Order
         private Table _table;
         [SerializeField]
         private Restaurant _restaurant;
+        [SerializeField]
+        private GameObject[] _dishes;
 
         private readonly List<OrderData> _orders = new();
 
+        public Restaurant Restaurant => _restaurant;
         public IReadOnlyList<OrderData> Orders => _orders;
 
         // 테이블에 요리사가 한 명 고정이므로, 조리중인 주문이 있으면 true
@@ -81,7 +84,28 @@ namespace GM07.Order
             }
             _orders.Remove(order);
             order.Customer.Receive(order.Quality);
+            SetDishActive(order.Seat.SeatId, true);
             OnOrderListChanged?.Invoke();
+        }
+
+        public void SetDishActive(int seatId, bool isActive)
+        {
+            if (_dishes.Length <= 0 || _dishes.Length < seatId)
+            {
+                return;
+            }
+            _dishes[seatId].SetActive(isActive);
+        }
+        public void CancelOrder(Customer customer)
+        {
+            foreach (var order in _orders)
+            {
+                if (order.Customer == customer)
+                {
+                    _orders.Remove(order);
+                    return;
+                }
+            }
         }
 
         // 조리중인 주문의 완성 여부를 매 프레임 확인, 완성되면 Ready로 전환
