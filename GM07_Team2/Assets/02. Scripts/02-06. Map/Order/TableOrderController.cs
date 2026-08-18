@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using GM07.Map;
 using UnityEngine;
-
 namespace GM07.Order
 {
     public class TableOrderController : MonoBehaviour
     {
         public Action OnOrderListChanged;
-
         [SerializeField]
         private Table _table;
         [SerializeField]
@@ -19,28 +17,25 @@ namespace GM07.Order
         private readonly List<OrderData> _orders = new();
 
         public Restaurant Restaurant => _restaurant;
+        private readonly List<OrderData> _orders = new();
         public IReadOnlyList<OrderData> Orders => _orders;
-
         // 테이블에 요리사가 한 명 고정이므로, 조리중인 주문이 있으면 true
         public bool IsCooking => _orders.Exists(order => order.State == EOrderState.Cooking);
-
         private void Awake()
         {
-            if(_table == null)
+            if (_table == null)
             {
                 _table = GetComponent<Table>();
             }
-            if(_restaurant == null)
+            if (_restaurant == null)
             {
                 _restaurant = FindFirstObjectByType<Restaurant>();
             }
         }
-
         private void Update()
         {
             //UpdateCookingOrders();
         }
-
         // 동선님 파트(손님 착석 완료 시점)에서 호출
         // seat: 손님이 착석한 좌석 정보
         // customer: 주문한 손님
@@ -59,7 +54,6 @@ namespace GM07.Order
             _orders.Add(order);
             OnOrderListChanged?.Invoke();
         }
-
         // 주문 확인 창에서 "요리시작" 눌렀을 때 호출
         // 이미 조리중인 주문이 있으면 무시 (테이블당 요리사 1명)
         public bool StartCooking(OrderData order)
@@ -68,13 +62,11 @@ namespace GM07.Order
             {
                 return false;
             }
-
             order.State = EOrderState.Cooking;
             order.CookStartTime = Time.time;
             OnOrderListChanged?.Invoke();
             return true;
         }
-
         // 주문 확인 창에서 "서빙" 눌렀을 때 호출
         public void ServeOrder(OrderData order)
         {
@@ -112,16 +104,14 @@ namespace GM07.Order
         private void UpdateCookingOrders()
         {
             bool isChanged = false;
-
             foreach (OrderData order in _orders)
             {
                 if (order.State != EOrderState.Cooking)
                 {
                     continue;
                 }
-
                 float cookingTime = order.Recipe.Data.CookingTime;
-                if(order.Staff != null)
+                if (order.Staff != null)
                 {
                     cookingTime /= order.Staff.CookSpeed;
                 }
@@ -132,10 +122,11 @@ namespace GM07.Order
                     {
                         order.Quality = QualityManager.Instance.RollQuality();
                     }
+                    // 완성도 결정 시점에 손님 머리 위 아이콘 표시
+                    order.Customer.ShowQualityIcon(order.Quality);
                     isChanged = true;
                 }
             }
-
             if (isChanged)
             {
                 OnOrderListChanged?.Invoke();
