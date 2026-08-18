@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 
+using GM07.Map;
 using GM07.Order;
 
 using UnityEngine;
@@ -11,12 +12,16 @@ public class StaffController : MonoBehaviour
     [SerializeField]
     private GameFlowManager _flowManager;
     [SerializeField]
+    private TableOrderController _orderController;
+    [SerializeField]
+    private Table _table;
+    [SerializeField]
     private Animator _animator;
     [SerializeField]
     private NavMeshAgent _agent;
     [Header("Object Fields")]
     [SerializeField]
-    private GameObject _handKnife;
+    private GameObject[] _handKnife;
     [SerializeField]
     private GameObject _tableKnife;
     [SerializeField]
@@ -25,7 +30,9 @@ public class StaffController : MonoBehaviour
     private Transform _cookPos;
     [SerializeField]
     private Transform _washPos;
-    [SerializeField]
+
+    private Staff _staff;
+    private int _upgrade = 1;
     private bool _switching = false;
 
     void Awake()
@@ -34,10 +41,6 @@ public class StaffController : MonoBehaviour
         {
             _flowManager = FindFirstObjectByType<GameFlowManager>();
         }
-        if (_animator == null)
-        {
-            _animator = GetComponent<Animator>();
-        }
         if (_agent == null)
         {
             _agent = GetComponent<NavMeshAgent>();
@@ -45,7 +48,25 @@ public class StaffController : MonoBehaviour
     }
     private void Start()
     {
+        if (_table != null && _orderController != null)
+        {
+            if (_orderController.Restaurant != null
+                && _orderController.Restaurant.TryGetStaffIndex(_table.TableId - 1, out Staff staff))
+            {
+                _staff = staff;
+                _upgrade = _staff.Upgrade;
+                _staff.OnUpgraded += RefreshModel;
+            }
+        }
+        _animator = transform.GetChild(_upgrade - 1).GetComponent<Animator>();
         StartCoroutine(StateStreamCo());
+    }
+    private void OnDestroy()
+    {
+        if (_staff != null)
+        {
+            _staff.OnUpgraded -= RefreshModel;
+        }
     }
     IEnumerator StateStreamCo()
     {
@@ -101,8 +122,26 @@ public class StaffController : MonoBehaviour
         {
             return;
         }
-        _handKnife.SetActive(flag);
+        if (_upgrade - 1 < 0 || _upgrade - 1 >= _handKnife.Length)
+        {
+            return;
+        }
+        _handKnife[_upgrade - 1].SetActive(flag);
         _tableKnife.SetActive(!flag);
         _fish.SetActive(flag);
+    }
+    private void RefreshModel()
+    {
+        if (_staff.Upgrade < 0 || _staff.Upgrade - 1 >= _handKnife.Length || _staff.Upgrade - 1 >= transform.childCount)
+        {
+            return;
+        }
+        _upgrade = _staff.Upgrade;
+        _animator = transform.GetChild(_upgrade - 1).GetComponent<Animator>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+        transform.GetChild(_upgrade - 1).gameObject.SetActive(true);
     }
 }
