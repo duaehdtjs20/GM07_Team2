@@ -5,6 +5,8 @@ using UnityEngine;
 [Serializable]
 public class Staff
 {
+    public event Action OnUpgraded;
+
     [SerializeField]
     private string _name;
     [SerializeField]
@@ -75,6 +77,7 @@ public class Staff
             return false;
         }
         _upgrade++;
+        OnUpgraded?.Invoke();
         return true;
     }
     public void SetState(EStaffState state)
