@@ -167,7 +167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a99163eefac6b3e4bb119ef2056c3d50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.778
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a99163eefac6b3e4bb119ef2056c3d50, type: 3}
       propertyPath: m_LocalPosition.y
@@ -175,11 +175,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a99163eefac6b3e4bb119ef2056c3d50, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a99163eefac6b3e4bb119ef2056c3d50, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a99163eefac6b3e4bb119ef2056c3d50, type: 3}
       propertyPath: m_LocalRotation.x
@@ -187,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a99163eefac6b3e4bb119ef2056c3d50, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a99163eefac6b3e4bb119ef2056c3d50, type: 3}
       propertyPath: m_LocalRotation.z
@@ -199,7 +199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a99163eefac6b3e4bb119ef2056c3d50, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a99163eefac6b3e4bb119ef2056c3d50, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -291,7 +291,9 @@ MonoBehaviour:
   _flowManager: {fileID: 0}
   _animator: {fileID: 3255290047610472458}
   _agent: {fileID: 1772707324737025017}
-  _knife: {fileID: 7931867073762087507}
+  _handKnife: {fileID: 7931867073762087507}
+  _tableKnife: {fileID: 0}
+  _fish: {fileID: 0}
   _cookPos: {fileID: 0}
   _washPos: {fileID: 0}
   _switching: 0

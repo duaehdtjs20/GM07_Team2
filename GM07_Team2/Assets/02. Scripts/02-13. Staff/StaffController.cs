@@ -7,14 +7,20 @@ using UnityEngine.AI;
 
 public class StaffController : MonoBehaviour
 {
+    [Header("Component Fields")]
     [SerializeField]
     private GameFlowManager _flowManager;
     [SerializeField]
     private Animator _animator;
     [SerializeField]
     private NavMeshAgent _agent;
+    [Header("Object Fields")]
     [SerializeField]
-    private GameObject _knife;
+    private GameObject _handKnife;
+    [SerializeField]
+    private GameObject _tableKnife;
+    [SerializeField]
+    private GameObject _fish;
     [SerializeField]
     private Transform _cookPos;
     [SerializeField]
@@ -54,9 +60,9 @@ public class StaffController : MonoBehaviour
                 if (_switching)
                 {
                     yield return MoveCo(_cookPos);
-                    _knife.SetActive(true);
+                    ObjectActivate(true);
                     yield return StateCo("Cook", 8.0f);
-                    _knife.SetActive(false);
+                    ObjectActivate(false);
                 }
                 else
                 {
@@ -88,5 +94,15 @@ public class StaffController : MonoBehaviour
         }
         _animator.SetBool("Move", false);
         transform.rotation = target.rotation;
+    }
+    private void ObjectActivate(bool flag)
+    {
+        if (_handKnife == null || _tableKnife == null || _fish == null)
+        {
+            return;
+        }
+        _handKnife.SetActive(flag);
+        _tableKnife.SetActive(!flag);
+        _fish.SetActive(flag);
     }
 }
