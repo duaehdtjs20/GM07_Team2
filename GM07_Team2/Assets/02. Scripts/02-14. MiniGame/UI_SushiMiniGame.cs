@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_SushiMiniGame : MonoBehaviour
+public class UI_SushiMiniGame : UI_MiniGameBase
 {
     private enum EStep
     {
@@ -58,7 +58,7 @@ public class UI_SushiMiniGame : MonoBehaviour
     private Coroutine _completeCoroutine;
     private Action<EQuality> _onCompleted;
 
-    public void Open(OrderData order, Action<EQuality> onCompleted)
+    public override void Open(OrderData order, Action<EQuality> onCompleted)
     {
         _order = order;
         _onCompleted = onCompleted;
@@ -139,8 +139,8 @@ public class UI_SushiMiniGame : MonoBehaviour
             _sushiImage.sprite = _order.Recipe.Data.Icon;
             _sushiImage.gameObject.SetActive(true);
         }
-        EQuality quality = CalculateQuality();
-        _completeCoroutine = StartCoroutine(CompleteCo(quality));
+        EQuality quality = CalculateQuality(out float totalScore);
+        _completeCoroutine = StartCoroutine(CompleteCo(quality, totalScore));
     }
     private void CreateFishChoice()
     {
@@ -180,11 +180,11 @@ public class UI_SushiMiniGame : MonoBehaviour
         _timerCoroutine = null;
         _completeCoroutine = StartCoroutine(CompleteCo(EQuality.Fail));
     }
-    private IEnumerator CompleteCo(EQuality quality)
+    private IEnumerator CompleteCo(EQuality quality, float score = 0)
     {
         if(_resultUI != null)
         {
-            _resultUI.ApplyResult(quality);
+            _resultUI.ApplyResult(quality, score, GetStaffQualityBonus());
             _resultUI.gameObject.SetActive(true);
         }
         yield return new WaitForSeconds(_completeDuration);
@@ -207,17 +207,32 @@ public class UI_SushiMiniGame : MonoBehaviour
         gameObject.SetActive(false);
         callback?.Invoke(result);
     }
-    private EQuality CalculateQuality()
+    private EQuality CalculateQuality(out float score)
     {
         float remainRatio = Mathf.Clamp01(_remainingTime / _timeLimit);
-        if(remainRatio >= _greatRemainRatio)
+        float staffBonusScore = GetStaffQualityBonus();
+        float totalScore = remainRatio + staffBonusScore;
+        if(totalScore >= _greatRemainRatio)
         {
+            score = totalScore;
             return EQuality.Great;
         }
-        if(remainRatio >= _goodRemainRatio)
+        if(totalScore >= _goodRemainRatio)
         {
+            score = totalScore;
             return EQuality.Good;
         }
+        score = totalScore;
         return EQuality.Normal;
+    }
+    private float GetStaffQualityBonus()
+    {
+        if (_order == null ||
+        _order.Staff == null)
+        {
+            return 0f;
+        }
+
+        return _order.Staff.QualityBonus;
     }
 }

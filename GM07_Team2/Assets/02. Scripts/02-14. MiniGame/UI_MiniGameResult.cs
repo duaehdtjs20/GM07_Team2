@@ -1,5 +1,6 @@
 using GM07.Order;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +17,11 @@ public class UI_MiniGameResult : MonoBehaviour
     [SerializeField]
     private Sprite _greatSprite;
     [SerializeField]
+    private TMP_Text _scoreText;
+    [SerializeField]
     private List<GameObject> _starImages;
 
-    public void ApplyResult(EQuality quality)
+    public void ApplyResult(EQuality quality, float score, float staffBonus)
     {
         if(_resultTextImage == null ||
             _failSprite == null ||
@@ -28,6 +31,13 @@ public class UI_MiniGameResult : MonoBehaviour
             _starImages.Count != 3)
         {
             return;
+        }
+
+        if(_scoreText != null)
+        {
+            _scoreText.text = $"{Mathf.RoundToInt((score - staffBonus)*100)}" +
+                              $"\n{Mathf.RoundToInt(staffBonus*100)}" +
+                              $"\n{Mathf.RoundToInt(score*100)}";
         }
 
         switch(quality)

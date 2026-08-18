@@ -17,6 +17,7 @@ public class Staff
 
     public string Name => _name;
     public float CookSpeed => CurrentLevelData.CookSpeed;
+    public float QualityBonus => CurrentLevelData.QualityBonus;
     public int Upgrade => _upgrade;
     public EStaffState State => _state;
     public int Wage => CurrentLevelData.Wage;
@@ -101,5 +102,4 @@ public class StaffSaveData
         _name = name;
         _upgrade = upgrade;
     }
-    
 }

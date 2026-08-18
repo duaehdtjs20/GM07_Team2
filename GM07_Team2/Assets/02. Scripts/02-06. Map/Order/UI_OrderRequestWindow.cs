@@ -16,7 +16,7 @@ namespace GM07.Order
         private UI_OrderListItem _orderListItemPrefab;
 
         [SerializeField]
-        private UI_SushiMiniGame _sushiMiniGame; //미니게임추가
+        private MiniGameManager _miniGameManager; //미니게임
 
         private TableOrderController _table;
         private readonly List<UI_OrderListItem> _spawnedItems = new();
@@ -85,7 +85,7 @@ namespace GM07.Order
                 return;
             }
             UI_OrderRequestWindowManager.Instance.CloseWindow();
-            _sushiMiniGame.Open(order, quality => { _table.CompleteCooking(order, quality); });
+            _miniGameManager.PlayeRandomGame(order, quality => { _table.CompleteCooking(order, quality); });
         }
 
         private void OnClickClose()
