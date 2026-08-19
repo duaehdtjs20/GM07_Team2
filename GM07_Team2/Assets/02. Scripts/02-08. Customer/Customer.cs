@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+
 using GM07.Map;
 using GM07.Order;
 using UnityEngine;
@@ -21,6 +23,7 @@ public class Customer : MonoBehaviour
     private float _eatTimer = 0.0f;
     private TableManager _tableManager;
     private Recipe _recipe;
+    private OrderData _orderData;
     private Transform _model;
     private GM07.Order.EQuality _quality = GM07.Order.EQuality.Normal;
     private Stack<GameObject> _pool;
@@ -49,6 +52,8 @@ public class Customer : MonoBehaviour
         _waitTimer = 0.0f;
         IsReceived = false;
         IsOrdered = false;
+        _recipe = null;
+        _orderData = null;
         if (_agent == null)
         {
             TryGetComponent(out _agent);
@@ -161,6 +166,7 @@ public class Customer : MonoBehaviour
             _recipe = selectRecipe;
             // 주문 요청 (좌석/손님/레시피 정보 전달)
             order.RequestOrder(Seat, this, selectRecipe);
+            _orderData = order.Orders.FirstOrDefault(c => c.Customer == this);
         }
     }
     // 주문 취소 메서드
@@ -170,15 +176,26 @@ public class Customer : MonoBehaviour
         if (Table.TryGetComponent(out TableOrderController order))
         {
             // 주문 취소
+            order.CancelOrder(this);
         }
     }
     public void Waiting()
     {
-        _waitTimer += Time.deltaTime;
+        if(_orderData.State == EOrderState.Waiting)
+        {
+            _waitTimer += Time.deltaTime;
+        }
     }
     public void Eating()
     {
         _eatTimer += Time.deltaTime;
+    }
+    public void ClearDish()
+    {
+        if (Table.TryGetComponent(out TableOrderController order))
+        {
+            order.SetDishActive(_orderData.Seat.SeatId, false);
+        }
     }
     public void Receive(GM07.Order.EQuality quality)
     {

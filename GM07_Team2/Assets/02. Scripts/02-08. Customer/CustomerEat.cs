@@ -13,6 +13,7 @@ public class CustomerEat : CustomerStateBase
             return;
         }
         // 일정 시간 지나면 식사를 마치고 Exit상태로 변경
+        _customer.ClearDish();
         _customer.StateMachine.TransitionTo(_customer.StateMachine.ExitState);
     }
 }
