@@ -14,11 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StaffUpgradeDataBase
   _levelDataList:
   - _cookSpeed: 1
+    _qualityBonus: 0
     _wage: 100
     _upgradeCost: 0
   - _cookSpeed: 1.5
+    _qualityBonus: 0.1
     _wage: 150
     _upgradeCost: 100
   - _cookSpeed: 2
+    _qualityBonus: 0.2
     _wage: 200
     _upgradeCost: 300

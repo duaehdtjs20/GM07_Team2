@@ -66,7 +66,7 @@ public class UI_StaffDetailView : MonoBehaviour
         }
         if(_currentDetails != null)
         {
-            _currentDetails.text = $"{_staff.CookSpeed}\n\n" + $"{_staff.Wage:N0}";
+            _currentDetails.text = $"+{_staff.QualityBonus * 100}\n\n" + $"{_staff.Wage:N0}";
         }
 
         StaffLevelData nextData = _staff.NextLevelData;
@@ -91,7 +91,7 @@ public class UI_StaffDetailView : MonoBehaviour
             else
             {
                 _nextDetails.text =
-                $"{nextData.CookSpeed}\n\n" +
+                $"+{nextData.QualityBonus*100}\n\n" +
                 $"{nextData.Wage:N0}\n\n" +
                 $"{nextData.UpgradeCost:N0}";
             }
