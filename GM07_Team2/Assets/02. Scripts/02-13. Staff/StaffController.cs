@@ -58,7 +58,7 @@ public class StaffController : MonoBehaviour
                 _staff.OnUpgraded += RefreshModel;
             }
         }
-        _animator = transform.GetChild(_upgrade - 1).GetComponent<Animator>();
+        RefreshModel();
         StartCoroutine(StateStreamCo());
     }
     private void OnDestroy()
