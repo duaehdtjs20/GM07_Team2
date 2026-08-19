@@ -85,7 +85,7 @@ namespace GM07.Order
                 return;
             }
             UI_OrderRequestWindowManager.Instance.CloseWindow();
-            _miniGameManager.PlayeRandomGame(order, quality => { _table.CompleteCooking(order, quality); });
+            _miniGameManager.PlayRandomGame(order, quality => { _table.CompleteCooking(order, quality); });
         }
 
         private void OnClickClose()

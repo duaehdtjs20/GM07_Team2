@@ -12,7 +12,7 @@ public class MiniGameManager : MonoBehaviour
     {
         CloseAllMiniGames();
     }
-    public void PlayeRandomGame(OrderData order, Action<EQuality> onCompleted)
+    public void PlayRandomGame(OrderData order, Action<EQuality> onCompleted)
     {
         if(order == null)
         {
