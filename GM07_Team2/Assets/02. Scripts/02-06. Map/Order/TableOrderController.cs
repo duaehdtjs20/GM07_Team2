@@ -32,7 +32,7 @@ namespace GM07.Order
         }
         private void Update()
         {
-            UpdateCookingOrders();
+            //UpdateCookingOrders();
         }
         // 동선님 파트(손님 착석 완료 시점)에서 호출
         // seat: 손님이 착석한 좌석 정보
@@ -54,15 +54,16 @@ namespace GM07.Order
         }
         // 주문 확인 창에서 "요리시작" 눌렀을 때 호출
         // 이미 조리중인 주문이 있으면 무시 (테이블당 요리사 1명)
-        public void StartCooking(OrderData order)
+        public bool StartCooking(OrderData order)
         {
             if (IsCooking || order.State != EOrderState.Waiting)
             {
-                return;
+                return false;
             }
             order.State = EOrderState.Cooking;
             order.CookStartTime = Time.time;
             OnOrderListChanged?.Invoke();
+            return true;
         }
         // 주문 확인 창에서 "서빙" 눌렀을 때 호출
         public void ServeOrder(OrderData order)
@@ -128,6 +129,39 @@ namespace GM07.Order
             {
                 OnOrderListChanged?.Invoke();
             }
+        }
+
+        public void CompleteCooking(OrderData order, EQuality quality)
+        {
+            if (order == null || order.State != EOrderState.Cooking)
+            {
+                return;
+            }
+
+            order.State = EOrderState.Ready;
+            order.Quality = quality;
+
+            if (order.Customer != null)
+            {
+                order.Customer.ShowQualityIcon(order.Quality);
+            }
+
+            /*if (quality == EQuality.Fail)
+            {
+                //실패할경우 손님이 나가도록 설정
+            }
+            else
+            {
+                order.State = EOrderState.Ready;
+                order.Quality = quality;
+
+                if (order.Customer != null)
+                {
+                    order.Customer.ShowQualityIcon(order.Quality);
+                }
+            }*/
+
+            OnOrderListChanged?.Invoke();
         }
     }
 }

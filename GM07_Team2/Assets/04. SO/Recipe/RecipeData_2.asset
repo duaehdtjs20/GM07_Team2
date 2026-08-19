@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RecipeData_2
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
   <RecipeId>k__BackingField: 1
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: c53be0070756b064b913ba3f6c03a41f, type: 3}
+  <IngredientIcon>k__BackingField: {fileID: 21300000, guid: f111d2c3de85f2b4c923aa7d76d041b7, type: 3}
   <Name>k__BackingField: "\uC0C8\uC6B0\uCD08\uBC25"
   <Cost>k__BackingField: 120
   <Price>k__BackingField: 320
