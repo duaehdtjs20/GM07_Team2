@@ -1,31 +1,72 @@
-using System.Collections;
+ï»¿using System.Collections;
 using GM07.Order;
 using UnityEngine;
 using UnityEngine.UI;
 
-// ¼Õ´Ô ¸Ó¸® À§ ¿ùµå ½ºÆäÀÌ½º Äµ¹ö½º¿¡ ºÎÂø. Á¶¸® ¿Ï·á(¿Ï¼ºµµ °áÁ¤) ½ÃÁ¡¿¡
-// TableOrderController ¡æ Customer.ShowQualityIcon()À» °ÅÃÄ È£ÃâµÊ.
-// Æò¼Ò¿¡´Â ºñÈ°¼ºÈ­ »óÅÂ·Î ½ÃÀÛ, ShowQuality() È£Ãâ ½Ã Àá±ñ ¶¹´Ù°¡ ÀÚµ¿À¸·Î »ç¶óÁü.
+// ì†ë‹˜ ë¨¸ë¦¬ ìœ„ ì›”ë“œ ìŠ¤í˜ì´ìŠ¤ ìº”ë²„ìŠ¤ì— ë¶€ì°©. ì¡°ë¦¬ ì™„ë£Œ(ì™„ì„±ë„ ê²°ì •) ì‹œì ì—
+// TableOrderController â†’ Customer.ShowQualityIcon()ì„ ê±°ì³ í˜¸ì¶œë¨.
+// í‰ì†Œì—ëŠ” ë¹„í™œì„±í™” ìƒíƒœë¡œ ì‹œì‘, ShowQuality() í˜¸ì¶œ ì‹œ ì ê¹ ë–´ë‹¤ê°€ ìë™ìœ¼ë¡œ ì‚¬ë¼ì§.
 public class UI_CustomerQualityIcon : MonoBehaviour
 {
     [SerializeField]
     private Image _iconImage;
 
-    // Fail, Normal, Good, Great ¼ø¼­ (EQuality ¼±¾ğ ¼ø¼­¿Í µ¿ÀÏÇÏ°Ô ¸ÂÃâ °Í)
+    // Fail, Normal, Good, Great ìˆœì„œ (EQuality ì„ ì–¸ ìˆœì„œì™€ ë™ì¼í•˜ê²Œ ë§ì¶œ ê²ƒ)
     [SerializeField]
     private Sprite[] _qualityIcons = new Sprite[4];
 
     [SerializeField]
     private float _displayDuration = 1.5f;
 
+
+    // í”Œë ˆì´ì–´ê°€ ë³´ëŠ” ì¿¼í„°ë·° ì¹´ë©”ë¼ â€” ì¸ìŠ¤í™í„°ì—ì„œ ì§ì ‘ ì—°ê²° (ë¹„ì›Œë‘ë©´ Camera.mainìœ¼ë¡œ ìë™ íƒìƒ‰)
+    [SerializeField]
+    private Camera _viewCamera;
+
+    // _followTarget(ì†ë‹˜ ëª¨ë¸) ê¸°ì¤€ ë¨¸ë¦¬ ìœ„ë¡œ ë„ìš¸ ì˜¤í”„ì…‹
+    [SerializeField]
+    private Vector3 _followOffset = new Vector3(0f, 2.0f, 0f);
+
+    private Transform _followTarget;
+
+
     private Coroutine _hideCoroutine;
+
+    private void Start()
+    {
+        if (_viewCamera == null)
+        {
+            _viewCamera = Camera.main;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (_followTarget != null)
+        {
+            transform.position = _followTarget.position + _followOffset;
+        }
+
+        // ì†ë‹˜ì´ ì–´ëŠ ë°©í–¥ìœ¼ë¡œ ì•‰ë“  í•­ìƒ í”Œë ˆì´ì–´ í™”ë©´ ì •ë©´ìœ¼ë¡œ ë³´ì´ê²Œ ì¹´ë©”ë¼ íšŒì „ì„ ê·¸ëŒ€ë¡œ ë”°ë¼ê°
+        if (_viewCamera != null)
+        {
+            transform.rotation = _viewCamera.transform.rotation;
+        }
+    }
+
+    // ì†ë‹˜ ëª¨ë¸ì´ ì •í•´ì§€ëŠ” ì‹œì (Customer.Init)ì— í˜¸ì¶œ â€” ì´í›„ ì´ íŠ¸ëœìŠ¤í¼ì˜ ìœ„ì¹˜ë¥¼ ë”°ë¼ê°
+    public void SetFollowTarget(Transform target)
+    {
+        _followTarget = target;
+    }
+
 
     public void ShowQuality(EQuality quality)
     {
         int index = (int)quality;
         if (index < 0 || index >= _qualityIcons.Length || _qualityIcons[index] == null)
         {
-            Debug.LogWarning($"UI_CustomerQualityIcon: {quality}¿¡ ´ëÀÀÇÏ´Â ¾ÆÀÌÄÜÀÌ ºñ¾îÀÖÀ½");
+            Debug.LogWarning($"UI_CustomerQualityIcon: {quality}ì— ëŒ€ì‘í•˜ëŠ” ì•„ì´ì½˜ì´ ë¹„ì–´ìˆìŒ");
             return;
         }
 

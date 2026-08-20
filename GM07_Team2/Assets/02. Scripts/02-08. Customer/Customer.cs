@@ -78,6 +78,13 @@ public class Customer : MonoBehaviour
         StateMachine = _stateMachines[randomIndex];
         // 활성화 후 위치, 회전, 상태 초기화
         _model.gameObject.SetActive(true);
+
+        // 완성도 아이콘이 이 손님 모델을 따라다니도록 대상 갱신
+        if (_qualityIconUI != null)
+        {
+            _qualityIconUI.SetFollowTarget(_model);
+        }
+
         StartPos = transform.position;
         transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
         StateMachine.Initialize(StateMachine.EnterState);
