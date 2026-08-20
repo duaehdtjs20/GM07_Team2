@@ -14,6 +14,9 @@ public class UI_WasabiGame : UI_MiniGameBase
         Filling,
         Completed,
     }
+    [Header("Order")]
+    [SerializeField]
+    private TMP_Text _nemuName;
     [Header("Timer")]
     [SerializeField]
     private TMP_Text _timer;
@@ -49,9 +52,9 @@ public class UI_WasabiGame : UI_MiniGameBase
     private float _moreSqueezedSpriteThreshold = 0.7f;
     [Header("Wasabi Size")]
     [SerializeField]
-    private Vector2 _minimumSize = new Vector2(35f, 35f);
+    private Vector2 _clearSize;
     [SerializeField]
-    private Vector2 _maximumSize = new Vector2(400f, 300f);
+    private Vector2 _maxSize;
     [Header("Clear Range")]
     [Range(0f, 1f)]
     [SerializeField]
@@ -120,6 +123,7 @@ public class UI_WasabiGame : UI_MiniGameBase
         }
         _order = order;
         _onCompleted = onCompleted;
+        _nemuName.text = order.Recipe.Data.Name;
         _remainingTime = _timeLimit;
         _fillAmount = 0;
         _state = EWasabiState.Waiting;
@@ -129,7 +133,7 @@ public class UI_WasabiGame : UI_MiniGameBase
         }
         if (_wasabiImage != null)
         {
-            _wasabiImage.rectTransform.sizeDelta = _minimumSize;
+            _wasabiImage.rectTransform.sizeDelta = Vector2.zero;
         }
         if(_wasabiTubeImage != null)
         {
@@ -231,7 +235,19 @@ public class UI_WasabiGame : UI_MiniGameBase
         {
             _wasabiTubeImage.sprite = _defaultSprite;
         }
-        _wasabiImage.rectTransform.sizeDelta = Vector2.Lerp(_minimumSize, _maximumSize, _fillAmount);
+
+        Vector2 currentSize;
+        if (_fillAmount <= _targetFill)
+        {
+            float ratio = Mathf.InverseLerp(0f, _targetFill, _fillAmount);
+            currentSize = Vector2.Lerp(Vector2.zero, _clearSize, ratio);
+        }
+        else
+        {
+            float ratio = Mathf.InverseLerp(_targetFill, 1f, _fillAmount);
+            currentSize = Vector2.Lerp(_clearSize, _maxSize, ratio);
+        }
+        _wasabiImage.rectTransform.sizeDelta = currentSize;
     }
     private void EvaluateResult()
     {

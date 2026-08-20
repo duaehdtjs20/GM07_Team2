@@ -15,6 +15,11 @@ public class UI_SushiDropGame : UI_MiniGameBase
         Falling,
         Completed,
     }
+    [Header("Order")]
+    [SerializeField]
+    private TMP_Text _nemuName;
+    [SerializeField]
+    private Image _ingredientIcon;
     [Header("Play Area")]
     [SerializeField]
     private RectTransform _playArea;
@@ -74,6 +79,7 @@ public class UI_SushiDropGame : UI_MiniGameBase
     private float _remainingTime;
     private float _totalAlignmentScore = 0;
 
+    #region Init
     private void OnEnable()
     {
         if (_dropButton != null)
@@ -98,6 +104,7 @@ public class UI_SushiDropGame : UI_MiniGameBase
             _completeCoroutine = null;
         }
     }
+    #endregion
     private void Update()
     {
         if (_state == EDropState.None || _state == EDropState.Completed)
@@ -131,6 +138,8 @@ public class UI_SushiDropGame : UI_MiniGameBase
         ClearGame();
         _order = order;
         _onCompleted = onCompleted;
+        _nemuName.text = order.Recipe.Data.Name;
+        _ingredientIcon.sprite = order.Recipe.Data.IngredientIcon;
         _remainingTime = _timeLimit;
         _ingredientIndex = 0;
         _horizontalDirection = 1;

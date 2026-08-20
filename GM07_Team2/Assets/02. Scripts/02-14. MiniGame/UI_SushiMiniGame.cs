@@ -21,6 +21,10 @@ public class UI_SushiMiniGame : UI_MiniGameBase
     private GameObject _orderSheet;
     [SerializeField]
     private TMP_Text _nemuName;
+    [SerializeField]
+    private Image _orderIcon;
+    [SerializeField]
+    private Image _ingredientIcon;
     [Header("Timer")]
     [SerializeField]
     private TMP_Text _timer;
@@ -65,6 +69,8 @@ public class UI_SushiMiniGame : UI_MiniGameBase
         _currentStep = EStep.Rice;
         _remainingTime = _timeLimit;
         _nemuName.text = order.Recipe.Data.Name;
+        _orderIcon.sprite = order.Recipe.Data.Icon;
+        _ingredientIcon.sprite = order.Recipe.Data.IngredientIcon;
         _lineImage.SetActive(true);
         _riceImage.SetActive(false);
         _wasabiImage.SetActive(false);
