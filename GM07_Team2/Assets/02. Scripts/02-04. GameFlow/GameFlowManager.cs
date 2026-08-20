@@ -1,4 +1,5 @@
 using GM07.Map;
+using GM07.Order;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class GameFlowManager : MonoBehaviour
         {
             _tableManager.OnAllTablesEmpty += OnAllTablesEmpty;
         }
+        UI_OrderRequestWindowManager.Instance?.SwitchBlockWindow(true);
     }
     private void OnDisable()
     {
@@ -44,7 +46,7 @@ public class GameFlowManager : MonoBehaviour
     {
         StopOpenCo();
 
-        CurrentDay = day;
+        CurrentDay = Mathf.Max(1, day);
         RemainingTime = _openDuration;
         GameState = EGameState.Preparing;
 
@@ -61,6 +63,7 @@ public class GameFlowManager : MonoBehaviour
 
         RemainingTime = _openDuration;
         SetGameState(EGameState.Open);
+        UI_OrderRequestWindowManager.Instance?.SwitchBlockWindow(false);
 
         _openCoroutine = StartCoroutine(OpenCo());
     }
@@ -95,6 +98,8 @@ public class GameFlowManager : MonoBehaviour
         }
 
         SetGameState(EGameState.Close);
+        UI_OrderRequestWindowManager.Instance?.CloseWindow();
+        UI_OrderRequestWindowManager.Instance?.SwitchBlockWindow(true);
     }
 
     private void StopOpenCo()
