@@ -33,6 +33,7 @@ public class Customer : MonoBehaviour
     public Table Table { get; private set; }
     public Seat Seat { get; private set; }
     public Vector3 StartPos { get; private set; }
+    public EQuality Quality => _quality;
     public bool IsWaited => _waitTimer >= _data.WaitTime;
     public bool IsAte => _eatTimer >= _data.EatTime;
     public bool IsReceived { get; private set; }
