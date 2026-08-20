@@ -28,6 +28,7 @@ public class GameFlowManager : MonoBehaviour
         {
             _tableManager.OnAllTablesEmpty += OnAllTablesEmpty;
         }
+        UI_OrderRequestWindowManager.Instance?.SwitchBlockWindow(true);
     }
     private void OnDisable()
     {
@@ -45,7 +46,7 @@ public class GameFlowManager : MonoBehaviour
     {
         StopOpenCo();
 
-        CurrentDay = day;
+        CurrentDay = Mathf.Max(1, day);
         RemainingTime = _openDuration;
         GameState = EGameState.Preparing;
 
