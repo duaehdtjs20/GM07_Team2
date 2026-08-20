@@ -23,13 +23,13 @@ public class HostessAnim : MonoBehaviour
 
         }
     }
-    //private void Update()
-    //{
-    //    if(Physics.OverlapBox(transform.position + _center, _size, Quaternion.identity, _customerLayer).Length > 0)
-    //    {
-    //        Greeting();
-    //    }
-    //}
+    private void Update()
+    {
+        if (Physics.OverlapBox(transform.position + _center, _size, Quaternion.identity, _customerLayer).Length > 0)
+        {
+            Greeting();
+        }
+    }
     private void Greeting()
     {
         if (_isGreeted)
@@ -45,9 +45,9 @@ public class HostessAnim : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         _isGreeted = false;
     }
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawWireCube(transform.position + _center, _size);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position + _center, _size);
+    }
 }

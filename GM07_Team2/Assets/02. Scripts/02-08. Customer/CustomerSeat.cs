@@ -21,14 +21,14 @@ public class CustomerSeat : CustomerStateBase
             _customer.StateMachine.TransitionTo(_customer.StateMachine.EatState);
             return;
         }
-        //// WaitTime 만큼 기다린 경우
-        //if (_customer.IsWaited)
-        //{
-        //    _customer.CancelOrder();
-        //    _customer.StateMachine.TransitionTo(_customer.StateMachine.ExitState);
-        //    return;
-        //}
-        //// 기다리기
-        //_customer.Waiting();
+        // WaitTime 만큼 기다린 경우
+        if (_customer.IsWaited)
+        {
+            _customer.CancelOrder();
+            _customer.StateMachine.TransitionTo(_customer.StateMachine.ExitState);
+            return;
+        }
+        // 기다리기
+        _customer.Waiting();
     }
 }
