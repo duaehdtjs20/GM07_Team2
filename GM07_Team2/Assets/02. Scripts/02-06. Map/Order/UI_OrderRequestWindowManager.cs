@@ -8,8 +8,14 @@ namespace GM07.Order
         [SerializeField]
         private UI_OrderRequestWindow _orderRequestWindow;
 
+        private bool _isBlock = false;
         public void OpenWindow(TableOrderController table)
         {
+            if (_isBlock)
+            {
+                return;
+            }
+
             _orderRequestWindow.gameObject.SetActive(true);
             _orderRequestWindow.InitWindow(table);
         }
@@ -18,5 +24,11 @@ namespace GM07.Order
         {
             _orderRequestWindow.gameObject.SetActive(false);
         }
+
+        public void SwitchBlockWindow(bool isBlock) 
+        {
+            _isBlock = isBlock;
+        }
+
     }
 }
