@@ -64,6 +64,11 @@ public class UI_SushiMiniGame : UI_MiniGameBase
 
     public override void Open(OrderData order, Action<EQuality> onCompleted)
     {
+        if (order == null || order.Recipe == null || order.Recipe.Data == null)
+        {
+            onCompleted?.Invoke(EQuality.Fail);
+            return;
+        }
         _order = order;
         _onCompleted = onCompleted;
         _currentStep = EStep.Rice;

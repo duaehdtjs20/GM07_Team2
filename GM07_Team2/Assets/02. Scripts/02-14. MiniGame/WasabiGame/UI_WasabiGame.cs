@@ -17,6 +17,8 @@ public class UI_WasabiGame : UI_MiniGameBase
     [Header("Order")]
     [SerializeField]
     private TMP_Text _nemuName;
+    [SerializeField]
+    private Image _orderIcon;
     [Header("Timer")]
     [SerializeField]
     private TMP_Text _timer;
@@ -112,8 +114,9 @@ public class UI_WasabiGame : UI_MiniGameBase
     }
     public override void Open(OrderData order, Action<EQuality> onCompleted)
     {
-        if(order == null)
+        if (order == null || order.Recipe == null || order.Recipe.Data == null)
         {
+            onCompleted?.Invoke(EQuality.Fail);
             return;
         }
         if (_completeCoroutine != null)
@@ -124,6 +127,7 @@ public class UI_WasabiGame : UI_MiniGameBase
         _order = order;
         _onCompleted = onCompleted;
         _nemuName.text = order.Recipe.Data.Name;
+        _orderIcon.sprite = order.Recipe.Data.Icon;
         _remainingTime = _timeLimit;
         _fillAmount = 0;
         _state = EWasabiState.Waiting;

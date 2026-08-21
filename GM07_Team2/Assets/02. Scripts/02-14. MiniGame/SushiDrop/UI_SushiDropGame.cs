@@ -19,6 +19,8 @@ public class UI_SushiDropGame : UI_MiniGameBase
     [SerializeField]
     private TMP_Text _nemuName;
     [SerializeField]
+    private Image _orderIcon;
+    [SerializeField]
     private Image _ingredientIcon;
     [Header("Play Area")]
     [SerializeField]
@@ -139,6 +141,7 @@ public class UI_SushiDropGame : UI_MiniGameBase
         _order = order;
         _onCompleted = onCompleted;
         _nemuName.text = order.Recipe.Data.Name;
+        _orderIcon.sprite = order.Recipe.Data.Icon;
         _ingredientIcon.sprite = order.Recipe.Data.IngredientIcon;
         _remainingTime = _timeLimit;
         _ingredientIndex = 0;
@@ -463,12 +466,10 @@ public class UI_SushiDropGame : UI_MiniGameBase
     }
     private float GetStaffQualityBonus()
     {
-        if (_order == null ||
-        _order.Staff == null)
+        if (_order == null || _order.Staff == null)
         {
             return 0f;
         }
-
         return _order.Staff.QualityBonus;
     }
     #endregion
