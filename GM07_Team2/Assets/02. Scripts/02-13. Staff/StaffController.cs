@@ -58,7 +58,7 @@ public class StaffController : MonoBehaviour
                 _staff.OnUpgraded += RefreshModel;
             }
         }
-        _animator = transform.GetChild(_upgrade - 1).GetComponent<Animator>();
+        RefreshModel();
         StartCoroutine(StateStreamCo());
     }
     private void OnDestroy()
@@ -82,13 +82,13 @@ public class StaffController : MonoBehaviour
                 {
                     yield return MoveCo(_cookPos);
                     ObjectActivate(true);
-                    yield return StateCo("Cook", 8.0f);
+                    yield return StateCo("Cook", Random.Range(6.0f, 10.0f));
                     ObjectActivate(false);
                 }
                 else
                 {
                     yield return MoveCo(_washPos);
-                    yield return StateCo("Wash", 2.0f);
+                    yield return StateCo("Wash", Random.Range(1.0f, 3.0f));
                 }
                 _switching = !_switching;
             }

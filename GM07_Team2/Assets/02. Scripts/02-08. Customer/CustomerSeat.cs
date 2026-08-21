@@ -15,20 +15,32 @@ public class CustomerSeat : CustomerStateBase
     }
     public override void Update()
     {
-        // 음식을 받으면 식사 상태로 변경
+        // 음식을 받은 경우
         if (_customer.IsReceived)
         {
-            _customer.StateMachine.TransitionTo(_customer.StateMachine.EatState);
+            // 음식 실패 시 접시 치우고 화냄
+            if (_customer.Quality == GM07.Order.EQuality.Fail)
+            {
+                _customer.ClearDish();
+                _customer.StateMachine.TransitionTo(_customer.StateMachine.AngryState);
+            }
+            // 나머지 경우 먹기
+            else
+            {
+                _customer.StateMachine.TransitionTo(_customer.StateMachine.EatState);
+            }
             return;
         }
-        //// WaitTime 만큼 기다린 경우
-        //if (_customer.IsWaited)
-        //{
-        //    _customer.CancelOrder();
-        //    _customer.StateMachine.TransitionTo(_customer.StateMachine.ExitState);
-        //    return;
-        //}
-        //// 기다리기
-        //_customer.Waiting();
+        // WaitTime 만큼 기다린 경우
+        if (_customer.IsWaited)
+        {
+            // 주문 취소 후 화내기
+            _customer.CancelOrder();
+            _customer.ShowQualityIcon(GM07.Order.EQuality.Fail);
+            _customer.StateMachine.TransitionTo(_customer.StateMachine.AngryState);
+            return;
+        }
+        // 기다리기
+        _customer.Waiting();
     }
 }

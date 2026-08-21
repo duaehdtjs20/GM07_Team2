@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8284137949899347943}
   - component: {fileID: 1252590175009356664}
   - component: {fileID: 4313729297909058037}
-  m_Layer: 0
+  - component: {fileID: 6218924159639375924}
+  m_Layer: 6
   m_Name: Customer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,6 +73,27 @@ MonoBehaviour:
   _modelDatas: {fileID: 11400000, guid: e95537b2b042c63419532f3479d98fd7, type: 2}
   _qualityIconUI: {fileID: 5564690689427466014}
   _agent: {fileID: 1252590175009356664}
+--- !u!65 &6218924159639375924
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276700891561280678}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6328244542130087899
 GameObject:
   m_ObjectHideFlags: 0
