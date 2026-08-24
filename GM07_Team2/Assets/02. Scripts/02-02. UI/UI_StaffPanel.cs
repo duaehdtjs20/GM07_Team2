@@ -47,6 +47,10 @@ public class UI_StaffPanel : MonoBehaviour
             view.Bind(staff, _staffDetailView);
             _staffViews.Add(view);
         }
+        if(_staffViews.Count > 0)
+        {
+            _staffViews[0].OnClick();
+        }
     }
     private void ClearStaffViews()
     {
