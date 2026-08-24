@@ -241,7 +241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8712540592096809436
 RectTransform:
   m_ObjectHideFlags: 0
@@ -291,22 +291,25 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8e205cfb711c9a49a17ef30f891736a, type: 3}
   - {fileID: 21300000, guid: 9a26414893e74c04bba6a1aa11dbaf31, type: 3}
   _requiredSetCount: 2
-  _distractorCount: 8
-  _spawnInterval: 0.55
+  _distractorCount: 5
+  _spawnInterval: 0.3
   _minimumThrowSpeed: 750
   _maximumThrowSpeed: 950
   _maximumHorizontalSpeed: 180
   _gravity: 900
   _minimumRotationSpeed: -180
   _maximumRotationSpeed: 180
-  _spawnBottomOffset: -70
+  _spawnBottomOffset: 70
   _correctSliceScore: 20
   _wrongToppingPenalty: 10
   _junkPenalty: 15
-  _sliceLinePrefab: {fileID: 0}
-  _sliceLineWidth: 0
-  _maximumSliceLineLength: 0
+  _sliceLinePrefab: {fileID: 6130848915234787523, guid: 5870510be70cc4248a5b82895b2d9925, type: 3}
+  _sliceLineWidth: 100
+  _maximumSliceLineLength: 200
   _minimumSliceDistance: 80
+  _riceToggle: {fileID: 7528757204427716719}
+  _wasabiToggle: {fileID: 2463668561111990081}
+  _fishToggle: {fileID: 1015163818771175778}
   _greatScore: 70
   _goodScore: 50
   _normalScore: 30
@@ -1467,7 +1470,7 @@ GameObject:
   - component: {fileID: 157442335276343701}
   - component: {fileID: 2463668561111990081}
   m_Layer: 5
-  m_Name: Toggle (1)
+  m_Name: ToggleWasabi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2615,7 +2618,7 @@ GameObject:
   - component: {fileID: 1482597216941945481}
   - component: {fileID: 1015163818771175778}
   m_Layer: 5
-  m_Name: Toggle (2)
+  m_Name: ToggleFish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2779,7 +2782,7 @@ GameObject:
   - component: {fileID: 8264059369074268506}
   - component: {fileID: 7528757204427716719}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: ToggleRice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

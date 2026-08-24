@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -74,6 +73,13 @@ public class UI_SushiSliceGame : UI_MiniGameBase
     private float _maximumSliceLineLength;
     [SerializeField]
     private float _minimumSliceDistance;
+    [Header("Toggle")]
+    [SerializeField]
+    private Toggle _riceToggle;
+    [SerializeField]
+    private Toggle _wasabiToggle;
+    [SerializeField]
+    private Toggle _fishToggle;
     [Header("Quality")]
     [SerializeField]
     private int _greatScore;
@@ -109,6 +115,9 @@ public class UI_SushiSliceGame : UI_MiniGameBase
     private Vector2 _previousPointerPosition;
     private float _currentSliceLineLength;
 
+    private bool _hasSlicedRice;
+    private bool _hasSlicedWasabi;
+    private bool _hasSlicedFish;
     private void Update()
     {
         if(_state != ESlice.Playing)
@@ -164,10 +173,8 @@ public class UI_SushiSliceGame : UI_MiniGameBase
         _state = ESlice.Playing;
         BuildWrongToppingList();
         BuildSpawnPlan();
-        if(_resultUI != null)
-        {
-            _resultUI.gameObject.SetActive(false);
-        }
+        _resultUI.gameObject?.SetActive(false);
+        SetAllToggle(false);
         gameObject.SetActive(true);
         _spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }
@@ -287,6 +294,7 @@ public class UI_SushiSliceGame : UI_MiniGameBase
             return;
         }
         _activeObjects.Remove(sliceObject);
+        SetToggle(sliceObject.SliceObjectType);
         switch (sliceObject.SliceObjectType)
         {
             case ESliceObjectType.Rice:
@@ -415,7 +423,7 @@ public class UI_SushiSliceGame : UI_MiniGameBase
         lineRect.anchorMin = lineRect.anchorMax = new Vector2(0.5f, 0.5f);
         lineRect.pivot = new Vector2(0.5f, 0.5f);
         lineRect.anchoredPosition = (localStart + localEnd) * 0.5f;
-        lineRect.sizeDelta = new Vector2(length, _sliceLineWidth);
+        lineRect.sizeDelta = new Vector2(length + 16f, _sliceLineWidth);
         lineRect.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         lineRect.SetAsLastSibling();
         _sliceLines.Add(line);
@@ -426,8 +434,24 @@ public class UI_SushiSliceGame : UI_MiniGameBase
             _sliceLines.RemoveAt(0);
             if (oldestLine != null)
             {
-                _currentSliceLineLength -= oldestLine.rectTransform.sizeDelta.x;
+                _currentSliceLineLength -= oldestLine.rectTransform.sizeDelta.x - 16;
                 Destroy(oldestLine.gameObject);
+            }
+        }
+        RefreshSliceLine();
+    }
+    private void RefreshSliceLine()
+    {
+        int count = _sliceLines.Count;
+        for(int i=0;i<count; i++)
+        {
+            Image line = _sliceLines[i];
+            if(line != null)
+            {
+                float ratio = count <= 1 ? 1f : (float)i / (count - 1);
+                float smoothRatio = Mathf.SmoothStep(0f, 1f, ratio);
+                RectTransform rect = line.rectTransform;
+                rect.sizeDelta = new Vector2(rect.sizeDelta.x, Mathf.Lerp(1f, _sliceLineWidth, smoothRatio));
             }
         }
     }
@@ -481,6 +505,10 @@ public class UI_SushiSliceGame : UI_MiniGameBase
     }
     private EQuality CalculateQuality(float totalScore)
     {
+        if(!(_hasSlicedRice && _hasSlicedWasabi && _hasSlicedFish))
+        {
+            return EQuality.Fail;
+        }
         if (totalScore >= _greatScore)
         {
             return EQuality.Great;
@@ -515,6 +543,34 @@ public class UI_SushiSliceGame : UI_MiniGameBase
         ClearObjects();
         callback?.Invoke(quality);
         gameObject.SetActive(false);
+    }
+    private void SetAllToggle(bool toggle)
+    {
+        _hasSlicedRice = toggle;
+        _hasSlicedWasabi = toggle;
+        _hasSlicedFish = toggle;
+
+        _riceToggle?.SetIsOnWithoutNotify(toggle);
+        _wasabiToggle?.SetIsOnWithoutNotify(toggle);
+        _fishToggle?.SetIsOnWithoutNotify(toggle);
+    }
+    private void SetToggle(ESliceObjectType type)
+    {
+        switch (type)
+        {
+            case ESliceObjectType.Rice:
+                _hasSlicedRice = true;
+                _riceToggle?.SetIsOnWithoutNotify(true);
+                break;
+            case ESliceObjectType.Wasabi:
+                _hasSlicedWasabi = true;
+                _wasabiToggle?.SetIsOnWithoutNotify(true);
+                break;
+            case ESliceObjectType.Fish:
+                _hasSlicedFish = true;
+                _fishToggle?.SetIsOnWithoutNotify(true);
+                break;
+        }
     }
 }
 public enum ESliceObjectType

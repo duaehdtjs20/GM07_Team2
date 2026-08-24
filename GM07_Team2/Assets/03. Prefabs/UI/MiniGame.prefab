@@ -151,10 +151,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WasabiGame
       objectReference: {fileID: 0}
-    - target: {fileID: 5392300371124801483, guid: 803ee6a86a8e07a40b4b7b569e6a7bdb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -500,10 +496,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SushiSliceGame
       objectReference: {fileID: 0}
-    - target: {fileID: 707994572668817404, guid: aee63e84b383c754d801de7ed43b2c60, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5754804818245186056, guid: aee63e84b383c754d801de7ed43b2c60, type: 3}
       propertyPath: _resultUI
       value: 
@@ -700,10 +692,6 @@ PrefabInstance:
     - target: {fileID: 5546918136487801221, guid: 333cf3b8b8a75bc4bb5ca021dae1b025, type: 3}
       propertyPath: m_Name
       value: SushiDropGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 5546918136487801221, guid: 333cf3b8b8a75bc4bb5ca021dae1b025, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6148800670471072986, guid: 333cf3b8b8a75bc4bb5ca021dae1b025, type: 3}
       propertyPath: _resultUI

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -43,7 +44,14 @@ public class UI_MainGame : MonoBehaviour
     [SerializeField]
     private GameObject _preparingPanel;
 
+    [Header("Effect")]
+    [SerializeField]
+    private List<EffectBase> _effectList = new();
+    [SerializeField]
+    private float _effectInterval;
+
     private List<TMP_Text> _moneyChangeList = new();
+    private Sequence _entranceSequence;
 
     private const int OpenHour = 10;
     private const int CloseHour = 21;
@@ -71,9 +79,16 @@ public class UI_MainGame : MonoBehaviour
         RefreshGameState(_gameFlowManager.GameState);
         RefreshDay(_gameFlowManager.CurrentDay);
         RefreshPreparingPanel(_gameFlowManager.GameState);
+        PlayEffect();
     }
     private void OnDisable()
     {
+        _entranceSequence?.Kill();
+        _entranceSequence = null;
+        foreach(EffectBase effect in _effectList)
+        {
+            effect?.Kill();
+        }
         if (_gameFlowManager == null)
         {
             return;
@@ -263,6 +278,21 @@ public class UI_MainGame : MonoBehaviour
     private void OnClickNextDay()
     {
         _gameFlowManager.OnClickNextDay();
+    }
+    #endregion
+
+    #region Effect
+    private Sequence PlayEffect()
+    {
+        _entranceSequence?.Kill();
+        _entranceSequence = DOTween.Sequence().SetUpdate(true).SetLink(gameObject);
+        for(int i=0;i<_effectList.Count;i++)
+        {
+            EffectBase effect = _effectList[i];
+            Tween tween = effect.Play();
+            _entranceSequence.Insert(i*_effectInterval, tween);
+        }
+        return _entranceSequence;
     }
     #endregion
 }
