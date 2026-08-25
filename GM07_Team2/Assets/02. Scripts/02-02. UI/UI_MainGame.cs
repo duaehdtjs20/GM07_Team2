@@ -46,12 +46,17 @@ public class UI_MainGame : MonoBehaviour
 
     [Header("Effect")]
     [SerializeField]
-    private List<EffectBase> _effectList = new();
+    private EffectBase _startSceneEffect;
     [SerializeField]
-    private float _effectInterval;
+    private EffectBase _openEffect;
+    [SerializeField]
+    private EffectBase _closeEffect;
+    [SerializeField]
+    private EffectBase _preparingEffect;
 
     private List<TMP_Text> _moneyChangeList = new();
-    private Sequence _entranceSequence;
+    private bool _isOpening;
+    private bool _isClosing;
 
     private const int OpenHour = 10;
     private const int CloseHour = 21;
@@ -79,16 +84,10 @@ public class UI_MainGame : MonoBehaviour
         RefreshGameState(_gameFlowManager.GameState);
         RefreshDay(_gameFlowManager.CurrentDay);
         RefreshPreparingPanel(_gameFlowManager.GameState);
-        PlayEffect();
+        _startSceneEffect?.Play();
     }
     private void OnDisable()
     {
-        _entranceSequence?.Kill();
-        _entranceSequence = null;
-        foreach(EffectBase effect in _effectList)
-        {
-            effect?.Kill();
-        }
         if (_gameFlowManager == null)
         {
             return;
@@ -115,6 +114,10 @@ public class UI_MainGame : MonoBehaviour
         {
             _gameStateText.text = GetGameStateText(gameState, out Color color);
             _gameStateText.color = color;
+        }
+        if(gameState == EGameState.Close)
+        {
+            _closeEffect?.Play();
         }
     }
     private void RefreshPreparingPanel(EGameState gameState)
@@ -257,10 +260,17 @@ public class UI_MainGame : MonoBehaviour
         if (_openButton != null)
         {
             _openButton.gameObject.SetActive(isPreparing);
+            _openButton.interactable = isPreparing;
         }
         if (_homeButton != null)
         {
             _homeButton.gameObject.SetActive(isPreparing);
+            _homeButton.interactable = true;
+        }
+        if(_nextdayButton != null)
+        {
+            _nextdayButton.gameObject.SetActive(isClosed);
+            _nextdayButton.interactable = true;
         }
         if (_closePanel != null)
         {
@@ -273,26 +283,45 @@ public class UI_MainGame : MonoBehaviour
     }
     private void OnClickOpen()
     {
+        if (_isOpening)
+        {
+            return;
+        }
+        _isOpening = true;
+        _openButton.interactable = false;
+        Tween tween = _openEffect?.Play();
+        if(tween == null)
+        {
+            CompleteOpen();
+            return;
+        }
+        tween.OnComplete(CompleteOpen);
+    }
+    private void CompleteOpen()
+    {
         _gameFlowManager.OnClickOpen();
+        _isOpening = false;
     }
     private void OnClickNextDay()
     {
-        _gameFlowManager.OnClickNextDay();
-    }
-    #endregion
-
-    #region Effect
-    private Sequence PlayEffect()
-    {
-        _entranceSequence?.Kill();
-        _entranceSequence = DOTween.Sequence().SetUpdate(true).SetLink(gameObject);
-        for(int i=0;i<_effectList.Count;i++)
+        if (_isClosing)
         {
-            EffectBase effect = _effectList[i];
-            Tween tween = effect.Play();
-            _entranceSequence.Insert(i*_effectInterval, tween);
+            return;
         }
-        return _entranceSequence;
+        _isClosing = true;        
+        _nextdayButton.interactable= false;
+        Tween tween = _preparingEffect?.Play();
+        if (tween == null)
+        {
+            CompleteNextDay();
+            return;
+        }
+        tween.OnComplete(CompleteNextDay);
+    }
+    private void CompleteNextDay()
+    {
+        _gameFlowManager.OnClickNextDay();
+        _isClosing = false;
     }
     #endregion
 }
