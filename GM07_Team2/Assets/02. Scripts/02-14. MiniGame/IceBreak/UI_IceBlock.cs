@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class UI_IceBlock : MonoBehaviour, IPointerClickHandler
+public class UI_IceBlock : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private Image _image;
@@ -21,25 +21,19 @@ public class UI_IceBlock : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void OnEnable()
-    {
-        if(_game != null)
-        {
-            _game.OnChanged += Refresh;
-        }
-    }
-    private void OnDisable()
-    {
-        if(_game != null)
-        {
-            _game.OnChanged -= Refresh;
-        }
-    }
     public void Bind(UI_IceBreakGame game, int x, int y)
     {
         _game = game;
         _x = x;
         _y = y;
+        _game.OnChanged += Refresh;
+    }
+    private void OnDestroy()
+    {
+        if(_game != null)
+        {
+            _game.OnChanged -= Refresh;
+        }
     }
     public void Refresh()
     {
@@ -63,5 +57,15 @@ public class UI_IceBlock : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         _game.BreakBlock(_x, _y);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _game.EnterBlock(_x, _y);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _game.ExitBlock(_x, _y);
     }
 }
