@@ -63,7 +63,10 @@ public class UI_RecipePanel : MonoBehaviour
             view.Draw();
             _recipeViews.Add(view);
         }
-
+        if(_recipeViews.Count > 0)
+        {
+            _recipeViews[0].OnClick();
+        }
         if(_previousButton != null)
         {
             _previousButton.interactable = _currentPage > 0;
