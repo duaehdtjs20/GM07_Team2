@@ -970,6 +970,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1085892271}
     m_Modifications:
+    - target: {fileID: 2936856303547384457, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 222.6968
+      objectReference: {fileID: 0}
     - target: {fileID: 3078696610239843990, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1077,6 +1081,26 @@ PrefabInstance:
     - target: {fileID: 6125647376112613753, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -392.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666914376746203633, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666914376746203633, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666914376746203633, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1088.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666914376746203633, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 544.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666914376746203633, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -111.3484
       objectReference: {fileID: 0}
     - target: {fileID: 8022431593160514616, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
       propertyPath: m_Name
@@ -2004,8 +2028,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PreparingEffect
   _closePanel: {fileID: 7710086044700178828}
-  _exitButton: {fileID: 1111801136}
   _nextButton: {fileID: 1565732421}
+  _upgradeButtons: {fileID: 1158282440}
+  _startButtons: {fileID: 1553693772}
 --- !u!114 &1103095954 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8037885548490636618, guid: a8174b5eeff1cbe4795e82dfb16d29dc, type: 3}
@@ -3648,10 +3673,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniGame
       objectReference: {fileID: 0}
-    - target: {fileID: 2887289810820253752, guid: 89e3a7c8b040581428782a12a6385f77, type: 3}
-      propertyPath: _maximumSliceLineLength
-      value: 250
-      objectReference: {fileID: 0}
     - target: {fileID: 3551949891066504978, guid: 89e3a7c8b040581428782a12a6385f77, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4127,6 +4148,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -49.18799
       objectReference: {fileID: 0}
+    - target: {fileID: 571579034395599660, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 571579034395599660, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 571579034395599660, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 571579034395599660, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 571579034395599660, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 571579034395599660, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 2152
+      objectReference: {fileID: 0}
+    - target: {fileID: 571579034395599660, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 1174326490595005873, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -4175,6 +4224,10 @@ PrefabInstance:
       propertyPath: _moneyChangeText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1792538340387495705, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: _preparingEffect
+      value: 
+      objectReference: {fileID: 1085892279}
     - target: {fileID: 1792538340387495705, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: _startSceneEffect
       value: 
