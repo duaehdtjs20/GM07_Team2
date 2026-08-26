@@ -2027,7 +2027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3672181695903720723
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2071,7 +2071,13 @@ MonoBehaviour:
   _wasabiObject: {fileID: 766233371455532387}
   _fishObject: {fileID: 5253437843864731725}
   _dropButton: {fileID: 1082026560393737602}
-  _horizontalSpeed: 800
+  _levelSettings:
+  - _menuGrade: 0
+    _horizontalSpeed: 800
+  - _menuGrade: 1
+    _horizontalSpeed: 1000
+  - _menuGrade: 2
+    _horizontalSpeed: 1200
   _fallSpeed: 800
   _minimumOverlapRatio: 0.25
   _timer: {fileID: 2607745537907666598}

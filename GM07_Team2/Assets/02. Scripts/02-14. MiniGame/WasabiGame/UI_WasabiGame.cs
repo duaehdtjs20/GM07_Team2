@@ -45,6 +45,8 @@ public class UI_WasabiGame : UI_MiniGameBase
     private Sprite _squeezedSprite;
     [SerializeField]
     private Sprite _moreSqueezedSprite;
+    [SerializeField]
+    private GameObject _mosaicImage;
     [Header("Sprite Threshold")]
     [Range(0f, 1f)]
     [SerializeField]
@@ -134,6 +136,7 @@ public class UI_WasabiGame : UI_MiniGameBase
         if (_gaugeImage != null)
         {
             _gaugeImage.fillAmount = 0f;
+            _gaugeImage.gameObject.SetActive(order.Recipe.Data.MenuGrade == EMenuGrade.Low);
         }
         if (_wasabiImage != null)
         {
@@ -187,7 +190,10 @@ public class UI_WasabiGame : UI_MiniGameBase
         {
             return;
         }
-
+        if(_order.Recipe.Data.MenuGrade == EMenuGrade.High)
+        {
+            _mosaicImage.SetActive(true);
+        }
         _state = EWasabiState.Filling;
     }
 
@@ -200,7 +206,10 @@ public class UI_WasabiGame : UI_MiniGameBase
         {
             return;
         }
-
+        if (_order.Recipe.Data.MenuGrade == EMenuGrade.High)
+        {
+            _mosaicImage.SetActive(false);
+        }
         EvaluateResult();
     }
     private void FillGauge()

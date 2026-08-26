@@ -42,6 +42,9 @@ public class UI_SequenceGame : UI_MiniGameBase
     [Header("Result")]
     [SerializeField]
     private UI_MiniGameResult _resultUI;
+    [Header("Level Setting")]
+    [SerializeField]
+    private List<SequenceLevel> _levelSettings = new();
 
     private readonly List<int> _sequence = new();
     private OrderData _order;
@@ -51,6 +54,8 @@ public class UI_SequenceGame : UI_MiniGameBase
     private ESequenceState _state;
     private int _inputIndex;
     private float _remainingTime;
+    private SequenceLevel _currentLevel;
+    private int _activePlateCount;
 
     private void Update()
     {
@@ -99,6 +104,8 @@ public class UI_SequenceGame : UI_MiniGameBase
         _inputIndex = 0;
         _remainingTime = _timeLimit;
         _state = ESequenceState.Memorizing;
+        _currentLevel = GetLevel(order.Recipe.Data.MenuGrade);
+        _activePlateCount = _currentLevel.PlateCount;
 
         if (_menuName != null) _menuName.text = order.Recipe.Data.Name;
         if (_orderIcon != null) _orderIcon.sprite = order.Recipe.Data.Icon;
@@ -114,13 +121,18 @@ public class UI_SequenceGame : UI_MiniGameBase
     {
         for (int i = 0; i < _plates.Count; i++)
         {
-            _plates[i].Bind(i, _order.Recipe.Data.Icon, OnPlateClicked);
+            bool isActive = i < _activePlateCount;
+            _plates[i].gameObject.SetActive(isActive);
+            if (isActive)
+            {
+                _plates[i].Bind(i, _order.Recipe.Data.Icon, OnPlateClicked);
+            }
         }
     }
     private void BuildSequence()
     {
         _sequence.Clear();
-        for (int i = 0; i < _plates.Count; i++)
+        for (int i = 0; i < _activePlateCount; i++)
         {
             _sequence.Add(i);
         }
@@ -147,7 +159,7 @@ public class UI_SequenceGame : UI_MiniGameBase
         {
             UI_SequencePlate plate = _plates[_sequence[i]];
             plate.SetOrderText(i + 1);
-            yield return new WaitForSecondsRealtime(0.3f);
+            yield return new WaitForSecondsRealtime(_currentLevel.OrderDisplayDuration);
             plate.ResetOrder();
         }
         SetPlateInteractable(true);
@@ -247,4 +259,29 @@ public class UI_SequenceGame : UI_MiniGameBase
         }
         return _order.Staff.QualityBonus;
     }
+    private SequenceLevel GetLevel(EMenuGrade grade)
+    {
+        foreach(SequenceLevel level in _levelSettings)
+        {
+            if(level.MenuGrade == grade)
+            {
+                return level;
+            }
+        }
+        return null;
+    }
+}
+[Serializable]
+public class SequenceLevel
+{
+    [SerializeField]
+    private EMenuGrade _menuGrade;
+    [SerializeField]
+    private int _plateCount;
+    [SerializeField]
+    private float _orderDisplayDuration;
+
+    public EMenuGrade MenuGrade => _menuGrade;
+    public int PlateCount => _plateCount;
+    public float OrderDisplayDuration => _orderDisplayDuration;
 }

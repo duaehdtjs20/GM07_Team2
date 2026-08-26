@@ -25,6 +25,10 @@ public class UI_SushiMiniGame : UI_MiniGameBase
     private Image _orderIcon;
     [SerializeField]
     private Image _ingredientIcon;
+    [SerializeField]
+    private GameObject _hideStepImage;
+    [SerializeField]
+    private GameObject _hideOrderImage;
     [Header("Timer")]
     [SerializeField]
     private TMP_Text _timer;
@@ -81,6 +85,8 @@ public class UI_SushiMiniGame : UI_MiniGameBase
         _wasabiImage.SetActive(false);
         _sushiImage.gameObject.SetActive(false);
         CreateFishChoice();
+        _hideOrderImage.SetActive(!(order.Recipe.Data.MenuGrade == EMenuGrade.Low));
+        _hideStepImage.SetActive(order.Recipe.Data.MenuGrade == EMenuGrade.High);
         gameObject.SetActive(true);
         _timerCoroutine = StartCoroutine(TimerCo());
     }
