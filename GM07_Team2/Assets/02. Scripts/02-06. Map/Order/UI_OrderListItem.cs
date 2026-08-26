@@ -51,7 +51,7 @@ namespace GM07.Order
                 return;
             }
 
-            RefreshTimerText();
+            //RefreshTimerText();
         }
 
         // isTableCooking: 이 테이블에서 (다른 주문이) 조리중인지 여부
@@ -64,7 +64,7 @@ namespace GM07.Order
 
         private void RefreshItem(bool isTableCooking)
         {
-            _seatInfoText.text = $"{_order.Seat.SeatId}번 좌석";
+            _seatInfoText.text = $"{_order.Seat.SeatId+1}번 좌석";
             RefreshRecipeInfo();
 
             bool isCooking = _order.State == EOrderState.Cooking;
