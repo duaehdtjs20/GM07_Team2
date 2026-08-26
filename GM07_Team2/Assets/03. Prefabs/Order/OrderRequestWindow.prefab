@@ -832,6 +832,7 @@ MonoBehaviour:
   _closeButton: {fileID: 704437443893999656}
   _listContentParent: {fileID: 2936856303547384457}
   _orderListItemPrefab: {fileID: 191450392993788687, guid: 4154fd090c92c2e499ce7ebe0df13d16, type: 3}
+  _miniGameManager: {fileID: 0}
 --- !u!1 &8575962666194669111
 GameObject:
   m_ObjectHideFlags: 0

@@ -146,21 +146,6 @@ namespace GM07.Order
                 order.Customer.ShowQualityIcon(order.Quality);
             }
 
-            /*if (quality == EQuality.Fail)
-            {
-                //실패할경우 손님이 나가도록 설정
-            }
-            else
-            {
-                order.State = EOrderState.Ready;
-                order.Quality = quality;
-
-                if (order.Customer != null)
-                {
-                    order.Customer.ShowQualityIcon(order.Quality);
-                }
-            }*/
-
             OnOrderListChanged?.Invoke();
         }
     }
