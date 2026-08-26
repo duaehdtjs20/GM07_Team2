@@ -66,6 +66,13 @@ public class UI_IceBreakGame : UI_MiniGameBase
     // 현재 충격 게이지
     private int _impactGage;
 
+    //주문서
+    [Header("Order")]
+    [SerializeField]
+    private TMP_Text _menuText;
+    [SerializeField]
+    private Image _orderIcon;
+
     // UI 갱신 및 이벤트 기능 연결을 위한 배열
     private UI_IceBlock[,] _blockViews;
     // 각 위치 별 블럭의 상태를 보관
@@ -171,6 +178,8 @@ public class UI_IceBreakGame : UI_MiniGameBase
         _maxCount = 0;
         _breakType = EBreakType.Hammer;
         _fishImage.sprite = _order.Recipe.Data.IngredientIcon;
+        _menuText.text = _order.Recipe.Data.Name;
+        _orderIcon.sprite = _order.Recipe.Data.Icon;
         gameObject.SetActive(true);
     }
     public void BreakBlock(int x, int y)

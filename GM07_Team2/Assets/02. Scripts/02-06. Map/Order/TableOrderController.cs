@@ -93,6 +93,7 @@ namespace GM07.Order
                 if (order.Customer == customer)
                 {
                     _orders.Remove(order);
+                    OnOrderListChanged?.Invoke();
                     return;
                 }
             }
