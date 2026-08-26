@@ -134,11 +134,16 @@ public class UI_SequenceGame : UI_MiniGameBase
     }
     private IEnumerator MemorizeCoroutine()
     {
+        for(int i = 3; i > 0; i--)
+        {
+            _guideText.text = i.ToString();
+            yield return new WaitForSecondsRealtime(0.3f);
+        }
         if (_guideText != null)
         {
             _guideText.text = "순서를 기억하세요";
         }
-        for(int i=0;i< _sequence.Count;i++)
+        for (int i=0;i< _sequence.Count;i++)
         {
             UI_SequencePlate plate = _plates[_sequence[i]];
             plate.SetOrderText(i + 1);

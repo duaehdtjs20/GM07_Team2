@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniGameManager
   _miniGames:
-  - {fileID: 4025154034160333747}
+  - {fileID: 3079246045772995939}
 --- !u!1001 &487974756429737899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -264,6 +264,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2c5020b4af24fc47b8cd5a590da626f, type: 3}
+--- !u!114 &3079246045772995939 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1357237486857845465, guid: f2c5020b4af24fc47b8cd5a590da626f, type: 3}
+  m_PrefabInstance: {fileID: 4066272980833019834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8c696324a0bd649be8efad844a466a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_SequenceGame
 --- !u!224 &8120523126858755743 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5251102027837114661, guid: f2c5020b4af24fc47b8cd5a590da626f, type: 3}
@@ -946,17 +957,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ced919960c848742b6893b22b915507, type: 3}
---- !u!114 &4025154034160333747 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 873768953257695504, guid: 4ced919960c848742b6893b22b915507, type: 3}
-  m_PrefabInstance: {fileID: 4322462230817532579}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf43b60130c781b4d807bbcead747731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI_IceBreakGame
 --- !u!224 &4992020271332514587 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9131980096548712888, guid: 4ced919960c848742b6893b22b915507, type: 3}

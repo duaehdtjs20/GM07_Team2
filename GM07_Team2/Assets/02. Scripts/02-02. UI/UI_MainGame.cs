@@ -237,7 +237,7 @@ public class UI_MainGame : MonoBehaviour
 
         TMP_Text changeText = Instantiate(_moneyChangeTextPrefab, _moneyChangeRoot);
         changeText.text = isExpense ? $"-{amout}" : $"+{amout}";
-        changeText.color = isExpense ? Color.red : Color.black;
+        changeText.color = isExpense ? Color.red : Color.white;
 
         _moneyChangeList.Add(changeText);
         StartCoroutine(ShowMoneyChangeCo(changeText));
