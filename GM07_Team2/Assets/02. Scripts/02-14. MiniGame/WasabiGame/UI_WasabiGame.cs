@@ -19,6 +19,8 @@ public class UI_WasabiGame : UI_MiniGameBase
     private TMP_Text _nemuName;
     [SerializeField]
     private Image _orderIcon;
+    [SerializeField]
+    private GameObject _grade;
     [Header("Timer")]
     [SerializeField]
     private TMP_Text _timer;
@@ -45,6 +47,8 @@ public class UI_WasabiGame : UI_MiniGameBase
     private Sprite _squeezedSprite;
     [SerializeField]
     private Sprite _moreSqueezedSprite;
+    [SerializeField]
+    private GameObject _mosaicImage;
     [Header("Sprite Threshold")]
     [Range(0f, 1f)]
     [SerializeField]
@@ -134,6 +138,7 @@ public class UI_WasabiGame : UI_MiniGameBase
         if (_gaugeImage != null)
         {
             _gaugeImage.fillAmount = 0f;
+            _gaugeImage.gameObject.SetActive(order.Recipe.Data.MenuGrade == EMenuGrade.Low);
         }
         if (_wasabiImage != null)
         {
@@ -142,6 +147,12 @@ public class UI_WasabiGame : UI_MiniGameBase
         if(_wasabiTubeImage != null)
         {
             _wasabiTubeImage.sprite = _defaultSprite;
+        }
+        if (_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
         }
         RefreshTimer();
         gameObject.SetActive(true);
@@ -187,7 +198,10 @@ public class UI_WasabiGame : UI_MiniGameBase
         {
             return;
         }
-
+        if(_order.Recipe.Data.MenuGrade == EMenuGrade.High)
+        {
+            _mosaicImage.SetActive(true);
+        }
         _state = EWasabiState.Filling;
     }
 
@@ -200,7 +214,10 @@ public class UI_WasabiGame : UI_MiniGameBase
         {
             return;
         }
-
+        if (_order.Recipe.Data.MenuGrade == EMenuGrade.High)
+        {
+            _mosaicImage.SetActive(false);
+        }
         EvaluateResult();
     }
     private void FillGauge()

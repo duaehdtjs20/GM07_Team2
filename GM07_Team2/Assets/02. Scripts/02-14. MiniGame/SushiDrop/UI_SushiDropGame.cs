@@ -22,6 +22,8 @@ public class UI_SushiDropGame : UI_MiniGameBase
     private Image _orderIcon;
     [SerializeField]
     private Image _ingredientIcon;
+    [SerializeField]
+    private GameObject _grade;
     [Header("Play Area")]
     [SerializeField]
     private RectTransform _playArea;
@@ -43,7 +45,7 @@ public class UI_SushiDropGame : UI_MiniGameBase
     private Button _dropButton;
     [Header("Movement")]
     [SerializeField]
-    private float _horizontalSpeed;
+    private List<SushiDropLevel> _levelSettings = new();
     [SerializeField]
     private float _fallSpeed;
     [SerializeField]
@@ -80,6 +82,7 @@ public class UI_SushiDropGame : UI_MiniGameBase
     private int _horizontalDirection = 1;
     private float _remainingTime;
     private float _totalAlignmentScore = 0;
+    private float _currentSpeed;
 
     #region Init
     private void OnEnable()
@@ -147,16 +150,21 @@ public class UI_SushiDropGame : UI_MiniGameBase
         _ingredientIndex = 0;
         _horizontalDirection = 1;
         _state = EDropState.None;
-
+        SushiDropLevel level = GetLevel(order.Recipe.Data.MenuGrade);
+        _currentSpeed = level.HorizontalSpeed;
         RefeshFishSprite();
         CreateIngredientOrder();
-
+        if (_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
+        }
         gameObject.SetActive(true);
         if (_dropButton != null)
         {
             _dropButton.interactable = true;
         }
-
         RefreshTimer();
         SpawnNextIngredient();
     }
@@ -185,7 +193,7 @@ public class UI_SushiDropGame : UI_MiniGameBase
             return;
         }
         Vector2 position = _currentIngredient.anchoredPosition;
-        position.x += _horizontalDirection * _horizontalSpeed * Time.deltaTime;
+        position.x += _horizontalDirection * _currentSpeed * Time.deltaTime;
         float halfWidth = _currentIngredient.rect.width * 0.5f;
         float leftLimit = -_playArea.rect.width * 0.5f + halfWidth;
         float rightLimit = _playArea.rect.width * 0.5f - halfWidth;
@@ -472,6 +480,25 @@ public class UI_SushiDropGame : UI_MiniGameBase
         }
         return _order.Staff.QualityBonus;
     }
+    private SushiDropLevel GetLevel(EMenuGrade grade)
+    {
+        foreach (SushiDropLevel level in _levelSettings)
+        {
+            if (level.MenuGrade == grade)
+            {
+                return level;
+            }
+        }
+        return null;
+    }
     #endregion
+}
+[Serializable]
+public class SushiDropLevel
+{
+    [SerializeField] private EMenuGrade _menuGrade;
+    [SerializeField] private float _horizontalSpeed;
+    public EMenuGrade MenuGrade => _menuGrade;
+    public float HorizontalSpeed => _horizontalSpeed;
 }
 
