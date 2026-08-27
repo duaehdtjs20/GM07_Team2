@@ -251,13 +251,15 @@ GameObject:
   - component: {fileID: 1306073256315717694}
   - component: {fileID: 6568272280067827020}
   - component: {fileID: 8809628388844725347}
+  - component: {fileID: 72828706293503164}
+  - component: {fileID: 2969429081027869295}
   m_Layer: 5
   m_Name: RecipePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1306073256315717694
 RectTransform:
   m_ObjectHideFlags: 0
@@ -304,6 +306,30 @@ MonoBehaviour:
   _previousButton: {fileID: 9190735617979819390}
   _nextButton: {fileID: 8481906787967072584}
   _pageText: {fileID: 8859787778357646225}
+--- !u!114 &72828706293503164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384602711981633305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32b6c8c52bd7944581c69790cc177f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenUpgradePanelEffect
+--- !u!114 &2969429081027869295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384602711981633305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84f734361ee7f946a7b4743fd459eba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CloseUpgradePanelEffect
 --- !u!1 &1088458398682219051
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8745099, g: 0.8588236, b: 0.8313726, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7254902, b: 0.6784314, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2211,7 +2237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8705883, g: 0.854902, b: 0.8313726, a: 1}
+  m_Color: {r: 0.98039216, g: 0.95686275, b: 0.9137255, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

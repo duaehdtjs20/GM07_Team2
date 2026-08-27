@@ -37,17 +37,14 @@ public class UI_PreparingPanel : MonoBehaviour
 
         CloseAllPanels();
     }
-
     private void OnEnable()
     {
         CloseAllPanels();
     }
-
     private void OnDisable()
     {
         CloseAllPanels();
     }
-
     private void OnDestroy()
     {
         _recipeButton?.onClick.RemoveListener(OpenRecipePanel);
@@ -58,49 +55,56 @@ public class UI_PreparingPanel : MonoBehaviour
         _staffExitButton?.onClick.RemoveListener(CloseStaffPanel);
         _storeExitButton?.onClick.RemoveListener(CloseStorePanel);
     }
-
     private void OpenRecipePanel()
     {
-        SetPanelActive(_recipePanel, true);
+        OpenPanel(_recipePanel);
     }
-
     private void OpenStaffPanel()
     {
-        SetPanelActive(_staffPanel, true);
+        OpenPanel(_staffPanel);
     }
-
     private void OpenStorePanel()
     {
-        SetPanelActive(_storePanel, true);
+        OpenPanel(_storePanel);
     }
-
     private void CloseRecipePanel()
     {
-        SetPanelActive(_recipePanel, false);
+        ClosePanel(_recipePanel);
     }
-
     private void CloseStaffPanel()
     {
-        SetPanelActive(_staffPanel, false);
+        ClosePanel(_staffPanel);
     }
-
     private void CloseStorePanel()
     {
-        SetPanelActive(_storePanel, false);
+        ClosePanel(_storePanel);
     }
-
     private void CloseAllPanels()
     {
         SetPanelActive(_recipePanel, false);
         SetPanelActive(_staffPanel, false);
         SetPanelActive(_storePanel, false);
     }
-
     private static void SetPanelActive(GameObject panel, bool isActive)
     {
         if (panel != null)
         {
             panel.SetActive(isActive);
+        }
+    }
+    private void OpenPanel(GameObject panel)
+    {
+        panel.SetActive(true);
+        if (panel.TryGetComponent<OpenUpgradePanelEffect>(out OpenUpgradePanelEffect effect))
+        {
+            effect.Play();
+        }
+    }
+    private void ClosePanel(GameObject panel)
+    {
+        if (panel.TryGetComponent<CloseUpgradePanelEffect>(out CloseUpgradePanelEffect effect))
+        {
+            effect.Play();
         }
     }
 }

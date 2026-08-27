@@ -9,7 +9,13 @@ namespace GM07.Order
         private UI_OrderRequestWindow _orderRequestWindow;
 
         private bool _isBlock = false;
-        public void OpenWindow(TableOrderController table)
+        private OrderWindowOpenEffect _effect;
+
+        private void Start()
+        {
+            _effect = GetComponent<OrderWindowOpenEffect>();
+        }
+        public void OpenWindow(TableOrderController table, Vector2 screenPosition)
         {
             if (_isBlock)
             {
@@ -18,10 +24,12 @@ namespace GM07.Order
 
             _orderRequestWindow.gameObject.SetActive(true);
             _orderRequestWindow.InitWindow(table);
+            _effect?.PlayFrom(screenPosition);
         }
 
         public void CloseWindow()
         {
+            _effect?.Kill();
             _orderRequestWindow.gameObject.SetActive(false);
         }
 

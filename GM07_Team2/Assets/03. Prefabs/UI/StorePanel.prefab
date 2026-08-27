@@ -591,6 +591,8 @@ GameObject:
   - component: {fileID: 4485495490201049053}
   - component: {fileID: 8590761426139101871}
   - component: {fileID: 6330497607039449915}
+  - component: {fileID: 4951380713259945398}
+  - component: {fileID: 2691711235135294848}
   m_Layer: 5
   m_Name: StorePanel
   m_TagString: Untagged
@@ -645,6 +647,30 @@ MonoBehaviour:
   _currentDetails: {fileID: 3001293216697128622}
   _nextLevel: {fileID: 5739728795764719572}
   _nextDetails: {fileID: 5509130261949289431}
+--- !u!114 &4951380713259945398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2975145380922781946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32b6c8c52bd7944581c69790cc177f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenUpgradePanelEffect
+--- !u!114 &2691711235135294848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2975145380922781946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84f734361ee7f946a7b4743fd459eba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CloseUpgradePanelEffect
 --- !u!1 &3077184368281571714
 GameObject:
   m_ObjectHideFlags: 0

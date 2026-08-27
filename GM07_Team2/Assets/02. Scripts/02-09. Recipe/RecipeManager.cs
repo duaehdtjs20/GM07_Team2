@@ -111,6 +111,7 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
         {
             if (r.Data.MenuGrade == previousGrade && !r.Unlocked)
             {
+                UI_ToastMessage.Instance?.Show("이전 등급의 레시피를 모두 해금해야합니다");
                 return false;
             }
         }
