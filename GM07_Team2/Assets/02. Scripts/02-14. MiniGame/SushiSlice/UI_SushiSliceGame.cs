@@ -40,9 +40,15 @@ public class UI_SushiSliceGame : UI_MiniGameBase
     [SerializeField]
     private int _requiredSetCount = 2;
     [SerializeField]
+    private int _distractorCount = 8;
+    [SerializeField]
+    private float _spawnInterval = 0.55f;
+    [SerializeField]
     private float _minimumThrowSpeed = 550f;
     [SerializeField]
     private float _maximumThrowSpeed = 750f;
+    [SerializeField]
+    private float _maximumHorizontalSpeed = 180f;
     [SerializeField]
     private float _gravity = 900f;
     [SerializeField]
@@ -84,9 +90,6 @@ public class UI_SushiSliceGame : UI_MiniGameBase
     [Header("Result")]
     [SerializeField]
     private UI_MiniGameResult _resultUI;
-    [Header("Level")]
-    [SerializeField]
-    private List<SushiSliceLevel> _levelSettings = new();
 
     private OrderData _order;
     private Action<EQuality> _onCompleted;
@@ -111,7 +114,6 @@ public class UI_SushiSliceGame : UI_MiniGameBase
     private readonly List<Image> _sliceLines = new();
     private Vector2 _previousPointerPosition;
     private float _currentSliceLineLength;
-    private SushiSliceLevel _currentLevel;
 
     private bool _hasSlicedRice;
     private bool _hasSlicedWasabi;
@@ -147,6 +149,7 @@ public class UI_SushiSliceGame : UI_MiniGameBase
             onCompleted?.Invoke(EQuality.Fail);
             return;
         }
+
         if (_spawnCoroutine != null)
         {
             StopCoroutine(_spawnCoroutine);
@@ -159,7 +162,6 @@ public class UI_SushiSliceGame : UI_MiniGameBase
         }
         ClearObjects();
         _order = order;
-        _currentLevel = GetLevel(order.Recipe.Data.MenuGrade);
         _onCompleted = onCompleted;
         _menuName.text = order.Recipe.Data.Name;
         _orderIcon.sprite = order.Recipe.Data.Icon;
@@ -182,7 +184,7 @@ public class UI_SushiSliceGame : UI_MiniGameBase
         {
             SpawnObject(_spawnPlan[_spawnIndex]);
             _spawnIndex++;
-            yield return new WaitForSeconds(_currentLevel.SpawnInterval);
+            yield return new WaitForSeconds(_spawnInterval);
         }
         _spawnCoroutine = null;
         _allObjectsSpawned = true;
@@ -225,7 +227,7 @@ public class UI_SushiSliceGame : UI_MiniGameBase
             _spawnPlan.Add(ESliceObjectType.Wasabi);
             _spawnPlan.Add(ESliceObjectType.Fish);
         }
-        for(int i = 0; i < _currentLevel.DistractorCount; i++)
+        for(int i = 0; i < _distractorCount; i++)
         {
             _spawnPlan.Add(UnityEngine.Random.value < 0.5f ? ESliceObjectType.WrongFish : ESliceObjectType.Junk);
         }
@@ -245,7 +247,7 @@ public class UI_SushiSliceGame : UI_MiniGameBase
     {
         Sprite sprite = GetSprite(objectType);
         UI_SliceObject sliceObject = Instantiate(_sliceObjectPrefab, _playArea);
-        Vector2 velocity = new Vector2(UnityEngine.Random.Range(-_currentLevel.MaximumHorizontalSpeed, _currentLevel.MaximumHorizontalSpeed), UnityEngine.Random.Range(_minimumThrowSpeed, _maximumThrowSpeed));
+        Vector2 velocity = new Vector2(UnityEngine.Random.Range(-_maximumHorizontalSpeed, _maximumHorizontalSpeed), UnityEngine.Random.Range(_minimumThrowSpeed, _maximumThrowSpeed));
         float rotationSpeed = UnityEngine.Random.Range(_minimumRotationSpeed, _maximumRotationSpeed);
         float playAreaBottom = -_playArea.rect.height * 0.5f;
         float despawnY = playAreaBottom - _spawnBottomOffset;
@@ -570,17 +572,6 @@ public class UI_SushiSliceGame : UI_MiniGameBase
                 break;
         }
     }
-    private SushiSliceLevel GetLevel(EMenuGrade grade)
-    {
-        foreach (SushiSliceLevel level in _levelSettings)
-        {
-            if (level.MenuGrade == grade)
-            {
-                return level;
-            }
-        }
-        return null;
-    }
 }
 public enum ESliceObjectType
 {
@@ -589,17 +580,4 @@ public enum ESliceObjectType
     Fish,
     WrongFish,
     Junk,
-}
-[Serializable]
-public class SushiSliceLevel
-{
-    [SerializeField] private EMenuGrade _menuGrade;
-    [SerializeField] private int _distractorCount;
-    [SerializeField] private float _spawnInterval;
-    [SerializeField] private float _maximumHorizontalSpeed;
-
-    public EMenuGrade MenuGrade => _menuGrade;
-    public int DistractorCount => _distractorCount;
-    public float SpawnInterval => _spawnInterval;
-    public float MaximumHorizontalSpeed => _maximumHorizontalSpeed;
 }
