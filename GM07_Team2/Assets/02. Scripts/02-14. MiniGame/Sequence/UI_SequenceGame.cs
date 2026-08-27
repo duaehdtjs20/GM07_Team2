@@ -21,6 +21,8 @@ public class UI_SequenceGame : UI_MiniGameBase
     private TMP_Text _menuName;
     [SerializeField]
     private Image _orderIcon;
+    [SerializeField]
+    private GameObject _grade;
     [Header("Plate")]
     [SerializeField]
     private List<UI_SequencePlate> _plates = new();
@@ -42,6 +44,9 @@ public class UI_SequenceGame : UI_MiniGameBase
     [Header("Result")]
     [SerializeField]
     private UI_MiniGameResult _resultUI;
+    [Header("Level Setting")]
+    [SerializeField]
+    private List<SequenceLevel> _levelSettings = new();
 
     private readonly List<int> _sequence = new();
     private OrderData _order;
@@ -51,6 +56,8 @@ public class UI_SequenceGame : UI_MiniGameBase
     private ESequenceState _state;
     private int _inputIndex;
     private float _remainingTime;
+    private SequenceLevel _currentLevel;
+    private int _activePlateCount;
 
     private void Update()
     {
@@ -99,11 +106,18 @@ public class UI_SequenceGame : UI_MiniGameBase
         _inputIndex = 0;
         _remainingTime = _timeLimit;
         _state = ESequenceState.Memorizing;
+        _currentLevel = GetLevel(order.Recipe.Data.MenuGrade);
+        _activePlateCount = _currentLevel.PlateCount;
 
         if (_menuName != null) _menuName.text = order.Recipe.Data.Name;
         if (_orderIcon != null) _orderIcon.sprite = order.Recipe.Data.Icon;
         if (_resultUI != null) _resultUI.gameObject.SetActive(false);
-
+        if (_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
+        }
         gameObject.SetActive(true);
         ResetPlates();
         BuildSequence();
@@ -114,13 +128,18 @@ public class UI_SequenceGame : UI_MiniGameBase
     {
         for (int i = 0; i < _plates.Count; i++)
         {
-            _plates[i].Bind(i, _order.Recipe.Data.Icon, OnPlateClicked);
+            bool isActive = i < _activePlateCount;
+            _plates[i].gameObject.SetActive(isActive);
+            if (isActive)
+            {
+                _plates[i].Bind(i, _order.Recipe.Data.Icon, OnPlateClicked);
+            }
         }
     }
     private void BuildSequence()
     {
         _sequence.Clear();
-        for (int i = 0; i < _plates.Count; i++)
+        for (int i = 0; i < _activePlateCount; i++)
         {
             _sequence.Add(i);
         }
@@ -134,15 +153,20 @@ public class UI_SequenceGame : UI_MiniGameBase
     }
     private IEnumerator MemorizeCoroutine()
     {
+        for(int i = 3; i > 0; i--)
+        {
+            _guideText.text = i.ToString();
+            yield return new WaitForSecondsRealtime(0.3f);
+        }
         if (_guideText != null)
         {
             _guideText.text = "순서를 기억하세요";
         }
-        for(int i=0;i< _sequence.Count;i++)
+        for (int i=0;i< _sequence.Count;i++)
         {
             UI_SequencePlate plate = _plates[_sequence[i]];
             plate.SetOrderText(i + 1);
-            yield return new WaitForSecondsRealtime(0.3f);
+            yield return new WaitForSecondsRealtime(_currentLevel.OrderDisplayDuration);
             plate.ResetOrder();
         }
         SetPlateInteractable(true);
@@ -242,4 +266,29 @@ public class UI_SequenceGame : UI_MiniGameBase
         }
         return _order.Staff.QualityBonus;
     }
+    private SequenceLevel GetLevel(EMenuGrade grade)
+    {
+        foreach(SequenceLevel level in _levelSettings)
+        {
+            if(level.MenuGrade == grade)
+            {
+                return level;
+            }
+        }
+        return null;
+    }
+}
+[Serializable]
+public class SequenceLevel
+{
+    [SerializeField]
+    private EMenuGrade _menuGrade;
+    [SerializeField]
+    private int _plateCount;
+    [SerializeField]
+    private float _orderDisplayDuration;
+
+    public EMenuGrade MenuGrade => _menuGrade;
+    public int PlateCount => _plateCount;
+    public float OrderDisplayDuration => _orderDisplayDuration;
 }
