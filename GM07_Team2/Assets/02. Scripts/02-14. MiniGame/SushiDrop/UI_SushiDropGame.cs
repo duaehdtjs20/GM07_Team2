@@ -22,6 +22,8 @@ public class UI_SushiDropGame : UI_MiniGameBase
     private Image _orderIcon;
     [SerializeField]
     private Image _ingredientIcon;
+    [SerializeField]
+    private GameObject _grade;
     [Header("Play Area")]
     [SerializeField]
     private RectTransform _playArea;
@@ -152,7 +154,12 @@ public class UI_SushiDropGame : UI_MiniGameBase
         _currentSpeed = level.HorizontalSpeed;
         RefeshFishSprite();
         CreateIngredientOrder();
-
+        if (_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
+        }
         gameObject.SetActive(true);
         if (_dropButton != null)
         {

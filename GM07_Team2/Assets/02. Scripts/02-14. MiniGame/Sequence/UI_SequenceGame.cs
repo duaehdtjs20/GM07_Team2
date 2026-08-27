@@ -21,6 +21,8 @@ public class UI_SequenceGame : UI_MiniGameBase
     private TMP_Text _menuName;
     [SerializeField]
     private Image _orderIcon;
+    [SerializeField]
+    private GameObject _grade;
     [Header("Plate")]
     [SerializeField]
     private List<UI_SequencePlate> _plates = new();
@@ -110,7 +112,12 @@ public class UI_SequenceGame : UI_MiniGameBase
         if (_menuName != null) _menuName.text = order.Recipe.Data.Name;
         if (_orderIcon != null) _orderIcon.sprite = order.Recipe.Data.Icon;
         if (_resultUI != null) _resultUI.gameObject.SetActive(false);
-
+        if (_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
+        }
         gameObject.SetActive(true);
         ResetPlates();
         BuildSequence();

@@ -26,6 +26,8 @@ public class UI_SushiSliceGame : UI_MiniGameBase
     private Image _orderIcon;
     [SerializeField]
     private Image _ingredientIcon;
+    [SerializeField]
+    private GameObject _grade;
     [Header("Timer")]
     [SerializeField]
     private float _completeDuration;
@@ -173,6 +175,12 @@ public class UI_SushiSliceGame : UI_MiniGameBase
         BuildSpawnPlan();
         _resultUI.gameObject?.SetActive(false);
         SetAllToggle(false);
+        if (_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
+        }
         gameObject.SetActive(true);
         _spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }

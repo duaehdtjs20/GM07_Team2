@@ -19,6 +19,8 @@ public class UI_WasabiGame : UI_MiniGameBase
     private TMP_Text _nemuName;
     [SerializeField]
     private Image _orderIcon;
+    [SerializeField]
+    private GameObject _grade;
     [Header("Timer")]
     [SerializeField]
     private TMP_Text _timer;
@@ -145,6 +147,12 @@ public class UI_WasabiGame : UI_MiniGameBase
         if(_wasabiTubeImage != null)
         {
             _wasabiTubeImage.sprite = _defaultSprite;
+        }
+        if (_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
         }
         RefreshTimer();
         gameObject.SetActive(true);

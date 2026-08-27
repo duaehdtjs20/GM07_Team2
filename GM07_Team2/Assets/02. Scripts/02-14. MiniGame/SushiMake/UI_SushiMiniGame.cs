@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +26,8 @@ public class UI_SushiMiniGame : UI_MiniGameBase
     private Image _orderIcon;
     [SerializeField]
     private Image _ingredientIcon;
+    [SerializeField]
+    private GameObject _grade;
     [SerializeField]
     private GameObject _hideStepImage;
     [SerializeField]
@@ -87,6 +90,12 @@ public class UI_SushiMiniGame : UI_MiniGameBase
         CreateFishChoice();
         _hideOrderImage.SetActive(!(order.Recipe.Data.MenuGrade == EMenuGrade.Low));
         _hideStepImage.SetActive(order.Recipe.Data.MenuGrade == EMenuGrade.High);
+        if(_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
+        }
         gameObject.SetActive(true);
         _timerCoroutine = StartCoroutine(TimerCo());
     }
@@ -249,7 +258,6 @@ public class UI_SushiMiniGame : UI_MiniGameBase
         {
             return 0f;
         }
-
         return _order.Staff.QualityBonus;
     }
 }
