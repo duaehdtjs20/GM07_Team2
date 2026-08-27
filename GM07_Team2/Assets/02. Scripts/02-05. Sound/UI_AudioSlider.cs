@@ -15,7 +15,7 @@ public class UI_AudioSlider : MonoBehaviour
             _slider = GetComponent<Slider>();
         }
     }
-    private void Start()
+    private void OnEnable()
     {
         Init();
     }

@@ -46,14 +46,9 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
             }
         }
     }
-
-    public void TestPlayBGM()
+    private void Start()
     {
-        PlayBGM(EAudioType.TestBGM);
-    }
-    public void TestPlaySFX()
-    {
-        PlaySFX(EAudioType.TestSFX);
+        Init();
     }
 
     public void PlayBGM(EAudioType type)
@@ -113,5 +108,24 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     public void SetSFXVolume(float volume)
     {
         _mixer.SetFloat("SFX", Mathf.Log10(volume) * 20f);
+    }
+
+    private void Init()
+    {
+        if (SaveManager.Instance == null || _mixer == null)
+        {
+            return;
+        }
+
+        var optionData = SaveManager.Instance.LoadOption();
+
+        if (optionData == null)
+        {
+            return;
+        }
+
+        _mixer.SetFloat("Master", optionData.MasterVolume);
+        _mixer.SetFloat("BGM", optionData.BGMVolume);
+        _mixer.SetFloat("SFX", optionData.SFXVolume);
     }
 }

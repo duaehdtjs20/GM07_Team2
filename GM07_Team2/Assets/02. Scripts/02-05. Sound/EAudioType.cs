@@ -1,8 +1,12 @@
 ﻿public enum EAudioType
 {
     // BGM
-    TestBGM,
+    Title,
+    InGame,
 
     // SFX
-    TestSFX,
+    Button,
+    Coin,
+    Result,
+
 }
