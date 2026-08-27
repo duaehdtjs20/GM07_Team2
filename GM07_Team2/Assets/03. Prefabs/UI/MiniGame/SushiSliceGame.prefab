@@ -291,11 +291,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8e205cfb711c9a49a17ef30f891736a, type: 3}
   - {fileID: 21300000, guid: 9a26414893e74c04bba6a1aa11dbaf31, type: 3}
   _requiredSetCount: 2
-  _distractorCount: 5
-  _spawnInterval: 0.3
   _minimumThrowSpeed: 750
   _maximumThrowSpeed: 950
-  _maximumHorizontalSpeed: 180
   _gravity: 900
   _minimumRotationSpeed: -180
   _maximumRotationSpeed: 180
@@ -314,6 +311,19 @@ MonoBehaviour:
   _goodScore: 50
   _normalScore: 30
   _resultUI: {fileID: 0}
+  _levelSettings:
+  - _menuGrade: 0
+    _distractorCount: 3
+    _spawnInterval: 0.5
+    _maximumHorizontalSpeed: 120
+  - _menuGrade: 1
+    _distractorCount: 5
+    _spawnInterval: 0.3
+    _maximumHorizontalSpeed: 180
+  - _menuGrade: 2
+    _distractorCount: 8
+    _spawnInterval: 0.2
+    _maximumHorizontalSpeed: 260
 --- !u!1 &823144956010897632
 GameObject:
   m_ObjectHideFlags: 0
