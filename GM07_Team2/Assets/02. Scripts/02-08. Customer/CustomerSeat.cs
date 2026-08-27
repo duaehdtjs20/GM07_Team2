@@ -12,6 +12,9 @@ public class CustomerSeat : CustomerStateBase
 
         // 주문 신청 알림
         _customer.OrderMenu();
+
+        //
+        _customer.SetTimerActive(true);
     }
     public override void Update()
     {
@@ -42,5 +45,11 @@ public class CustomerSeat : CustomerStateBase
         }
         // 기다리기
         _customer.Waiting();
+    }
+    public override void Exit()
+    {
+        base.Exit();
+
+        _customer.SetTimerActive(false);
     }
 }
