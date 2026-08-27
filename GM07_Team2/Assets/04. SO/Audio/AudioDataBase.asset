@@ -13,11 +13,23 @@ MonoBehaviour:
   m_Name: AudioDataBase
   m_EditorClassIdentifier: Assembly-CSharp::AudioDataBase
   _audioDatas:
-  - _clip: {fileID: 8300000, guid: 9ab7be34eb9cd374e9c28db4d6f9f8bf, type: 3}
+  - _clip: {fileID: 8300000, guid: e7adf9c8bb5c25d4a95c10142b330960, type: 3}
     _audioType: 0
     _volume: 1
     _pitch: 1
-  - _clip: {fileID: 8300000, guid: 9ab7be34eb9cd374e9c28db4d6f9f8bf, type: 3}
+  - _clip: {fileID: 8300000, guid: 1af7804d797ab3040ba4fef44056f843, type: 3}
     _audioType: 1
+    _volume: 1
+    _pitch: 1
+  - _clip: {fileID: 8300000, guid: 72ee2562b7c4aa0449b4cebbc53ddb4f, type: 3}
+    _audioType: 2
+    _volume: 1
+    _pitch: 1
+  - _clip: {fileID: 8300000, guid: 6ff12cc09d80a444197ee5a63a6eb3bc, type: 3}
+    _audioType: 3
+    _volume: 1
+    _pitch: 1
+  - _clip: {fileID: 8300000, guid: 9ab7be34eb9cd374e9c28db4d6f9f8bf, type: 3}
+    _audioType: 4
     _volume: 1
     _pitch: 1
