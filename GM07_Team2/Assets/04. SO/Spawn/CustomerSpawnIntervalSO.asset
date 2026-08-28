@@ -15,16 +15,16 @@ MonoBehaviour:
   spawnPeriodList:
   - _startTime: 0
     _endTime: 0.33
-    _minInterval: 3
-    _maxInterval: 5
+    _minInterval: 5
+    _maxInterval: 10
   - _startTime: 0.33
     _endTime: 0.66
-    _minInterval: 1
-    _maxInterval: 3
+    _minInterval: 5
+    _maxInterval: 7
   - _startTime: 0.66
     _endTime: 1
-    _minInterval: 3
-    _maxInterval: 5
+    _minInterval: 7
+    _maxInterval: 15
   _spawnRateCurve:
     serializedVersion: 2
     m_Curve:

@@ -465,32 +465,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7698739343454182953, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7698739343454182953, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7698739343454182953, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8487776483021092883, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
-      propertyPath: _loadingPanel
-      value: 
-      objectReference: {fileID: 7938544802950902282}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
---- !u!1 &7938544802950902282 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5163348431030169611, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
-  m_PrefabInstance: {fileID: 7938544802950902281}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
