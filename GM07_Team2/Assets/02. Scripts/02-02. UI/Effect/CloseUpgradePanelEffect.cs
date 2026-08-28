@@ -22,7 +22,7 @@ public class CloseUpgradePanelEffect : EffectBase
     {
         Prepare();
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
-        sequence.Append(_panel.DOAnchorPos(_restPosition + Vector2.left * 2000f, 1f).SetEase(Ease.OutBack));
+        sequence.Append(_panel.DOAnchorPos(_restPosition + Vector2.left * 2000f, 0.5f).SetEase(Ease.InCubic));
         _tween = sequence;
         return _tween;
     }

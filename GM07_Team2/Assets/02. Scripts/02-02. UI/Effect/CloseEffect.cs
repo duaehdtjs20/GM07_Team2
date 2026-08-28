@@ -7,8 +7,6 @@ public class CloseEffect : EffectBase
     [SerializeField]
     private RectTransform _closePanel;
     [SerializeField]
-    private RectTransform _exitButton;
-    [SerializeField]
     private RectTransform _nextButton;
 
     private Vector2 _closeRestPosition;
@@ -20,9 +18,7 @@ public class CloseEffect : EffectBase
         CacheState();
 
         _closePanel.anchoredPosition = _closeRestPosition;
-        _exitButton.localScale = Vector3.zero;
         _nextButton.localScale = Vector3.zero;
-        _exitButton.gameObject.SetActive(true);
         _nextButton.gameObject.SetActive(true);
     }
     public override Tween Play()
@@ -30,8 +26,7 @@ public class CloseEffect : EffectBase
         Prepare();
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
 
-        sequence.Append(_exitButton.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack));
-        sequence.Join(_nextButton.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack));
+        sequence.Append(_nextButton.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack));
         sequence.Join(_closePanel.DOAnchorPos(_closeRestPosition + Vector2.down * 1000f, 1f).SetEase(Ease.OutBack));
 
         _tween = sequence;

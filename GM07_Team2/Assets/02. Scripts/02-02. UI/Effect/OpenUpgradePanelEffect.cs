@@ -22,7 +22,7 @@ public class OpenUpgradePanelEffect : EffectBase
     {
         Prepare();
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
-        sequence.Append(_panel.DOAnchorPos(_restPosition + Vector2.right * 2000f, 1f).SetEase(Ease.OutBack));
+        sequence.Append(_panel.DOAnchorPos(_restPosition + Vector2.right * 2000f, 0.5f).SetEase(Ease.OutCubic));
         _tween = sequence;
         return _tween;
     }
