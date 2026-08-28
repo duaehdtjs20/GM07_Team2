@@ -1996,8 +1996,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartSceneEffect
   _topPanels:
-  - {fileID: 1759545386}
   - {fileID: 529767684}
+  - {fileID: 1759545386}
   _upgradePanel: {fileID: 1158282440}
   _buttons:
   - {fileID: 1553693772}
@@ -3591,6 +3591,10 @@ PrefabInstance:
       propertyPath: _orderRequestWindow
       value: 
       objectReference: {fileID: 1103095954}
+    - target: {fileID: 4505375442348039151, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _openDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6308288180640898662, guid: 09391299a4c4fb449852f263de52a400, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

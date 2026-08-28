@@ -41,11 +41,11 @@ public class TitleEffect : EffectBase
     {
         Prepare();
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
-        sequence.Append(_logo.DOScale(Vector3.one, 1).SetEase(Ease.OutBack));
+        sequence.Append(_logo.DOScale(Vector3.one, 0.8f).SetEase(Ease.OutBack));
         bool addButton = false;
         for(int i=0;i< _buttons.Count ; i++)
         {
-            Tween buttonTween = _buttons[i].DOScale(Vector3.one, 1f).SetEase(Ease.OutBack);
+            Tween buttonTween = _buttons[i].DOScale(Vector3.one, 0.8f).SetEase(Ease.OutBack);
             if (!addButton)
             {
                 sequence.Append(buttonTween);
@@ -56,10 +56,10 @@ public class TitleEffect : EffectBase
                 sequence.Join(buttonTween);
             }
         }
-        float startTime = sequence.Duration();
+        float startTime = sequence.Duration() - 0.5f;
         for(int i=0; i< _sushiImages.Count ; i++)
         {
-            sequence.Insert(startTime + i * 0.1f, _sushiImages[i].DOAnchorPos(_sushiRestPositions[i], 0.3f).SetEase(Ease.OutBounce));
+            sequence.Insert(startTime + i * 0.1f, _sushiImages[i].DOAnchorPos(_sushiRestPositions[i], 0.25f).SetEase(Ease.OutBounce));
         }
         sequence.OnComplete(() =>
         {

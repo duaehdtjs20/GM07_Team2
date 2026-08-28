@@ -61,6 +61,7 @@ public class UI_TitleScene : MonoBehaviour
         { 
             return; 
         }
+        _loadingPanel?.SetActive(true);
         GameSession.StartMode = startMode;
         StartCoroutine(LoadMainSceneCo());
     }
@@ -68,7 +69,6 @@ public class UI_TitleScene : MonoBehaviour
     private IEnumerator LoadMainSceneCo()
     {
         _isLoading = true;
-        _loadingPanel?.SetActive(true);
         AsyncOperation operation = SceneManager.LoadSceneAsync(ESceneName.Maptest.ToString());
         while (operation.progress < 0.9f)
         {

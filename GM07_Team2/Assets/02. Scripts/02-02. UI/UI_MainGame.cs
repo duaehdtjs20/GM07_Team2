@@ -59,6 +59,7 @@ public class UI_MainGame : MonoBehaviour
     private List<TMP_Text> _moneyChangeList = new();
     private bool _isOpening;
     private bool _isClosing;
+    private bool _canPlayStateChangeEffect;
 
     private const int OpenHour = 10;
     private const int CloseHour = 21;
@@ -86,7 +87,18 @@ public class UI_MainGame : MonoBehaviour
         RefreshGameState(_gameFlowManager.GameState);
         RefreshDay(_gameFlowManager.CurrentDay);
         RefreshPreparingPanel(_gameFlowManager.GameState);
-        _startSceneEffect?.Play();
+        Tween startTween = _startSceneEffect?.Play();
+        if (startTween == null)
+        {
+            _canPlayStateChangeEffect = true;
+        }
+        else
+        {
+            startTween.OnComplete(() =>
+            {
+                _canPlayStateChangeEffect = true;
+            });
+        }
     }
     private void OnDisable()
     {
@@ -114,7 +126,17 @@ public class UI_MainGame : MonoBehaviour
 
         if (_gameStateText != null)
         {
-            _stateEffect?.Play(GetGameStateText(gameState, out Color color), color);
+            string stateText = GetGameStateText(gameState, out Color color);
+
+            if (_canPlayStateChangeEffect && _stateEffect != null)
+            {
+                _stateEffect.Play(stateText, color);
+            }
+            else
+            {
+                _gameStateText.text = stateText;
+                _gameStateText.color = color;
+            }
         }
         if(gameState == EGameState.Close)
         {
