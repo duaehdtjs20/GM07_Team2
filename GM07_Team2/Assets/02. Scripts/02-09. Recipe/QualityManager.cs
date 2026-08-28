@@ -7,7 +7,7 @@ public class QualityManager : MonoBehaviourSingleton<QualityManager>
     private float[] _baseWeights = new float[4] { 10f, 50f, 30f, 10f }; // Fail, Normal, Good, Great 순서
 
     [SerializeField]
-    private float[] _priceMultipliers = new float[4] { 1.0f, 1.1f, 1.25f, 1.5f }; // Fail, Normal, Good, Great 순서
+    private float[] _priceMultipliers = new float[4] { 0f, 1f, 1.2f, 1.5f }; // Fail, Normal, Good, Great 순서
 
     // 요리사 등급 시스템 연동 전까지는 고정값 사용
     private int _chefLevel = 0;
