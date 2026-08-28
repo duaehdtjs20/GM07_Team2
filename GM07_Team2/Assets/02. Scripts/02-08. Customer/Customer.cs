@@ -249,6 +249,7 @@ public class Customer : MonoBehaviour
         if (_qualityIconUI != null)
         {
             _qualityIconUI.ShowQuality(quality);
+            PlaySound(EAudioType.CustomerEmote);
         }
     }
     public void PayMoney()
@@ -262,6 +263,7 @@ public class Customer : MonoBehaviour
             }
             int finalPrice = Mathf.RoundToInt(_recipe.Data.Price * multiplier);
             CurrencyManager.Instance.AddMoney(finalPrice, ECurrencyTransactionType.Sale);
+            PlaySound(EAudioType.Coin);
         }
     }
     public void Release()
@@ -277,6 +279,14 @@ public class Customer : MonoBehaviour
         _pool.Push(gameObject);
         _model.gameObject.SetActive(false);
         gameObject.SetActive(false);
+    }
+    private void PlaySound(EAudioType type)
+    {
+        if (AudioManager.Instance == null)
+        {
+            return;
+        }
+        AudioManager.Instance.PlaySFX(type);
     }
     private void OnDrawGizmos()
     {
