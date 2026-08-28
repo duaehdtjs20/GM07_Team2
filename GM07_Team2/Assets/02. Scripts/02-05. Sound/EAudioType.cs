@@ -8,5 +8,5 @@
     Button,
     Coin,
     Result,
-
+    CustomerEmote,
 }
