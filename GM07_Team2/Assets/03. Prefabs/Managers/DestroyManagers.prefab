@@ -76,7 +76,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameFlowManager
   _tableManager: {fileID: 651524392246781576}
-  _openDuration: 5
+  _openDuration: 60
+--- !u!1 &1285727234747432934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5628705066744262524}
+  - component: {fileID: 1140526136614485289}
+  m_Layer: 0
+  m_Name: GameBootstrap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5628705066744262524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285727234747432934}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6308288180640898662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1140526136614485289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285727234747432934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd0bf3c7470e0c40a6e10ab9f1ded55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
+  _gameFlowManager: {fileID: 4505375442348039151}
+  _restaurant: {fileID: 1833867910471517636}
 --- !u!1 &1652185732167004073
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4864858210992841879}
   - component: {fileID: 4161730384623387207}
+  - component: {fileID: 2857831048275843859}
   m_Layer: 0
   m_Name: UI_OrderRequestWindowManager
   m_TagString: Untagged
@@ -283,6 +330,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GM07.Order.UI_OrderRequestWindowManager
   IsDontDestroyOnLoad: 0
   _orderRequestWindow: {fileID: 0}
+--- !u!114 &2857831048275843859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912917572952073558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6c6299f32510640a52ba14d5a11e20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrderWindowOpenEffect
+  _panel: {fileID: 0}
+--- !u!1 &6495687843834807770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4028636397214345620}
+  - component: {fileID: 1833867910471517636}
+  m_Layer: 0
+  m_Name: Restaurant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4028636397214345620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6495687843834807770}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6308288180640898662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1833867910471517636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6495687843834807770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b63aa9071a82340a4b23e8890f4c6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Restaurant
+  _tableManager: {fileID: 651524392246781576}
+  _levelDataList:
+  - _tableCount: 1
+    _rent: 100
+    _upgradeCost: 0
+    _unlockObjectList: []
+  - _tableCount: 2
+    _rent: 300
+    _upgradeCost: 500
+    _unlockObjectList:
+    - {fileID: 0}
+  _staffUpgradeDataBase: {fileID: 11400000, guid: b5a9c5ae82ddf0344a6f46064a9a54b6, type: 2}
 --- !u!1 &6764709806523524723
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DailySettlementManager
   _gameFlowManager: {fileID: 4505375442348039151}
-  _restaurant: {fileID: 0}
+  _restaurant: {fileID: 1833867910471517636}
 --- !u!1 &7534923126942987640
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,5 +526,7 @@ Transform:
   - {fileID: 2542527343034814442}
   - {fileID: 2065392462987081929}
   - {fileID: 4864858210992841879}
+  - {fileID: 5628705066744262524}
+  - {fileID: 4028636397214345620}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

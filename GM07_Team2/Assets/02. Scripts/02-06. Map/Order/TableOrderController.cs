@@ -68,7 +68,7 @@ namespace GM07.Order
         // 주문 확인 창에서 "서빙" 눌렀을 때 호출
         public void ServeOrder(OrderData order)
         {
-            if (order.State != EOrderState.Ready)
+            if (order ==null || order.State != EOrderState.Ready)
             {
                 return;
             }
@@ -80,10 +80,15 @@ namespace GM07.Order
 
         public void SetDishActive(int seatId, bool isActive)
         {
-            if (_dishes.Length <= 0 || _dishes.Length < seatId)
+            if (_dishes == null || seatId < 0 || seatId >= _dishes.Length)
             {
                 return;
             }
+            if (_dishes[seatId] == null)
+            {
+                return;
+            }
+
             _dishes[seatId].SetActive(isActive);
         }
         public void CancelOrder(Customer customer)
@@ -144,10 +149,12 @@ namespace GM07.Order
 
             if (order.Customer != null)
             {
+                order.Customer.SetTimerActive(false);
                 order.Customer.ShowQualityIcon(order.Quality);
             }
 
-            OnOrderListChanged?.Invoke();
+            //OnOrderListChanged?.Invoke();
+            ServeOrder(order);
         }
     }
 }

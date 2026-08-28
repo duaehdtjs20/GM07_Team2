@@ -53,6 +53,8 @@ public class UI_MainGame : MonoBehaviour
     private EffectBase _closeEffect;
     [SerializeField]
     private EffectBase _preparingEffect;
+    [SerializeField]
+    private StateChangeEffect _stateEffect;
 
     private List<TMP_Text> _moneyChangeList = new();
     private bool _isOpening;
@@ -112,8 +114,7 @@ public class UI_MainGame : MonoBehaviour
 
         if (_gameStateText != null)
         {
-            _gameStateText.text = GetGameStateText(gameState, out Color color);
-            _gameStateText.color = color;
+            _stateEffect?.Play(GetGameStateText(gameState, out Color color), color);
         }
         if(gameState == EGameState.Close)
         {
