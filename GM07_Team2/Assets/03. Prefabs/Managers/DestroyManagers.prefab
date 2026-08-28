@@ -77,50 +77,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameFlowManager
   _tableManager: {fileID: 651524392246781576}
   _openDuration: 5
---- !u!1 &1581640782619587822
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 988456394099331227}
-  - component: {fileID: 8921727549927023807}
-  m_Layer: 0
-  m_Name: SaveManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &988456394099331227
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581640782619587822}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6308288180640898662}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8921727549927023807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581640782619587822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eca06570b494fb3468b4747e6271a098, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
 --- !u!1 &1652185732167004073
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627f67c8b1e3f304bb2f134fcbf24b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrencyManager
+  IsDontDestroyOnLoad: 0
   _initialMoney: 1000
 --- !u!1 &3503390375196499553
 GameObject:
@@ -324,6 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7089672ebd4ef2b468d69fd67c0409ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GM07.Order.UI_OrderRequestWindowManager
+  IsDontDestroyOnLoad: 0
   _orderRequestWindow: {fileID: 0}
 --- !u!1 &6764709806523524723
 GameObject:
@@ -369,6 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf4428d8dcce334abfb6967392977bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RecipeManager
+  IsDontDestroyOnLoad: 0
   _dataBase: {fileID: 11400000, guid: cb12d409cefd14448909b6741edf0ce0, type: 2}
 --- !u!1 &6988859750137302914
 GameObject:
@@ -415,6 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DailySettlementManager
   _gameFlowManager: {fileID: 4505375442348039151}
+  _restaurant: {fileID: 0}
 --- !u!1 &7534923126942987640
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6308288180640898662}
   m_Layer: 0
-  m_Name: Managers
+  m_Name: DestroyManagers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,7 +409,6 @@ Transform:
   - {fileID: 4041094779607031671}
   - {fileID: 2542527343034814442}
   - {fileID: 2065392462987081929}
-  - {fileID: 988456394099331227}
   - {fileID: 4864858210992841879}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

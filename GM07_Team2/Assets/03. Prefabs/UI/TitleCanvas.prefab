@@ -88,6 +88,8 @@ GameObject:
   - component: {fileID: 1759441145434344947}
   - component: {fileID: 7759323030967960169}
   - component: {fileID: 8487776483021092883}
+  - component: {fileID: 9088624374997425027}
+  - component: {fileID: 5730528466638426972}
   m_Layer: 5
   m_Name: TitleCanvas
   m_TagString: Untagged
@@ -203,6 +205,42 @@ MonoBehaviour:
   _newGameButton: {fileID: 1980981318826546763}
   _continueButton: {fileID: 883960498184504389}
   _exitButton: {fileID: 4021653578956734705}
+--- !u!114 &9088624374997425027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287996860102292768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ad1945e8bbac34daf8ede08be27dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TitleEffect
+  _logo: {fileID: 168299112998942735}
+  _buttons:
+  - {fileID: 318872534355415210}
+  - {fileID: 2903352413313917399}
+  - {fileID: 7803911733756893593}
+  _sushiImages:
+  - {fileID: 7793816380272476615}
+  - {fileID: 110186627341206753}
+  - {fileID: 3991652914725963763}
+  - {fileID: 6204124130566864905}
+  - {fileID: 5277012264895452120}
+  - {fileID: 4841954723502175204}
+--- !u!225 &5730528466638426972
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287996860102292768}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1308613893946103923
 GameObject:
   m_ObjectHideFlags: 0

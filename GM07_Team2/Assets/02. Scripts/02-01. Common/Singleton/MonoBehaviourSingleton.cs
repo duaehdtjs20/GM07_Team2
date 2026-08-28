@@ -3,6 +3,8 @@ using UnityEngine;
 public class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviourSingleton<T>
 {
     private static T _instance;
+    [SerializeField]
+    private bool IsDontDestroyOnLoad = false;
 
     public static T Instance => _instance;
 
@@ -15,5 +17,10 @@ public class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviourSi
         }
 
         _instance = (T)this;
+
+        if (IsDontDestroyOnLoad)
+        {
+            DontDestroyOnLoad(transform.root.gameObject);
+        }
     }
 }
