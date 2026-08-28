@@ -181,6 +181,8 @@ public class UI_SushiSliceGame : UI_MiniGameBase
             TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
             gradeText.text = order.Recipe.Data.MenuGrade.ToString();
         }
+        _rootCanvas = GetComponentInParent<Canvas>();
+        _canvasCamera = _rootCanvas.worldCamera;
         gameObject.SetActive(true);
         _spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }

@@ -9,34 +9,64 @@ public class DailySettlementManager : MonoBehaviour
     private Restaurant _restaurant;
 
     private DailySettlementData _dailySettlementData = new DailySettlementData();
+    private bool _hasStarted;
+    private bool _currencySubscribed;
+    private bool _gameFlowSubscribed;
+
     public DailySettlementData DailySettlementData => _dailySettlementData;
 
     public Action<DailySettlementData> OnSettlementCompleted;
+    private void Start()
+    {
+        _hasStarted = true;
+        SubscribeEvents();
 
+        if (_gameFlowManager != null && _dailySettlementData.Day <= 0)
+        {
+            _dailySettlementData.Day = Mathf.Max(1, _gameFlowManager.CurrentDay);
+        }
+    }
     private void OnEnable()
     {
-        if (CurrencyManager.Instance != null)
+        if (_hasStarted)
+        {
+            SubscribeEvents();
+        }
+    }
+    private void OnDisable()
+    {
+        UnsubscribeEvents();
+    }
+    private void SubscribeEvents()
+    {
+        if (!_currencySubscribed && CurrencyManager.Instance != null)
         {
             CurrencyManager.Instance.OnMoneyTransaction += OnMoneyChanged;
+            _currencySubscribed = true;
         }
-        if(_gameFlowManager != null)
+
+        if (!_gameFlowSubscribed && _gameFlowManager != null)
         {
             _gameFlowManager.OnDayChanged += OnDayChanged;
             _gameFlowManager.OnGameStateChanged += OnGameStateChanged;
+            _gameFlowSubscribed = true;
         }
     }
-
-    private void OnDisable()
+    private void UnsubscribeEvents()
     {
-        if (CurrencyManager.Instance != null)
+        if (_currencySubscribed && CurrencyManager.Instance != null)
         {
             CurrencyManager.Instance.OnMoneyTransaction -= OnMoneyChanged;
         }
-        if (_gameFlowManager != null)
+
+        if (_gameFlowSubscribed && _gameFlowManager != null)
         {
             _gameFlowManager.OnDayChanged -= OnDayChanged;
             _gameFlowManager.OnGameStateChanged -= OnGameStateChanged;
         }
+
+        _currencySubscribed = false;
+        _gameFlowSubscribed = false;
     }
     public void RecordCustomerVisit()
     {

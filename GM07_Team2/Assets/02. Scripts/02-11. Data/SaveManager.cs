@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 using UnityEngine;
 using UnityEngine.Audio;
@@ -19,6 +17,7 @@ public class SaveManager : MonoBehaviourSingleton<SaveManager>
     {
         return File.Exists(_optionPath);
     }
+    public string SavePath => _savePath;
     public void Save()
     {
         var restaurant = FindFirstObjectByType<Restaurant>();
@@ -140,6 +139,24 @@ public class SaveManager : MonoBehaviourSingleton<SaveManager>
         {
             Debug.LogWarning("게임 불러오기 실패");
             return null;
+        }
+    }
+    public bool DeleteSaveData()
+    {
+        try
+        {
+            if (File.Exists(_savePath)) File.Delete(_savePath);
+
+            string tempPath = _savePath + ".tmp";
+            if (File.Exists(tempPath)) File.Delete(tempPath);
+
+            Debug.Log($"저장 데이터 삭제 완료: {_savePath}");
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning($"저장 데이터 삭제 실패: {exception.Message}");
+            return false;
         }
     }
 }
