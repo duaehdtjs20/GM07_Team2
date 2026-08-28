@@ -5,6 +5,7 @@ using GM07.Map;
 using GM07.Order;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Customer : MonoBehaviour
 {
@@ -13,11 +14,19 @@ public class Customer : MonoBehaviour
     private CustomerData _data;
     [SerializeField]
     private CustomerModelDatas _modelDatas;
+
+    [Header("UI")]
     [SerializeField]
     private UI_CustomerQualityIcon _qualityIconUI;
+    [SerializeField]
+    private GameObject _timerUI;
+    [SerializeField]
+    private Image _timerFill;
+
     [Header("네비게이션")]
     [SerializeField]
     private NavMeshAgent _agent;
+
     // 기능 구현 전용 필드
     private float _waitTimer = 0.0f;
     private float _eatTimer = 0.0f;
@@ -29,6 +38,7 @@ public class Customer : MonoBehaviour
     private Stack<GameObject> _pool;
     private List<GameObject> _models = new List<GameObject>();
     private List<CustomerStateMachine> _stateMachines = new List<CustomerStateMachine>();
+
     public CustomerStateMachine StateMachine { get; private set; }
     public Table Table { get; private set; }
     public Seat Seat { get; private set; }
@@ -89,6 +99,15 @@ public class Customer : MonoBehaviour
         if (_qualityIconUI != null)
         {
             _qualityIconUI.SetFollowTarget(_model);
+        }
+        if (_timerUI != null)
+        {
+            //_timerUI.transform.SetParent(_model);
+            //_timerUI.transform.rotation = Camera.main.transform.rotation;
+        }
+        if (_timerFill != null)
+        {
+            _timerFill.fillAmount = 1f;
         }
 
         StartPos = transform.position;
@@ -185,6 +204,7 @@ public class Customer : MonoBehaviour
         {
             // 주문 취소
             order.CancelOrder(this);
+
         }
     }
     public void Waiting()
@@ -192,6 +212,10 @@ public class Customer : MonoBehaviour
         if(_orderData.State == EOrderState.Waiting)
         {
             _waitTimer += Time.deltaTime;
+        }
+        if (_timerFill != null)
+        {
+            _timerFill.fillAmount = 1f - _waitTimer / _data.WaitTime;
         }
     }
     public void Eating()
@@ -203,6 +227,15 @@ public class Customer : MonoBehaviour
         if (Table.TryGetComponent(out TableOrderController order))
         {
             order.SetDishActive(_orderData.Seat.SeatId, false);
+        }
+    }
+    public void SetTimerActive(bool flag)
+    {
+        if(_timerUI != null)
+        {
+            _timerUI.transform.position = _model.transform.position + Vector3.up * 2.5f;
+            _timerUI.transform.rotation = Camera.main.transform.rotation;
+            _timerUI.SetActive(flag);
         }
     }
     public void Receive(GM07.Order.EQuality quality)

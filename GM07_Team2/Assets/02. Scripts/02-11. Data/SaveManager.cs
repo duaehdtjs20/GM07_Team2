@@ -4,14 +4,20 @@ using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SaveManager : MonoBehaviourSingleton<SaveManager>
 {
     private string _path = "SaveData.json";
     private string _savePath => Path.Combine(Application.persistentDataPath, _path);
+    private string _optionPath => Path.Combine(Application.persistentDataPath, "OptionData.json");
     public bool HasSaveData()
     {
         return File.Exists(_savePath);
+    }
+    public bool HasOptionData()
+    {
+        return File.Exists(_optionPath);
     }
     public void Save()
     {
@@ -74,6 +80,61 @@ public class SaveManager : MonoBehaviourSingleton<SaveManager>
             string text = File.ReadAllText(_savePath);
             SaveData saveData = JsonUtility.FromJson<SaveData>(text);
             return saveData;
+        }
+        catch
+        {
+            Debug.LogWarning("게임 불러오기 실패");
+            return null;
+        }
+    }
+    public void SaveOption()
+    {
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning("AudioManager를 찾지 못함");
+            return;
+        }
+
+        AudioMixer mixer = AudioManager.Instance.Mixer;
+
+        float masterVolume = 0.0f;
+        float bgmVolume = 0.0f;
+        float sfxVolume = 0.0f;
+
+        mixer.GetFloat("Master", out masterVolume);
+        mixer.GetFloat("BGM", out bgmVolume);
+        mixer.GetFloat("SFX", out sfxVolume);
+
+        OptionData optionData = new OptionData(masterVolume, bgmVolume, sfxVolume);
+
+        try
+        {
+            string json = JsonUtility.ToJson(optionData, true);
+            string temPath = _optionPath + ".tmp";
+
+            File.WriteAllText(temPath, json);
+            File.Delete(_optionPath);
+            File.Move(temPath, _optionPath);
+
+            Debug.Log("옵션 저장 완료");
+        }
+        catch(Exception ex)
+        {
+            Debug.LogWarning($"게임 저장 실패{ex}");
+        }
+    }
+    public OptionData LoadOption()
+    {
+        if (!HasOptionData())
+        {
+            return null;
+        }
+
+        try
+        {
+            string text = File.ReadAllText(_optionPath);
+            OptionData optionData = JsonUtility.FromJson<OptionData>(text);
+            return optionData;
         }
         catch
         {
