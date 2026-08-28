@@ -384,11 +384,11 @@ PrefabInstance:
     - target: {fileID: 1216373563643518338, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 01c3a5c8296776e46b8c990a20c86e19, type: 2}
+      objectReference: {fileID: 11400000, guid: 584a5050985ee8149b45937eaccf0094, type: 2}
     - target: {fileID: 1216373563643518338, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 5148153387692635023, guid: 01c3a5c8296776e46b8c990a20c86e19, type: 2}
+      objectReference: {fileID: 2584168096503016139, guid: 584a5050985ee8149b45937eaccf0094, type: 2}
     - target: {fileID: 1287996860102292768, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_Name
       value: TitleCanvas
@@ -396,11 +396,11 @@ PrefabInstance:
     - target: {fileID: 2919569691803434432, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 01c3a5c8296776e46b8c990a20c86e19, type: 2}
+      objectReference: {fileID: 11400000, guid: 584a5050985ee8149b45937eaccf0094, type: 2}
     - target: {fileID: 2919569691803434432, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 5148153387692635023, guid: 01c3a5c8296776e46b8c990a20c86e19, type: 2}
+      objectReference: {fileID: 2584168096503016139, guid: 584a5050985ee8149b45937eaccf0094, type: 2}
     - target: {fileID: 4875959643286612016, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c9f2c4aa54ca14d9fdbe3ef6ac2e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TMP_FontChanger
-  FontAsset: {fileID: 11400000, guid: 01c3a5c8296776e46b8c990a20c86e19, type: 2}
+  FontAsset: {fileID: 11400000, guid: 584a5050985ee8149b45937eaccf0094, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
