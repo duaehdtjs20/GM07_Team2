@@ -127,6 +127,15 @@ public class Restaurant : MonoBehaviour
                 }
                 target.SetActive(!isUnlocked);
             }
+
+            foreach (GameObject target in levelData.AddObjectList)
+            {
+                if (target == null)
+                {
+                    continue;
+                }
+                target.SetActive(isUnlocked);
+            }
         }
     }
 

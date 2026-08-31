@@ -14,10 +14,14 @@ public class RestaurantLevelData
     [Header("Unlock Objects")]
     [SerializeField]
     private List<GameObject> _unlockObjectList = new();
+    [Header("Add Objects")]
+    [SerializeField]
+    private List<GameObject> _addObjectList = new();
 
     public int TableCount => _tableCount;
     public int ChefCount => _tableCount;
     public int Rent => _rent;
     public int UpgradeCost => _upgradeCost;
     public IReadOnlyList<GameObject> UnlockObjectList => _unlockObjectList;
+    public IReadOnlyList<GameObject> AddObjectList => _addObjectList;
 }
