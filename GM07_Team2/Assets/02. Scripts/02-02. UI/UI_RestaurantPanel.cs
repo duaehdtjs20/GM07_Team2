@@ -82,9 +82,9 @@ public class UI_RestaurantPanel : MonoBehaviour
         if (_upgradeButton != null)
         {
             _upgradeButton.gameObject.SetActive(!isMaxLevel);
-            _upgradeButton.interactable =
+            /*_upgradeButton.interactable =
                 !isMaxLevel && CurrencyManager.Instance != null &&
-                CurrencyManager.Instance.Money >= _restaurant.UpgradeCost;
+                CurrencyManager.Instance.Money >= _restaurant.UpgradeCost;*/
         }
 
         if (isMaxLevel)
@@ -110,8 +110,12 @@ public class UI_RestaurantPanel : MonoBehaviour
 
     private void OnClickUpgrade()
     {
-        _restaurant?.TryUpgrade();
-        RefreshUI();
+        if (!_restaurant.TryUpgrade())
+        {
+            return;
+        }
+        this.gameObject.SetActive(false);
+        //RefreshUI();
     }
 
     private void OnMoneyChanged(int money)
