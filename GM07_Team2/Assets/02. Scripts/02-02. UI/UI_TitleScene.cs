@@ -12,6 +12,11 @@ public class UI_TitleScene : MonoBehaviour
     private Button _continueButton;
     [SerializeField]
     private Button _exitButton;
+    [SerializeField]
+    private Button _settingButton;
+    [Header("Setting Panel")]
+    [SerializeField]
+    private GameObject _settingPanel;
     [Header("Loading")]
     [SerializeField]
     private GameObject _loadingPanel;
@@ -23,6 +28,7 @@ public class UI_TitleScene : MonoBehaviour
         _newGameButton?.onClick.AddListener(OnClickNewGame);
         _continueButton?.onClick.AddListener(OnClickContinue);
         _exitButton?.onClick.AddListener(OnClickExit);
+        _settingButton?.onClick.AddListener(OnClickSetting);
         _titleEffect = GetComponent<EffectBase>();
         _loadingPanel?.SetActive(false);
         RefreshButton();
@@ -30,12 +36,14 @@ public class UI_TitleScene : MonoBehaviour
     private void Start()
     {
         _titleEffect?.Play();
+        _settingPanel?.SetActive(false);
     }
     private void OnDestroy()
     {
         _newGameButton?.onClick.RemoveListener(OnClickNewGame);
         _continueButton?.onClick.RemoveListener(OnClickContinue);
         _exitButton?.onClick.RemoveListener(OnClickExit);
+        _settingButton?.onClick.RemoveListener(OnClickSetting);
     }
 
     private void RefreshButton()
@@ -86,5 +94,9 @@ public class UI_TitleScene : MonoBehaviour
     private void OnClickExit()
     {
         Application.Quit();
+    }
+    private void OnClickSetting()
+    {
+        _settingPanel?.SetActive(true);
     }
 }

@@ -20,7 +20,16 @@ public class UI_MiniGameResult : MonoBehaviour
     private TMP_Text _scoreText;
     [SerializeField]
     private List<GameObject> _starImages;
+    [SerializeField]
+    private EffectBase _resultEffect;
 
+    private void OnEnable()
+    {
+        if(_resultEffect != null)
+        {
+            _resultEffect.Play();
+        }
+    }
     public void ApplyResult(EQuality quality, float score, float staffBonus)
     {
         if(_resultTextImage == null ||
