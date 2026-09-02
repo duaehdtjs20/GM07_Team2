@@ -112,6 +112,10 @@ public class UI_RestaurantPanel : MonoBehaviour
     {
         if (!_restaurant.TryUpgrade())
         {
+            if (_upgradeButton.TryGetComponent(out ButtonFailEffect effect))
+            {
+                effect.Play();
+            }
             return;
         }
         this.gameObject.SetActive(false);

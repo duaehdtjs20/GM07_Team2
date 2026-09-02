@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class UI_RecipeDetailView : MonoBehaviour
 {
@@ -86,6 +87,10 @@ public class UI_RecipeDetailView : MonoBehaviour
         }
         else
         {
+            if(_unlockButton.TryGetComponent(out ButtonFailEffect effect))
+            {
+                effect.Play();
+            }
             return;
         }
     }

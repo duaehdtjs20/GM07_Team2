@@ -21,7 +21,7 @@ public class UI_MiniGameResult : MonoBehaviour
     [SerializeField]
     private List<GameObject> _starImages;
     [SerializeField]
-    private EffectBase _resultEffect;
+    private GameResultEffect _resultEffect;
 
     private void OnEnable()
     {
@@ -76,5 +76,6 @@ public class UI_MiniGameResult : MonoBehaviour
                 _starImages[2].SetActive(true);
                 break;
         }
+        _resultEffect?.SetQuality(quality);
     }
 }

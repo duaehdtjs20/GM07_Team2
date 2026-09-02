@@ -47,12 +47,21 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
             if(UI_ToastMessage.Instance != null)
             {
                 UI_ToastMessage.Instance.Show("돈이 부족합니다");
+                AudioManager.Instance?.PlaySFX(EAudioType.ButtonFail);
             }
             return false;
         }
         Money -= amount;
         OnMoneyChanged?.Invoke(Money);
         OnMoneyTransaction?.Invoke(amount, transactionType);
-        return true;
+        if(transactionType == ECurrencyTransactionType.OtherExpense)
+        {
+            AudioManager.Instance?.PlaySFX(EAudioType.Upgrade);
+        }
+        else
+        {
+            AudioManager.Instance?.PlaySFX(EAudioType.Coin);
+        }
+            return true;
     }
 }

@@ -69,6 +69,7 @@ public class UI_SliceObject : MonoBehaviour
         }
         _isResolved = true;
         _game.OnObjectSliced(this);
+        AudioManager.Instance?.PlaySFX(EAudioType.SliceGmae_Slice);
         Destroy(gameObject);
     }
     private void Miss()
