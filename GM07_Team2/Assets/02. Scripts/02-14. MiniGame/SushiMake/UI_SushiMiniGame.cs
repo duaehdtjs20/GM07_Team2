@@ -100,6 +100,7 @@ public class UI_SushiMiniGame : UI_MiniGameBase
     }
     public void OnIngredientDrop(UI_IngredientDrag ingredient)
     {
+        AudioManager.Instance?.PlaySFX(EAudioType.Game_Drop);
         switch (_currentStep)
         {
             case EStep.Rice:

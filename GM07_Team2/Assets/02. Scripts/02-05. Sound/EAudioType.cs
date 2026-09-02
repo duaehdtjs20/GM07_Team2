@@ -9,4 +9,11 @@
     Coin,
     Result,
     CustomerEmote,
+    Upgrade,
+    ButtonFail,
+    ResultStar,
+    SliceGmae_Slice,
+    WasabiGame_Squeeze,
+    Game_Drop,
+
 }

@@ -214,7 +214,7 @@ public class UI_SushiDropGame : UI_MiniGameBase
         {
             return;
         }
-
+        AudioManager.Instance?.PlaySFX(EAudioType.Game_Drop);
         _state = EDropState.Falling;
     }
     private void FallIngredient()

@@ -29,6 +29,7 @@ public class GameFlowManager : MonoBehaviour
             _tableManager.OnAllTablesEmpty += OnAllTablesEmpty;
         }
         UI_OrderRequestWindowManager.Instance?.SwitchBlockWindow(true);
+        AudioManager.Instance?.PlayBGM(EAudioType.InGame);
     }
     private void OnDisable()
     {
