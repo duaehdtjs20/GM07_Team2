@@ -30,10 +30,6 @@ namespace GM07.Order
                 _restaurant = FindFirstObjectByType<Restaurant>();
             }
         }
-        private void Update()
-        {
-            //UpdateCookingOrders();
-        }
         // 동선님 파트(손님 착석 완료 시점)에서 호출
         // seat: 손님이 착석한 좌석 정보
         // customer: 주문한 손님
@@ -103,40 +99,6 @@ namespace GM07.Order
                 }
             }
         }
-
-        // 조리중인 주문의 완성 여부를 매 프레임 확인, 완성되면 Ready로 전환
-        private void UpdateCookingOrders()
-        {
-            bool isChanged = false;
-            foreach (OrderData order in _orders)
-            {
-                if (order.State != EOrderState.Cooking)
-                {
-                    continue;
-                }
-                float cookingTime = order.Recipe.Data.CookingTime;
-                if (order.Staff != null)
-                {
-                    cookingTime /= order.Staff.CookSpeed;
-                }
-                if (Time.time - order.CookStartTime >= cookingTime)
-                {
-                    order.State = EOrderState.Ready;
-                    if (QualityManager.Instance != null)
-                    {
-                        order.Quality = QualityManager.Instance.RollQuality();
-                    }
-                    // 완성도 결정 시점에 손님 머리 위 아이콘 표시
-                    order.Customer.ShowQualityIcon(order.Quality);
-                    isChanged = true;
-                }
-            }
-            if (isChanged)
-            {
-                OnOrderListChanged?.Invoke();
-            }
-        }
-
         public void CompleteCooking(OrderData order, EQuality quality)
         {
             if (order == null || order.State != EOrderState.Cooking)
@@ -153,7 +115,6 @@ namespace GM07.Order
                 order.Customer.ShowQualityIcon(order.Quality);
             }
 
-            //OnOrderListChanged?.Invoke();
             ServeOrder(order);
         }
     }

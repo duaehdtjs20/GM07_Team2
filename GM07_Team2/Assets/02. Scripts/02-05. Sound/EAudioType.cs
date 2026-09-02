@@ -16,4 +16,8 @@
     WasabiGame_Squeeze,
     Game_Drop,
 
+
+    CustomerOrder,
+    IceBreakGame_Break,
+
 }

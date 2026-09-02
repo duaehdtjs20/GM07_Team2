@@ -194,6 +194,7 @@ public class Customer : MonoBehaviour
             // 주문 요청 (좌석/손님/레시피 정보 전달)
             order.RequestOrder(Seat, this, selectRecipe);
             _orderData = order.Orders.FirstOrDefault(c => c.Customer == this);
+            AudioManager.Instance?.PlaySFX(EAudioType.CustomerOrder);
         }
     }
     // 주문 취소 메서드
@@ -262,7 +263,8 @@ public class Customer : MonoBehaviour
                 multiplier = QualityManager.Instance.GetPriceMultiplier(_quality);
             }
             int finalPrice = Mathf.RoundToInt(_recipe.Data.Price * multiplier);
-            CurrencyManager.Instance.AddMoney(finalPrice, ECurrencyTransactionType.Sale);
+            CurrencyManager.Instance.AddMoney(_recipe.Data.Price, ECurrencyTransactionType.Sale);
+            CurrencyManager.Instance.AddMoney(finalPrice - _recipe.Data.Price, ECurrencyTransactionType.Tip);
             PlaySound(EAudioType.Coin);
         }
     }

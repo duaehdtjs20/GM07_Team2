@@ -7,8 +7,28 @@ public class UI_ClosePanel : MonoBehaviour
     private DailySettlementManager _settlementManager;
     [SerializeField]
     private TMP_Text _dayText;
+    [Header("Effect")]
     [SerializeField]
-    private TMP_Text _settlementText;
+    private SettlementEffect _settlementEffect;
+    [Header("Settlement Text")]
+    [SerializeField]
+    private TMP_Text _customerCount;
+    [SerializeField]
+    private TMP_Text _salesRevenue;
+    [SerializeField]
+    private TMP_Text _tipRevenue;
+    [SerializeField]
+    private TMP_Text _totalRevenue;
+    [SerializeField]
+    private TMP_Text _rentExpense;
+    [SerializeField]
+    private TMP_Text _wageExpense;
+    [SerializeField]
+    private TMP_Text _otherExpense;
+    [SerializeField]
+    private TMP_Text _totalExpense;
+    [SerializeField]
+    private TMP_Text _netProfit;
 
     private void OnEnable()
     {
@@ -35,22 +55,23 @@ public class UI_ClosePanel : MonoBehaviour
 
     private void RefreshSettlement(DailySettlementData data)
     {
-        if(_dayText == null || _settlementText == null)
+        if(_dayText == null)
         {
             return;
         }
 
         _dayText.text = $"{data.Day}일차 정산\n";
-        _settlementText.text =
-            $"{data.CustomerCount}\n\n" +
-            $"{data.SalesRevenue:N0}\n" +
-            $"{data.TipRevenue:N0}\n\n" +
-            $"{data.TotalRevenue:N0}\n\n\n" +
-            $"{data.RentExpense:N0}\n" +
-            $"{data.WageExpense:N0}\n" +
-            $"{data.OtherExpense:N0}\n\n" +
-            $"{data.TotalExpense:N0}\n\n" +
-            $"{data.NetProfit:N0}\n" +
-            $"{CurrencyManager.Instance.Money:N0}";
+        _customerCount.text = $"{data.CustomerCount}";
+        _salesRevenue.text = $"{data.SalesRevenue:N0}";
+        _tipRevenue.text = $"{data.TipRevenue:N0}";
+        _totalRevenue.text = $"{data.TotalRevenue:N0}";
+        _rentExpense.text = $"{data.RentExpense:N0}";
+        _wageExpense.text = $"{data.WageExpense:N0}";
+        _otherExpense.text = $"{data.OtherExpense:N0}";
+        _totalExpense.text = $"{data.TotalExpense:N0}";
+        _netProfit.text = "0";
+
+        _settlementEffect?.SetTotalRevenu(data.NetProfit);
+        _settlementEffect?.Play();
     }
 }

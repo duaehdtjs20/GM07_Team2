@@ -44,16 +44,6 @@ namespace GM07.Order
             _actionButton.onClick.RemoveListener(OnClickActionButton);
         }
 
-        private void Update()
-        {
-            if (_order == null || _order.State != EOrderState.Cooking)
-            {
-                return;
-            }
-
-            //RefreshTimerText();
-        }
-
         // isTableCooking: 이 테이블에서 (다른 주문이) 조리중인지 여부
         public void InitItem(OrderData order, bool isTableCooking, Action<OrderData> onClickAction)
         {
