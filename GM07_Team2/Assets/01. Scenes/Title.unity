@@ -381,9 +381,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1216373563643518338, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c448309bc2bbee4ba4221134eb53ce4, type: 2}
+    - target: {fileID: 1216373563643518338, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5256672576642699962, guid: 8c448309bc2bbee4ba4221134eb53ce4, type: 2}
+    - target: {fileID: 1216373563643518338, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1287996860102292768, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_Name
       value: TitleCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919569691803434432, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c448309bc2bbee4ba4221134eb53ce4, type: 2}
+    - target: {fileID: 2919569691803434432, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5256672576642699962, guid: 8c448309bc2bbee4ba4221134eb53ce4, type: 2}
+    - target: {fileID: 2919569691803434432, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4875959643286612016, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_Pivot.x

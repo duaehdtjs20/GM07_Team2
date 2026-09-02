@@ -46,7 +46,7 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
         {
             if(UI_ToastMessage.Instance != null)
             {
-                UI_ToastMessage.Instance.Show("���� �����մϴ�");
+                UI_ToastMessage.Instance.Show("돈이 부족합니다");
                 AudioManager.Instance?.PlaySFX(EAudioType.ButtonFail);
             }
             return false;

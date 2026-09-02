@@ -11,7 +11,6 @@ public class RecipeUnlockEffect : EffectBase
     private Quaternion _restRotation;
 
     public Tween Play(Action onComplete)
-    public override Tween Play()
     {
         Kill();
         _restPosition = _lockImage.anchoredPosition;
