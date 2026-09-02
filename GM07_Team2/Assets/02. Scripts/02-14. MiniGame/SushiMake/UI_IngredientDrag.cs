@@ -14,6 +14,7 @@ public class UI_IngredientDrag : MonoBehaviour, IBeginDragHandler,IDragHandler,I
 
     private Canvas _rootCanvas;
     private RectTransform _rootCanvasRect;
+    private CanvasGroup _canvasGroup;
 
     private Transform _originalParent;
     private Vector3 _originalWorldPosition;
@@ -32,6 +33,7 @@ public class UI_IngredientDrag : MonoBehaviour, IBeginDragHandler,IDragHandler,I
             _rootCanvas = parentCanvas.rootCanvas;
             _rootCanvasRect = _rootCanvas.transform as RectTransform;
         }
+        _canvasGroup = GetComponent<CanvasGroup>();
     }
     public void InitFish(RecipeData recipe)
     {
@@ -59,10 +61,7 @@ public class UI_IngredientDrag : MonoBehaviour, IBeginDragHandler,IDragHandler,I
 
         transform.SetAsLastSibling();
 
-        if(_iconImage != null)
-        {
-            _iconImage.raycastTarget = false;
-        }
+        _canvasGroup.blocksRaycasts = false;
         MoveToPointer(eventData);
     }
     public void OnDrag(PointerEventData eventData)
@@ -71,10 +70,7 @@ public class UI_IngredientDrag : MonoBehaviour, IBeginDragHandler,IDragHandler,I
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(_iconImage != null)
-        {
-            _iconImage.raycastTarget = true;
-        }
+        _canvasGroup.blocksRaycasts = true;
         ReturnPosition();
     }
     private void MoveToPointer(PointerEventData eventData)
