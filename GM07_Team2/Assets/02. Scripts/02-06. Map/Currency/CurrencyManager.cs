@@ -53,6 +53,21 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
         Money -= amount;
         OnMoneyChanged?.Invoke(Money);
         OnMoneyTransaction?.Invoke(amount, transactionType);
+<<<<<<< Updated upstream
+=======
+        if(transactionType == ECurrencyTransactionType.OtherExpense)
+        {
+            AudioManager.Instance?.PlaySFX(EAudioType.Upgrade);
+        }
+        else if(isDailySettlement)
+        {
+            return true;
+        }
+        else
+        {
+            AudioManager.Instance?.PlaySFX(EAudioType.Coin);
+        }
+>>>>>>> Stashed changes
         return true;
     }
 }

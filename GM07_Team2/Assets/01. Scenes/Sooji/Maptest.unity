@@ -3372,7 +3372,7 @@ PrefabInstance:
       objectReference: {fileID: 1103095954}
     - target: {fileID: 4505375442348039151, guid: 09391299a4c4fb449852f263de52a400, type: 3}
       propertyPath: _openDuration
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6308288180640898662, guid: 09391299a4c4fb449852f263de52a400, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5561,7 +5561,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 290239700952129691, guid: e43f921b0d8df004e917652811a04311, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< Updated upstream
       value: -16.7
+=======
+      value: -16.39
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 290239700952129691, guid: e43f921b0d8df004e917652811a04311, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5569,7 +5573,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 290239700952129691, guid: e43f921b0d8df004e917652811a04311, type: 3}
       propertyPath: m_LocalPosition.z
+<<<<<<< Updated upstream
       value: -12.9
+=======
+      value: -15.38
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 290239700952129691, guid: e43f921b0d8df004e917652811a04311, type: 3}
       propertyPath: m_LocalRotation.w

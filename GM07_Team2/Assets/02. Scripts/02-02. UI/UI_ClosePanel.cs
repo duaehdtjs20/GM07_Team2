@@ -22,6 +22,7 @@ public class UI_ClosePanel : MonoBehaviour
             return;
         }
         RefreshSettlement(_settlementManager.DailySettlementData);
+        AudioManager.Instance?.PlaySFX(EAudioType.Result);
     }
 
     private void OnDisable()

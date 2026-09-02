@@ -29,7 +29,7 @@ MonoBehaviour:
     _audioType: 3
     _volume: 1
     _pitch: 1
-  - _clip: {fileID: 8300000, guid: 9ab7be34eb9cd374e9c28db4d6f9f8bf, type: 3}
+  - _clip: {fileID: 8300000, guid: 39ee42986bdb7ef49a5434dec3464e4c, type: 3}
     _audioType: 4
     _volume: 1
     _pitch: 1

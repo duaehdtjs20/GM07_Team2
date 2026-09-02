@@ -381,6 +381,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< Updated upstream
     - target: {fileID: 165136261151787035, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.54495454
@@ -417,6 +418,16 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2584168096503016139, guid: 584a5050985ee8149b45937eaccf0094, type: 2}
+=======
+    - target: {fileID: 1216373563643518338, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c448309bc2bbee4ba4221134eb53ce4, type: 2}
+    - target: {fileID: 1216373563643518338, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5256672576642699962, guid: 8c448309bc2bbee4ba4221134eb53ce4, type: 2}
+>>>>>>> Stashed changes
     - target: {fileID: 1287996860102292768, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_Name
       value: TitleCanvas
@@ -424,6 +435,7 @@ PrefabInstance:
     - target: {fileID: 2919569691803434432, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_fontAsset
       value: 
+<<<<<<< Updated upstream
       objectReference: {fileID: 11400000, guid: 584a5050985ee8149b45937eaccf0094, type: 2}
     - target: {fileID: 2919569691803434432, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_sharedMaterial
@@ -445,6 +457,13 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0.54495454
       objectReference: {fileID: 0}
+=======
+      objectReference: {fileID: 11400000, guid: 8c448309bc2bbee4ba4221134eb53ce4, type: 2}
+    - target: {fileID: 2919569691803434432, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5256672576642699962, guid: 8c448309bc2bbee4ba4221134eb53ce4, type: 2}
+>>>>>>> Stashed changes
     - target: {fileID: 4875959643286612016, guid: efd4625baeeb02a4c9c5b8780d4acb8d, type: 3}
       propertyPath: m_Pivot.x
       value: 0

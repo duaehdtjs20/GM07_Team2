@@ -339,7 +339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 21e31cd40c77a4dd2b92063db86a8a74, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fb914ae2988054dbc9199a171163a38d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 708829cc54f97413dac29875ba319162, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9a3ba33632303b94b829d737704c3550, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -512,6 +512,7 @@ GameObject:
   - component: {fileID: 1394735872426615487}
   - component: {fileID: 2914612627440353903}
   - component: {fileID: 1553486325101743187}
+  - component: {fileID: 948113796534949829}
   - component: {fileID: 8860055311153069494}
   m_Layer: 5
   m_Name: RecipeMiniView
@@ -597,6 +598,20 @@ MonoBehaviour:
   _nameText: {fileID: 4318731908041087690}
   _stateText: {fileID: 5845509403582297409}
   _unlockImage: {fileID: 7609529912476078856}
+  _unlockEffect: {fileID: 948113796534949829}
+--- !u!114 &948113796534949829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8385026688965203543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c39f1547e1be25459a37851e983fbe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeUnlockEffect
+  _lockImage: {fileID: 6057322199411351220}
 --- !u!114 &8860055311153069494
 MonoBehaviour:
   m_ObjectHideFlags: 0

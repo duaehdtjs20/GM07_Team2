@@ -81,7 +81,10 @@ namespace GM07.Map
                 _tableManager = FindFirstObjectByType<TableManager>();
             }
 
-            while(_gameFlowManager.GameState == EGameState.Open)
+            yield return new WaitForSeconds(Random.Range(1f,3f));
+            TrySpawn();
+
+            while (_gameFlowManager.GameState == EGameState.Open)
             {
                 if (!TryGetSpawnInterval(out float spawnInterval))
                 {

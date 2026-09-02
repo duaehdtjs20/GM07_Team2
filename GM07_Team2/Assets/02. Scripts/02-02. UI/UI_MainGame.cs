@@ -64,8 +64,8 @@ public class UI_MainGame : MonoBehaviour
     private const int OpenHour = 10;
     private const int CloseHour = 21;
     private const int PreparingHour = 9;
-    private const float MorningEndProgress = 0.33f;
-    private const float LunchEndProgress = 0.66f;
+    private const int AfternoonHour = 12;
+    private const int EveningHour = 18;
     private const float ClockMaxFillAmount = (CloseHour - OpenHour) / 12f;
 
     #region Init
@@ -195,10 +195,10 @@ public class UI_MainGame : MonoBehaviour
             return;
         }
 
-        string period = progress <= MorningEndProgress
+        string period = progress <= AfternoonHour
             ? "아침"
-            : progress <= LunchEndProgress
-            ? "점심"
+            : progress <= EveningHour
+            ? "오후"
             : "저녁";
 
         _dayText.text = $"{_gameFlowManager.CurrentDay}일차 - {period}";
