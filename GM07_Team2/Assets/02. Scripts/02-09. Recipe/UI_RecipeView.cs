@@ -58,6 +58,10 @@ public class UI_RecipeView : MonoBehaviour
             return;
         }
 
-        _recipeDetailView.Bind(_recipe, Draw);
+        _recipeDetailView.Bind(_recipe, OnUnlocked);
+    }
+    private void OnUnlocked()
+    {
+        _unlockEffect?.Play(Draw);
     }
 }

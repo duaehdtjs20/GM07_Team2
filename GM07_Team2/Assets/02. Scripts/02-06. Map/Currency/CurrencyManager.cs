@@ -46,7 +46,7 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
         {
             if(UI_ToastMessage.Instance != null)
             {
-                UI_ToastMessage.Instance.Show("µ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù");
+                UI_ToastMessage.Instance.Show("ëˆì´ ë¶€ì¡±í•©ë‹ˆë‹¤");
                 AudioManager.Instance?.PlaySFX(EAudioType.ButtonFail);
             }
             return false;
@@ -58,10 +58,14 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
         {
             AudioManager.Instance?.PlaySFX(EAudioType.Upgrade);
         }
+        else if(isDailySettlement)
+        {
+            return true;
+        }
         else
         {
             AudioManager.Instance?.PlaySFX(EAudioType.Coin);
         }
-            return true;
+        return true;
     }
 }
