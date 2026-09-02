@@ -31,10 +31,11 @@ public class UI_TitleScene : MonoBehaviour
         _settingButton?.onClick.AddListener(OnClickSetting);
         _titleEffect = GetComponent<EffectBase>();
         _loadingPanel?.SetActive(false);
-        RefreshButton();
     }
     private void Start()
     {
+        RefreshButton();
+        AudioManager.Instance?.PlayBGM(EAudioType.Title);
         _titleEffect?.Play();
         _settingPanel?.SetActive(false);
     }
@@ -50,7 +51,7 @@ public class UI_TitleScene : MonoBehaviour
     {
         if (_continueButton != null)
         {
-            _continueButton.interactable = SaveManager.Instance.HasSaveData();
+            _continueButton.interactable = SaveManager.Instance!=null && SaveManager.Instance.HasSaveData();
         }
     }
 

@@ -79,7 +79,7 @@ public class UI_StaffDetailView : MonoBehaviour
             }
             else
             {
-                _nextLevel.text = $"Lv.{_staff.Upgrade + 1}";
+                _nextLevel.text = $"Lv. {_staff.Upgrade + 1}";
             }
         }
         if (_nextDetails != null)
@@ -105,6 +105,10 @@ public class UI_StaffDetailView : MonoBehaviour
         }
         if (!_staff.TryUpgrade())
         {
+            if (_upgradeButton.TryGetComponent(out ButtonFailEffect effect))
+            {
+                effect.Play();
+            }
             return;
         }
         Draw();

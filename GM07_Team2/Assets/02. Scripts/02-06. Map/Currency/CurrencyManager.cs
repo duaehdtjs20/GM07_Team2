@@ -46,15 +46,14 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
         {
             if(UI_ToastMessage.Instance != null)
             {
-                UI_ToastMessage.Instance.Show("µ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù");
+                UI_ToastMessage.Instance.Show("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½");
+                AudioManager.Instance?.PlaySFX(EAudioType.ButtonFail);
             }
             return false;
         }
         Money -= amount;
         OnMoneyChanged?.Invoke(Money);
         OnMoneyTransaction?.Invoke(amount, transactionType);
-<<<<<<< Updated upstream
-=======
         if(transactionType == ECurrencyTransactionType.OtherExpense)
         {
             AudioManager.Instance?.PlaySFX(EAudioType.Upgrade);
@@ -67,7 +66,6 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
         {
             AudioManager.Instance?.PlaySFX(EAudioType.Coin);
         }
->>>>>>> Stashed changes
         return true;
     }
 }

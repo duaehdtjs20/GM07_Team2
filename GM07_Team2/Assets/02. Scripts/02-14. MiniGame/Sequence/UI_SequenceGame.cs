@@ -190,6 +190,7 @@ public class UI_SequenceGame : UI_MiniGameBase
             CompleteGame(EQuality.Fail);
             return;
         }
+        AudioManager.Instance?.PlaySFX(EAudioType.Game_Drop);
         _inputIndex++;
         if(_inputIndex >= _sequence.Count)
         {

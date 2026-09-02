@@ -1,5 +1,4 @@
 ﻿using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +12,8 @@ public class UI_RecipeView : MonoBehaviour
     private TMP_Text _stateText;
     [SerializeField]
     private GameObject _unlockImage;
+    [SerializeField]
+    private RecipeUnlockEffect _unlockEffect;
 
     private Recipe _recipe;
     private UI_RecipeDetailView _recipeDetailView;
