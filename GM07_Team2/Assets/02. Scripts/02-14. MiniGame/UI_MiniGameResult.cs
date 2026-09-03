@@ -52,6 +52,7 @@ public class UI_MiniGameResult : MonoBehaviour
         switch(quality)
         {
             case EQuality.Fail:
+                AudioManager.Instance?.PlaySFX(EAudioType.Game_Fail);
                 _resultTextImage.sprite = _failSprite;
                 _starImages[0].SetActive(false);
                 _starImages[1].SetActive(false);
