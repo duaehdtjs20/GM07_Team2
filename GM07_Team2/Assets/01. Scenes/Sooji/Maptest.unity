@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &84961550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1592989940419775296, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+  m_PrefabInstance: {fileID: 7710086044700178827}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf43b60130c781b4d807bbcead747731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_IceBreakGame
 --- !u!114 &154265519 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 827811702215402896, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
@@ -332,17 +343,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1695395880005463306, guid: 041905d5476b0ad4d9913a5ae8fa2e20, type: 3}
   m_PrefabInstance: {fileID: 9112303680465477765}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &959759475 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 709001813867458763, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
-  m_PrefabInstance: {fileID: 7710086044700178827}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 885ce49f31deccf42ae82ef337f53e8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI_SushiSliceGame
 --- !u!1 &987141756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7877688443682007298, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
@@ -1796,16 +1796,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: _miniGames.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[0]'
       value: 
-      objectReference: {fileID: 959759475}
+      objectReference: {fileID: 294330844}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[1]'
       value: 
-      objectReference: {fileID: 154265519}
+      objectReference: {fileID: 84961550}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[2]'
       value: 

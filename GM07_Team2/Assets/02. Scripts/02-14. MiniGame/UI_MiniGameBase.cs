@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class UI_MiniGameBase : MonoBehaviour
 {
     protected ExplanationEffect _effect;
-    private void Awake()
+    protected virtual void Awake()
     {
         _effect = GetComponentInChildren<ExplanationEffect>();
     }

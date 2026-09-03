@@ -74,6 +74,8 @@ public class UI_IceBreakGame : UI_MiniGameBase
     private TMP_Text _menuText;
     [SerializeField]
     private Image _orderIcon;
+    [SerializeField]
+    private GameObject _grade;
 
     // UI 갱신 및 이벤트 기능 연결을 위한 배열
     private UI_IceBlock[,] _blockViews;
@@ -100,8 +102,9 @@ public class UI_IceBreakGame : UI_MiniGameBase
     // indexer를 사용한 프로퍼티 (2차원 배열을 읽기 전용으로 가져오기 위함)
     public EIceBlockState this[int y, int x] => _blockStates[y, x];
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         // null reference exception
         if (_lines == null || _lines.Length <= 0)
         {
@@ -182,8 +185,15 @@ public class UI_IceBreakGame : UI_MiniGameBase
         _fishImage.sprite = _order.Recipe.Data.IngredientIcon;
         _menuText.text = _order.Recipe.Data.Name;
         _orderIcon.sprite = _order.Recipe.Data.Icon;
+        if (_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
+        }
         SetWeight(_order.Recipe.Data.MenuGrade);
         gameObject.SetActive(true);
+        _effect.Play();
     }
     public void BreakBlock(int x, int y)
     {
