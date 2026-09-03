@@ -61,9 +61,9 @@ public class UI_MainGame : MonoBehaviour
     private bool _isClosing;
     private bool _canPlayStateChangeEffect;
 
-    private const int OpenHour = 10;
+    private const int OpenHour = 9;
     private const int CloseHour = 21;
-    private const int PreparingHour = 9;
+    private const int PreparingHour = 8;
     private const int AfternoonHour = 12;
     private const int EveningHour = 18;
     private const float ClockMaxFillAmount = (CloseHour - OpenHour) / 12f;

@@ -25,6 +25,11 @@ public class HostessAnim : MonoBehaviour
     }
     private void Update()
     {
+        if (_isGreeted)
+        {
+            return;
+        }
+
         if (Physics.OverlapBox(transform.position + _center, _size, Quaternion.identity, _customerLayer).Length > 0)
         {
             Greeting();

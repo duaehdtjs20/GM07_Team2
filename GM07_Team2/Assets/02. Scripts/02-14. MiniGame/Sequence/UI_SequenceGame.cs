@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +25,8 @@ public class UI_SequenceGame : UI_MiniGameBase
     [Header("Plate")]
     [SerializeField]
     private List<UI_SequencePlate> _plates = new();
+    [SerializeField]
+    private GridLayoutGroup _plateGrid;
     [Header("Guide")]
     [SerializeField]
     private TMP_Text _guideText;
@@ -122,6 +123,7 @@ public class UI_SequenceGame : UI_MiniGameBase
         ResetPlates();
         BuildSequence();
         RefreshTimer();
+        RefreshPlateGrid();
         _memorizeCoroutine = StartCoroutine(MemorizeCoroutine());
     }
     private void ResetPlates()
@@ -245,6 +247,13 @@ public class UI_SequenceGame : UI_MiniGameBase
         if (_timerText != null)
         {
             _timerText.text = Mathf.CeilToInt(_remainingTime).ToString();
+        }
+    }
+    private void RefreshPlateGrid()
+    {
+        if (_plateGrid != null)
+        {
+            _plateGrid.constraintCount = _activePlateCount == 4 ? 2 : 3;
         }
     }
     private EQuality CalculateQuality(float totalScore)
