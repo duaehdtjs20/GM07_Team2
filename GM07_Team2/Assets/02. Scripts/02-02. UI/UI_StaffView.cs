@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,10 +8,14 @@ public class UI_StaffView : MonoBehaviour
     private TMP_Text _name;
     [SerializeField]
     private TMP_Text _level;
+    [SerializeField]
+    private GameObject _alarmImage;
 
     private Staff _staff;
     private UI_StaffDetailView _staffDetailView;
-    public void Bind(Staff staff, UI_StaffDetailView staffDetailView)
+
+    private Action _onStaffUpgraded;
+    public void Bind(Staff staff, UI_StaffDetailView staffDetailView, Action onStaffUpgraded)
     {
         if(staff == null || staffDetailView == null)
         {
@@ -18,6 +23,7 @@ public class UI_StaffView : MonoBehaviour
         }
         _staff = staff;
         _staffDetailView = staffDetailView;
+        _onStaffUpgraded = onStaffUpgraded;
 
         Draw();
     }
@@ -35,6 +41,10 @@ public class UI_StaffView : MonoBehaviour
         {
             _level.text = $"Lv.{_staff.Upgrade}";
         }
+        if(_alarmImage != null)
+        {
+            _alarmImage.SetActive(_staff.CanUpgrade());
+        }
     }
     public void OnClick()
     {
@@ -42,6 +52,11 @@ public class UI_StaffView : MonoBehaviour
         {
             return;
         }
-        _staffDetailView.Bind(_staff, Draw);
+        _staffDetailView.Bind(_staff, OnUpgraded);
+    }
+    private void OnUpgraded()
+    {
+        Draw();
+        _onStaffUpgraded?.Invoke();
     }
 }

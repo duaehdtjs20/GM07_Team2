@@ -91,6 +91,18 @@ public class Restaurant : MonoBehaviour
         ApplyLevel(_level + 1);
         return true;
     }
+    public bool CanUpgrade()
+    {
+        if (IsMaxLevel || CurrencyManager.Instance == null)
+        {
+            return false;
+        }
+        if (!CurrencyManager.Instance.CanSpendMoney(UpgradeCost))
+        {
+            return false;
+        }
+        return true;
+    }
     private void ApplyLevel(int level)
     {
         _level = Mathf.Clamp(level, 1, MaxLevel);

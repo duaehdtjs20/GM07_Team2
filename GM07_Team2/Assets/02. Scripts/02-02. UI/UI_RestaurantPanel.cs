@@ -10,6 +10,8 @@ public class UI_RestaurantPanel : MonoBehaviour
     [Header("Update Button")]
     [SerializeField]
     private Button _upgradeButton;
+    [SerializeField]
+    private GameObject _alarmImage;
     [Header("MaxPanel")]
     [SerializeField]
     private GameObject _maxPanel;
@@ -82,11 +84,11 @@ public class UI_RestaurantPanel : MonoBehaviour
         if (_upgradeButton != null)
         {
             _upgradeButton.gameObject.SetActive(!isMaxLevel);
-            /*_upgradeButton.interactable =
-                !isMaxLevel && CurrencyManager.Instance != null &&
-                CurrencyManager.Instance.Money >= _restaurant.UpgradeCost;*/
         }
-
+        if (_alarmImage != null)
+        {
+            _alarmImage.SetActive(_restaurant.CanUpgrade());
+        }
         if (isMaxLevel)
         {
             return;
@@ -119,12 +121,14 @@ public class UI_RestaurantPanel : MonoBehaviour
             return;
         }
         this.gameObject.SetActive(false);
-        //RefreshUI();
     }
 
     private void OnMoneyChanged(int money)
     {
-        RefreshUI();
+        if (_alarmImage != null)
+        {
+            _alarmImage.SetActive(_restaurant.CanUpgrade());
+        }
     }
 }
 

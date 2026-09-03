@@ -68,4 +68,8 @@ public class CurrencyManager : MonoBehaviourSingleton<CurrencyManager>
         }
         return true;
     }
+    public bool CanSpendMoney(int amount)
+    {
+        return Money >= amount;
+    }
 }

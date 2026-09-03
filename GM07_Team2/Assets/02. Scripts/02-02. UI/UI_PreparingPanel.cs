@@ -10,6 +10,8 @@ public class UI_PreparingPanel : MonoBehaviour
     private GameObject _recipePanel;
     [SerializeField]
     private Button _recipeExitButton;
+    [SerializeField]
+    private GameObject _recipeAlarmImage;
     [Header("Staff")]
     [SerializeField]
     private Button _staffButton;
@@ -17,6 +19,8 @@ public class UI_PreparingPanel : MonoBehaviour
     private GameObject _staffPanel;
     [SerializeField]
     private Button _staffExitButton;
+    [SerializeField]
+    private GameObject _staffAlarmImage;
     [Header("Store")]
     [SerializeField]
     private Button _storeButton;
@@ -24,6 +28,11 @@ public class UI_PreparingPanel : MonoBehaviour
     private GameObject _storePanel;
     [SerializeField]
     private Button _storeExitButton;
+    [SerializeField]
+    private GameObject _storeAlarmImage;
+    [Header("Alarm")]
+    [SerializeField]
+    private Restaurant _restaurant;
 
     private void Awake()
     {
@@ -40,9 +49,14 @@ public class UI_PreparingPanel : MonoBehaviour
     private void OnEnable()
     {
         CloseAllPanels();
+        CurrencyManager.Instance.OnMoneyChanged += OnMoneyChanged;
+        _restaurant.OnRestaurantChanged += RefreshAlarms;
+        RefreshAlarms();
     }
     private void OnDisable()
     {
+        CurrencyManager.Instance.OnMoneyChanged -= OnMoneyChanged;
+        _restaurant.OnRestaurantChanged -= RefreshAlarms;
         CloseAllPanels();
     }
     private void OnDestroy()
@@ -107,4 +121,39 @@ public class UI_PreparingPanel : MonoBehaviour
             effect.Play();
         }
     }
+
+    #region Alarm
+    private void OnMoneyChanged(int money)
+    {
+        RefreshAlarms();
+    }
+    private void RefreshAlarms()
+    {
+        _recipeAlarmImage?.SetActive(HasRecipeAlarm());
+        _staffAlarmImage?.SetActive(HasStaffAlarm());
+        _storeAlarmImage?.SetActive(_restaurant.CanUpgrade());
+    }
+    private bool HasRecipeAlarm()
+    {
+        foreach(Recipe recipe in RecipeManager.Instance?.Recipes)
+        {
+            if(recipe!=null&& !recipe.Unlocked && recipe.CanUnlock())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool HasStaffAlarm()
+    {
+        foreach(Staff staff in _restaurant.Staffs)
+        {
+            if (staff != null && staff.CanUpgrade())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    #endregion
 }

@@ -34,6 +34,7 @@ public class UI_RecipePanel : MonoBehaviour
     {
         _previousButton?.onClick.AddListener(OnClickPreviousPage);
         _nextButton?.onClick.AddListener(OnClickNextPage);
+        CurrencyManager.Instance.OnMoneyChanged += OnMoneyChanged;
     }
     private void OnEnable()
     {
@@ -44,6 +45,7 @@ public class UI_RecipePanel : MonoBehaviour
     {
         _previousButton?.onClick.RemoveListener(OnClickPreviousPage);
         _nextButton?.onClick.RemoveListener(OnClickNextPage);
+        CurrencyManager.Instance.OnMoneyChanged -= OnMoneyChanged;
     }
     public void RefreshPage()
     {
@@ -59,7 +61,7 @@ public class UI_RecipePanel : MonoBehaviour
                 continue;
             }
             UI_RecipeView view = Instantiate(_recipeViewPrefab, _ListRoot);
-            view.Bind(recipe, _recipeDetailView);
+            view.Bind(recipe, _recipeDetailView, RefreshRecipeViews);
             view.Draw();
             _recipeViews.Add(view);
         }
@@ -78,6 +80,17 @@ public class UI_RecipePanel : MonoBehaviour
         if(_pageText != null)
         {
             _pageText.text = (_currentPage + 1).ToString();
+        }
+    }
+    private void OnMoneyChanged(int money)
+    {
+        RefreshRecipeViews();
+    }
+    private void RefreshRecipeViews()
+    {
+        foreach (UI_RecipeView view in _recipeViews)
+        {
+            view.Draw();
         }
     }
     private void ClearRecipeView()

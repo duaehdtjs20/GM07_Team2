@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,19 +14,23 @@ public class UI_RecipeView : MonoBehaviour
     [SerializeField]
     private GameObject _unlockImage;
     [SerializeField]
+    private GameObject _alarmImage;
+    [SerializeField]
     private RecipeUnlockEffect _unlockEffect;
 
     private Recipe _recipe;
     private UI_RecipeDetailView _recipeDetailView;
-    public void Bind(Recipe recipe, UI_RecipeDetailView recipeDetailView)
+
+    private Action _onRecipeUnlocked;
+    public void Bind(Recipe recipe, UI_RecipeDetailView recipeDetailView, Action onRecipeUnlocked)
     {
         if (recipe == null || recipeDetailView == null)
         {
             return;
         }
-
         _recipe = recipe;
         _recipeDetailView = recipeDetailView;
+        _onRecipeUnlocked = onRecipeUnlocked;
     }
     public void Draw()
     {
@@ -50,6 +55,17 @@ public class UI_RecipeView : MonoBehaviour
         {
             _unlockImage.SetActive(!_recipe.Unlocked);
         }
+        if (_alarmImage != null)
+        {
+            if(_recipe.Unlocked)
+            {
+                _alarmImage.SetActive(false);
+            }
+            else
+            {
+                _alarmImage.SetActive(_recipe.CanUnlock());
+            }
+        }
     }
     public void OnClick()
     {
@@ -62,6 +78,10 @@ public class UI_RecipeView : MonoBehaviour
     }
     private void OnUnlocked()
     {
-        _unlockEffect?.Play(Draw);
+        _unlockEffect.Play(() =>
+        {
+            Draw();
+            _onRecipeUnlocked?.Invoke();
+        });
     }
 }
