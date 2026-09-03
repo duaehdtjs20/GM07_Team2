@@ -37,15 +37,15 @@ public class SettlementEffect : EffectBase
     {
         Prepare();
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
-        sequence.AppendInterval(0.3f);
+        sequence.AppendInterval(0.1f);
         for(int i = 0; i < _texts.Count; i++)
         {
             TMP_Text text = _texts[i];
             float delay = sequence.Duration()+i*0.1f;
-            sequence.Insert(delay, text.DOFade(1f, 0.3f));
-            sequence.Insert(delay, text.transform.DOScale(_restScales[i], 0.3f).SetEase(Ease.OutBack));
+            sequence.Insert(delay, text.DOFade(1f, 0.2f));
+            sequence.Insert(delay, text.transform.DOScale(_restScales[i], 0.2f).SetEase(Ease.OutBack));
         }
-        sequence.AppendInterval(0.3f);
+        sequence.AppendInterval(0.1f);
         sequence.Append(_totalRevenue.DOScale(_totalRestScale, 0.35f).SetEase(Ease.OutBack, 0.7f));
         sequence.Join(DOTween.To(() => 0, x => _totalRevenueText.text = $"{x:N0}", _totalRevenueValue, 0.35f).SetEase(Ease.InQuad));
         sequence.Append(_totalRevenue.DOPunchScale(Vector3.one * 0.15f, 0.35f, 5, 0.5f));

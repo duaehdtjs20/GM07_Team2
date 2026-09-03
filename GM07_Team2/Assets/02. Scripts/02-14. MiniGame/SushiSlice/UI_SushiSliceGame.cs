@@ -188,6 +188,7 @@ public class UI_SushiSliceGame : UI_MiniGameBase
         _canvasCamera = _rootCanvas.worldCamera;
         gameObject.SetActive(true);
         _spawnCoroutine = StartCoroutine(SpawnCoroutine());
+        _effect.Play();
     }
     private IEnumerator SpawnCoroutine()
     {

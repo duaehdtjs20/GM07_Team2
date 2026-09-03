@@ -4,6 +4,11 @@ using UnityEngine;
 
 public abstract class UI_MiniGameBase : MonoBehaviour
 {
+    protected ExplanationEffect _effect;
+    private void Awake()
+    {
+        _effect = GetComponentInChildren<ExplanationEffect>();
+    }
     public abstract void Open(OrderData order, Action<EQuality> onCompleted);
 
     protected Color GetGradeColor(EMenuGrade grade)

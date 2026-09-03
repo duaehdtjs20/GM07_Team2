@@ -2931,6 +2931,7 @@ GameObject:
   - component: {fileID: 5768994814508526948}
   - component: {fileID: 7892028118008683021}
   - component: {fileID: 4987552560744060504}
+  - component: {fileID: 8267333931699396848}
   m_Layer: 5
   m_Name: P_Explanation
   m_TagString: Untagged
@@ -2956,7 +2957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: 417}
+  m_AnchoredPosition: {x: 0, y: 417}
   m_SizeDelta: {x: 650, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7892028118008683021
@@ -2981,7 +2982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.9960785, g: 0.9607844, b: 0.909804, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2997,6 +2998,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8267333931699396848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740779981375939194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543aaf71731af2a4093783b2fdc281d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplanationEffect
 --- !u!1 &9134032669839986384
 GameObject:
   m_ObjectHideFlags: 0

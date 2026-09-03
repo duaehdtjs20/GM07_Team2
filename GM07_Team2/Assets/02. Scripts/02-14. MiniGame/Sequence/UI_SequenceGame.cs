@@ -125,6 +125,7 @@ public class UI_SequenceGame : UI_MiniGameBase
         RefreshTimer();
         RefreshPlateGrid();
         _memorizeCoroutine = StartCoroutine(MemorizeCoroutine());
+        _effect.Play();
     }
     private void ResetPlates()
     {
