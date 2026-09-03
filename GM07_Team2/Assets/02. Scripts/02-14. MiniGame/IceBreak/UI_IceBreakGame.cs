@@ -64,7 +64,9 @@ public class UI_IceBreakGame : UI_MiniGameBase
     private float _completeDuration;
 
     // 현재 충격 게이지
-    private int _impactGage;
+    private float _impactGage = 0.0f;
+    private float _impact = 10.0f;
+    private float _impactWeight = 1.0f;
 
     //주문서
     [Header("Order")]
@@ -180,6 +182,7 @@ public class UI_IceBreakGame : UI_MiniGameBase
         _fishImage.sprite = _order.Recipe.Data.IngredientIcon;
         _menuText.text = _order.Recipe.Data.Name;
         _orderIcon.sprite = _order.Recipe.Data.Icon;
+        SetWeight(_order.Recipe.Data.MenuGrade);
         gameObject.SetActive(true);
     }
     public void BreakBlock(int x, int y)
@@ -193,13 +196,13 @@ public class UI_IceBreakGame : UI_MiniGameBase
         // 클릭한 블록 파괴
         if (_blockStates[x, y] == EIceBlockState.Intact)
         {
-            // 온전한 상태면 충격량 10
-            _impactGage += 10;
+            // 온전한 상태면 기본 충격량 * 가중치
+            _impactGage += _impact * _impactWeight;
         }
         else
         {
-            // 이미 일부 파괴된 상태면 충격량 5
-            _impactGage += 5;
+            // 이미 일부 파괴된 상태면 기본 충격량 / 2 * 가중치
+            _impactGage += _impact / 2 * _impactWeight;
         }
         _blockStates[x, y] = EIceBlockState.Breaked;
 
@@ -227,16 +230,17 @@ public class UI_IceBreakGame : UI_MiniGameBase
                 if (_blockStates[nx, ny] == EIceBlockState.Intact)
                 {
                     _blockStates[nx, ny] = EIceBlockState.Cracked;
-                    _impactGage += 5;
+                    _impactGage += _impact / 2 * _impactWeight;
                 }
                 // 이미 일부 파괴된 상태면 완전 파괴
                 else
                 {
                     _blockStates[nx, ny] = EIceBlockState.Breaked;
-                    _impactGage += 5;
+                    _impactGage += _impact / 2 * _impactWeight;
                 }
             }
         }
+        AudioManager.Instance?.PlaySFX(EAudioType.IceBreakGame_Break);
         OnChanged?.Invoke();
         CheckAllFind();
         CheckImpact();
@@ -494,6 +498,21 @@ public class UI_IceBreakGame : UI_MiniGameBase
         else
         {
             _completeCoroutine = StartCoroutine(CompleteCo(EQuality.Great, _totalCount));
+        }
+    }
+    private void SetWeight(EMenuGrade grade)
+    {
+        switch (grade)
+        {
+            case EMenuGrade.Low:
+                _impactWeight = 0.8f;
+                break;
+            case EMenuGrade.Mid:
+                _impactWeight = 1.0f;
+                break;
+            case EMenuGrade.High:
+                _impactWeight = 1.2f;
+                break;
         }
     }
     private IEnumerator CompleteCo(EQuality quality, float score = 0)
