@@ -49,7 +49,7 @@ MonoBehaviour:
     _audioType: 8
     _volume: 0.5
     _pitch: 1
-  - _clip: {fileID: 8300000, guid: 29a836942e24afe4c9f8e7e51b2a0ea3, type: 3}
+  - _clip: {fileID: 8300000, guid: 5115ec3c6c6626d438ec90208c508e94, type: 3}
     _audioType: 9
     _volume: 1
     _pitch: 1
@@ -61,11 +61,11 @@ MonoBehaviour:
     _audioType: 11
     _volume: 1
     _pitch: 1
-  - _clip: {fileID: 8300000, guid: 6bdf8fa4b5149db408a0b3769693520b, type: 3}
+  - _clip: {fileID: 8300000, guid: 1c284996f05a0e24d875d3a998ab47f2, type: 3}
     _audioType: 12
     _volume: 1
     _pitch: 1
-  - _clip: {fileID: 8300000, guid: 7b07ddec034128c4eba547bd99ac85b8, type: 3}
-    _audioType: 14
+  - _clip: {fileID: 8300000, guid: b35e0a9b0a9a2fe48822510ea1324300, type: 3}
+    _audioType: 13
     _volume: 1
     _pitch: 1
