@@ -15,6 +15,8 @@
     SliceGmae_Slice,
     WasabiGame_Squeeze,
     Game_Drop,
+    Hit,
+    Miss,
 
 
     CustomerOrder,

@@ -61,3 +61,11 @@ MonoBehaviour:
     _audioType: 11
     _volume: 1
     _pitch: 1
+  - _clip: {fileID: 8300000, guid: 1c284996f05a0e24d875d3a998ab47f2, type: 3}
+    _audioType: 12
+    _volume: 1
+    _pitch: 1
+  - _clip: {fileID: 8300000, guid: b35e0a9b0a9a2fe48822510ea1324300, type: 3}
+    _audioType: 13
+    _volume: 1
+    _pitch: 1
