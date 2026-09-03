@@ -89,6 +89,9 @@ public class UI_SushiSliceGame : UI_MiniGameBase
     [Header("Level")]
     [SerializeField]
     private List<SushiSliceLevel> _levelSettings = new();
+    [Header("Slice Score")]
+    [SerializeField]
+    private UI_SliceScore _sliceScorePrefab;
 
     private OrderData _order;
     private Action<EQuality> _onCompleted;
@@ -303,21 +306,25 @@ public class UI_SushiSliceGame : UI_MiniGameBase
         }
         _activeObjects.Remove(sliceObject);
         SetToggle(sliceObject.SliceObjectType);
+        int scoreChange = 0;
         switch (sliceObject.SliceObjectType)
         {
             case ESliceObjectType.Rice:
             case ESliceObjectType.Wasabi:
             case ESliceObjectType.Fish:
-                _score += _correctSliceScore;
+                scoreChange = _correctSliceScore;
                 break;
             case ESliceObjectType.WrongFish:
-                _score -= _wrongToppingPenalty;
+                scoreChange = - _wrongToppingPenalty;
                 break;
             case ESliceObjectType.Junk:
-                _score -= _junkPenalty;
+                scoreChange = - _junkPenalty;
                 break;
         }
-        _score = Mathf.Min(_score, 100);
+        _score = Mathf.Min(_score + scoreChange, 100);
+        UI_SliceScore sliceScore = Instantiate(_sliceScorePrefab, _playArea);
+        RectTransform ingredientRect = sliceObject.RectTransform;
+        sliceScore.Play(ingredientRect.TransformPoint(ingredientRect.rect.center), scoreChange);
         TryCompleteGame();
     }
     public void OnobjectMissed(UI_SliceObject sliceObject)

@@ -218,7 +218,7 @@ public class UI_SlicingGame : UI_MiniGameBase
         {
             return;
         }
-        _progressText.text = $"{_currentBeatIndex} / {_totalBeats}   Combo {_currentCombo}";
+        _progressText.text = $"{_currentBeatIndex} / {_totalBeats}\nCombo {_currentCombo}";
     }
 
     private bool CheckHit(float indicatorValue)

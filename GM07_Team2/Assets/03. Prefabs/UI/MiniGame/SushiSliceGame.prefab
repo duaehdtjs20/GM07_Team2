@@ -325,6 +325,7 @@ MonoBehaviour:
     _distractorCount: 8
     _spawnInterval: 0.2
     _maximumHorizontalSpeed: 260
+  _sliceScorePrefab: {fileID: 9016865205889832793, guid: fc90107649d2faf4f908c6730f8f62b6, type: 3}
 --- !u!1 &823144956010897632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2979,7 +2980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9960785, g: 0.9607844, b: 0.909804, a: 0.54901963}
+  m_Color: {r: 0.9960785, g: 0.9607844, b: 0.909804, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
