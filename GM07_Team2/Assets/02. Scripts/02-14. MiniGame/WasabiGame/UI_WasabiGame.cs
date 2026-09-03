@@ -292,6 +292,7 @@ public class UI_WasabiGame : UI_MiniGameBase
             return;
         }
         _state = EWasabiState.Completed;
+        _mosaicImage.SetActive(false);
         if (_squeezeButton != null)
         {
             _squeezeButton.interactable = false;

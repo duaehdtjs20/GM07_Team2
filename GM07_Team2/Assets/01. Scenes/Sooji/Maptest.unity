@@ -130,17 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8c696324a0bd649be8efad844a466a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_SequenceGame
---- !u!114 &158096456 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6101869786401857598, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
-  m_PrefabInstance: {fileID: 7710086044700178827}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1b4ffb1c0ea3ca42b7b1ab040e27493, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI_SushiMiniGame
 --- !u!114 &217152833 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1592989940419775296, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
@@ -327,6 +316,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48986b13216c77458d1e487d37ee140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GM07.Map.TableManager
+--- !u!1 &631838288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1695395880005463306, guid: 041905d5476b0ad4d9913a5ae8fa2e20, type: 3}
+  m_PrefabInstance: {fileID: 9112303680465477765}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &959759475 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 709001813867458763, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
@@ -751,6 +745,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -175
       objectReference: {fileID: 0}
+    - target: {fileID: 1044403121146312151, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: _mosaicImage
+      value: 
+      objectReference: {fileID: 631838288}
     - target: {fileID: 1080778723103597362, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1398,7 +1396,7 @@ PrefabInstance:
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[0]'
       value: 
-      objectReference: {fileID: 158096456}
+      objectReference: {fileID: 1983896369}
     - target: {fileID: 7664755625718991043, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: '_miniGames.Array.data[1]'
       value: 
@@ -1436,6 +1434,10 @@ PrefabInstance:
       value: -525
       objectReference: {fileID: 0}
     - target: {fileID: 7725595318230753733, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914998585566255251, guid: 79520fb85e860364caec6320e4654e3a, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1661,6 +1663,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1695395880005463306, guid: 041905d5476b0ad4d9913a5ae8fa2e20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5525330730232991518, guid: 041905d5476b0ad4d9913a5ae8fa2e20, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1752,6 +1758,18 @@ PrefabInstance:
     - target: {fileID: 5525330730232991518, guid: 041905d5476b0ad4d9913a5ae8fa2e20, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415365005291975226, guid: 041905d5476b0ad4d9913a5ae8fa2e20, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415365005291975226, guid: 041905d5476b0ad4d9913a5ae8fa2e20, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469663183293712904, guid: 041905d5476b0ad4d9913a5ae8fa2e20, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8503355630205177332, guid: 041905d5476b0ad4d9913a5ae8fa2e20, type: 3}
       propertyPath: m_Name
