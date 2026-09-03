@@ -93,7 +93,7 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
 
     // 순차 해금 규칙: Low는 항상 해금 가능,
     // Mid는 Low 전체가 Unlocked여야 가능, High는 Mid 전체가 Unlocked여야 가능
-    public bool CanUnlock(Recipe recipe)
+    public bool CanUnlock(Recipe recipe, bool shoqMessage = true)
     {
         if (recipe == null || recipe.Data == null)
         {
@@ -111,7 +111,10 @@ public class RecipeManager : MonoBehaviourSingleton<RecipeManager>
         {
             if (r.Data.MenuGrade == previousGrade && !r.Unlocked)
             {
-                UI_ToastMessage.Instance?.Show("이전 등급의 레시피를 모두 해금해야합니다");
+                if (shoqMessage)
+                {
+                    UI_ToastMessage.Instance?.Show("이전 등급의 레시피를 모두 해금해야합니다");
+                }
                 return false;
             }
         }

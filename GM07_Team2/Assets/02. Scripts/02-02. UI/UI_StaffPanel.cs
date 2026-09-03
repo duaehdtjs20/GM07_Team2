@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,6 @@ public class UI_StaffPanel : MonoBehaviour
     private UI_StaffDetailView _staffDetailView;
 
     private List<UI_StaffView> _staffViews = new();
-
     private void OnEnable()
     {
         if (_restaurant == null)
@@ -22,6 +22,7 @@ public class UI_StaffPanel : MonoBehaviour
             return;
         }
         _restaurant.OnRestaurantChanged += RefreshUI;
+        CurrencyManager.Instance.OnMoneyChanged += OnMoneyChanged;
         RefreshUI();
     }
     private void OnDisable()
@@ -31,6 +32,7 @@ public class UI_StaffPanel : MonoBehaviour
             return;
         }
         _restaurant.OnRestaurantChanged -= RefreshUI;
+        CurrencyManager.Instance.OnMoneyChanged -= OnMoneyChanged;
     }
     private void RefreshUI()
     {
@@ -44,7 +46,7 @@ public class UI_StaffPanel : MonoBehaviour
                 continue;
             }
             UI_StaffView view = Instantiate(_staffViewPrefab, _listRoot);
-            view.Bind(staff, _staffDetailView);
+            view.Bind(staff, _staffDetailView, RefreshStaffViews);
             _staffViews.Add(view);
         }
         if(_staffViews.Count > 0)
@@ -62,5 +64,16 @@ public class UI_StaffPanel : MonoBehaviour
             }
         }
         _staffViews.Clear();
+    }
+    private void OnMoneyChanged(int newMoney)
+    {
+        RefreshStaffViews();
+    }
+    private void RefreshStaffViews()
+    {
+        foreach (UI_StaffView view in _staffViews)
+        {
+            view.Draw();
+        }
     }
 }

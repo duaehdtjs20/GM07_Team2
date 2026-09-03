@@ -46,6 +46,15 @@ public class UI_SlicingGame : UI_MiniGameBase
     [SerializeField] private float[] _goodThresholdByGrade = new float[3] { 0.60f, 0.70f, 0.65f };
     [Header("Result")]
     [SerializeField] private float _resultDisplayDuration = 1.5f;
+
+    [Header("Order")]
+    [SerializeField]
+    private Image _orderIcon;
+    [SerializeField]
+    private TMP_Text _menuName;
+    [SerializeField]
+    private GameObject _grade;
+
     // 재료(레시피)별 손질 단계 이미지 세트. ingredientKey를 order.Recipe.Data.IngredientIcon과 비교해서 매칭.
     [System.Serializable]
     private class IngredientStageSet
@@ -71,8 +80,9 @@ public class UI_SlicingGame : UI_MiniGameBase
     private Coroutine _feedbackCoroutine;
     private Coroutine _knifeCoroutine;
     private Coroutine _beatTransitionCoroutine;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (_knifeImage != null)
         {
             _knifeIdlePosition = _knifeImage.rectTransform.anchoredPosition;
@@ -107,8 +117,17 @@ public class UI_SlicingGame : UI_MiniGameBase
         {
             _feedbackRoot.gameObject.SetActive(false);
         }
+        _menuName.text = order.Recipe.Data.Name;
+        _orderIcon.sprite = order.Recipe.Data.Icon;
+        if (_grade.TryGetComponent<Image>(out Image gradeImage))
+        {
+            gradeImage.color = GetGradeColor(order.Recipe.Data.MenuGrade);
+            TMP_Text gradeText = _grade.GetComponentInChildren<TMP_Text>();
+            gradeText.text = order.Recipe.Data.MenuGrade.ToString();
+        }
         UpdateFishVisual();
         StartNextBeat();
+        _effect.Play();
     }
     private Sprite[] ResolveStageSprites(Sprite ingredientIcon)
     {
@@ -185,7 +204,7 @@ public class UI_SlicingGame : UI_MiniGameBase
         {
             return;
         }
-        _progressText.text = $"{_currentBeatIndex} / {_totalBeats}   Combo {_currentCombo}";
+        _progressText.text = $"{_currentBeatIndex} / {_totalBeats}\nCombo {_currentCombo}";
     }
     private bool CheckHit(float indicatorValue)
     {

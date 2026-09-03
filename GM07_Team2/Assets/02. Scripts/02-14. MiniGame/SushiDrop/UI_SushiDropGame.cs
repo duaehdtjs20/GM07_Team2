@@ -167,6 +167,7 @@ public class UI_SushiDropGame : UI_MiniGameBase
         }
         RefreshTimer();
         SpawnNextIngredient();
+        _effect.Play();
     }
     private void CreateIngredientOrder()
     {

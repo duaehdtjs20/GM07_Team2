@@ -49,6 +49,14 @@ public class Recipe
             return false;
         }
     }
+    public bool CanUnlock()
+    {
+        if (RecipeManager.Instance == null || CurrencyManager.Instance == null)
+        {
+            return false;
+        }
+        return RecipeManager.Instance.CanUnlock(this, false) && CurrencyManager.Instance.CanSpendMoney(_data.Cost);
+    }
     // 게임 시작 시 기본 제공되는 레시피를 위한 강제 해금 (돈 소모 없음)
     public void ForceUnlock(bool isNewGame)
     {

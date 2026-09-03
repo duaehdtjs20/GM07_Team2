@@ -97,6 +97,7 @@ public class UI_SushiMiniGame : UI_MiniGameBase
         }
         gameObject.SetActive(true);
         _timerCoroutine = StartCoroutine(TimerCo());
+        _effect.Play();
     }
     public void OnIngredientDrop(UI_IngredientDrag ingredient)
     {

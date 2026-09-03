@@ -160,6 +160,7 @@ public class UI_WasabiGame : UI_MiniGameBase
         {
             _squeezeButton.interactable = true;
         }
+        _effect.Play();
     }
     private void UpdateTimer()
     {

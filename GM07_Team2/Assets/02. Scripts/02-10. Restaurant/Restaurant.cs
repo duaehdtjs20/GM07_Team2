@@ -26,6 +26,7 @@ public class Restaurant : MonoBehaviour
     public int ChefCount => GetLevelData(_level).ChefCount;
     public int Rent => GetLevelData(_level).Rent;
     public int UpgradeCost => IsMaxLevel? 0 : GetLevelData(_level + 1).UpgradeCost;
+    public int OpeningTime => GetLevelData(_level).OpeningTime;
     public int TotalWage
     {
         get
@@ -89,6 +90,18 @@ public class Restaurant : MonoBehaviour
         }
 
         ApplyLevel(_level + 1);
+        return true;
+    }
+    public bool CanUpgrade()
+    {
+        if (IsMaxLevel || CurrencyManager.Instance == null)
+        {
+            return false;
+        }
+        if (!CurrencyManager.Instance.CanSpendMoney(UpgradeCost))
+        {
+            return false;
+        }
         return true;
     }
     private void ApplyLevel(int level)

@@ -9,9 +9,10 @@ public class GameFlowManager : MonoBehaviour
     [SerializeField]
     private TableManager _tableManager;
     [SerializeField]
-    private float _openDuration;
+    private Restaurant _restaurant;
 
     private Coroutine _openCoroutine;
+    private float _openDuration;
 
     public EGameState GameState { get; private set; }
     public float OpenDuration => _openDuration;
@@ -48,7 +49,7 @@ public class GameFlowManager : MonoBehaviour
         StopOpenCo();
 
         CurrentDay = Mathf.Max(1, day);
-        RemainingTime = _openDuration;
+        ResetOpenTimer();
         GameState = EGameState.Preparing;
 
         OnDayChanged?.Invoke(CurrentDay);
@@ -62,7 +63,7 @@ public class GameFlowManager : MonoBehaviour
             return;
         }
 
-        RemainingTime = _openDuration;
+        ResetOpenTimer();
         SetGameState(EGameState.Open);
         UI_OrderRequestWindowManager.Instance?.SwitchBlockWindow(false);
 
@@ -141,6 +142,11 @@ public class GameFlowManager : MonoBehaviour
         RemainingTime = _openDuration;
         OnRemainingTimeChanged?.Invoke(RemainingTime);
     }
+    private void ResetOpenTimer()
+    {
+        _openDuration = _restaurant.OpeningTime;
+        RemainingTime = _openDuration;
+    }
 
     public void OnClickOpen()
     {
@@ -160,7 +166,7 @@ public class GameFlowManager : MonoBehaviour
         }
 
         CurrentDay++;
-        RemainingTime = _openDuration;
+        ResetOpenTimer();
         OnDayChanged?.Invoke(CurrentDay);
         OnRemainingTimeChanged?.Invoke(RemainingTime);
 

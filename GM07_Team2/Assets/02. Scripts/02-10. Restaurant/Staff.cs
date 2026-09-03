@@ -81,6 +81,15 @@ public class Staff
         OnUpgraded?.Invoke();
         return true;
     }
+    public bool CanUpgrade()
+    {
+        if (IsMexLevel || NextLevelData == null || CurrencyManager.Instance == null)
+        {
+            return false;
+        }
+        StaffLevelData nextData = NextLevelData;
+        return nextData != null && nextData.UpgradeCost >= 0 && CurrencyManager.Instance.CanSpendMoney(nextData.UpgradeCost);
+    }
     public void SetState(EStaffState state)
     {
         _state = state;

@@ -69,3 +69,11 @@ MonoBehaviour:
     _audioType: 13
     _volume: 1
     _pitch: 1
+  - _clip: {fileID: 8300000, guid: 7b07ddec034128c4eba547bd99ac85b8, type: 3}
+    _audioType: 16
+    _volume: 1
+    _pitch: 1
+  - _clip: {fileID: 8300000, guid: 1723c35857321fb49a87e9b9b19ce243, type: 3}
+    _audioType: 14
+    _volume: 1
+    _pitch: 1

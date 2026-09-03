@@ -22,4 +22,6 @@
     CustomerOrder,
     IceBreakGame_Break,
 
+
+    Game_Fail,
 }
