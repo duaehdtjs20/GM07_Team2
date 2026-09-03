@@ -1657,7 +1657,7 @@ MonoBehaviour:
   - {fileID: 1910961101785800925}
   - {fileID: 4616801114319037978}
   - {fileID: 3613869219985721787}
-  _plateGrid: {fileID: 0}
+  _plateGrid: {fileID: 52835611556798149}
   _guideText: {fileID: 7552074502568368919}
   _timerText: {fileID: 4700530832675315758}
   _timeLimit: 10

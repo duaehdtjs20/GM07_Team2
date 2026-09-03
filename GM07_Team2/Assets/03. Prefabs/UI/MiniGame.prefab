@@ -152,6 +152,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2989408030778499727, guid: 803ee6a86a8e07a40b4b7b569e6a7bdb, type: 3}
+      propertyPath: _resultUI
+      value: 
+      objectReference: {fileID: 2583622183449554176}
     - target: {fileID: 5392300371124801483, guid: 803ee6a86a8e07a40b4b7b569e6a7bdb, type: 3}
       propertyPath: m_Name
       value: WasabiGame
@@ -1807,6 +1811,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6148800670471072986, guid: 333cf3b8b8a75bc4bb5ca021dae1b025, type: 3}
+      propertyPath: _resultUI
+      value: 
+      objectReference: {fileID: 2583622183449554176}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
