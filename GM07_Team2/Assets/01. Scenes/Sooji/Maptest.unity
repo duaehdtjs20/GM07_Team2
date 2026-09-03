@@ -630,11 +630,55 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _levelDataList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _levelDataList.Array.data[2]._rent
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _levelDataList.Array.data[2]._tableCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _levelDataList.Array.data[0]._openingTime
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _levelDataList.Array.data[1]._openingTime
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _levelDataList.Array.data[2]._openingTime
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _levelDataList.Array.data[2]._upgradeCost
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _levelDataList.Array.data[2]._addObjectList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
       propertyPath: '_levelDataList.Array.data[1]._addObjectList.Array.data[0]'
       value: 
       objectReference: {fileID: 227338434}
     - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: '_levelDataList.Array.data[2]._addObjectList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 227338434}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _levelDataList.Array.data[2]._unlockObjectList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
       propertyPath: '_levelDataList.Array.data[1]._unlockObjectList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1761719918}
+    - target: {fileID: 1833867910471517636, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: '_levelDataList.Array.data[2]._unlockObjectList.Array.data[0]'
       value: 
       objectReference: {fileID: 1761719918}
     - target: {fileID: 2857831048275843859, guid: 09391299a4c4fb449852f263de52a400, type: 3}
@@ -645,6 +689,10 @@ PrefabInstance:
       propertyPath: _orderRequestWindow
       value: 
       objectReference: {fileID: 1103095954}
+    - target: {fileID: 4505375442348039151, guid: 09391299a4c4fb449852f263de52a400, type: 3}
+      propertyPath: _restaurant
+      value: 
+      objectReference: {fileID: 1270792348}
     - target: {fileID: 6308288180640898662, guid: 09391299a4c4fb449852f263de52a400, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
