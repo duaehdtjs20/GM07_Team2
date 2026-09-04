@@ -46,7 +46,6 @@ public class UI_SlicingGame : UI_MiniGameBase
     [SerializeField] private int[] _goodStartCountByGrade = new int[3] { 2, 3, 3 };   // 이 개수부터 Good
     [Header("Result")]
     [SerializeField] private float _resultDisplayDuration = 1.5f;
-
     [Header("Order")]
     [SerializeField]
     private Image _orderIcon;
@@ -54,7 +53,6 @@ public class UI_SlicingGame : UI_MiniGameBase
     private TMP_Text _menuName;
     [SerializeField]
     private GameObject _grade;
-
     // 재료(레시피)별 손질 단계 이미지 세트. ingredientKey를 order.Recipe.Data.IngredientIcon과 비교해서 매칭.
     [System.Serializable]
     private class IngredientStageSet
@@ -161,8 +159,23 @@ public class UI_SlicingGame : UI_MiniGameBase
         UpdateIndicatorVisual(t);
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            JudgeInput(t);
+            TryJudgeInput();
         }
+    }
+    // 스페이스 키든 버튼 클릭이든 여기로 모여서 같은 판정을 탐
+    private void TryJudgeInput()
+    {
+        if (!_isPlaying)
+        {
+            return;
+        }
+        float t = Mathf.PingPong(_sweepTimer / _sweepDuration, 1.0f);
+        JudgeInput(t);
+    }
+    // 스페이스바 안내 이미지에 추가한 Button의 OnClick()에 이 함수를 연결
+    public void OnSpaceButtonClicked()
+    {
+        TryJudgeInput();
     }
     private void StartNextBeat()
     {
@@ -385,7 +398,6 @@ public class UI_SlicingGame : UI_MiniGameBase
     {
         int rawTier = GetRawTier();
         int staffLevel = GetStaffLevel();
-
         int finalTier;
         switch (staffLevel)
         {
@@ -393,7 +405,6 @@ public class UI_SlicingGame : UI_MiniGameBase
             case 1: finalTier = Mathf.Max(rawTier, 1); break;
             default: finalTier = Mathf.Min(rawTier + 1, 3); break;
         }
-
         return TierToQuality(finalTier);
     }
     private int GetRawTier()
