@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameFlowManager
   _tableManager: {fileID: 651524392246781576}
-  _openDuration: 30
+  _restaurant: {fileID: 1833867910471517636}
 --- !u!1 &1285727234747432934
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +154,7 @@ Transform:
   m_Children:
   - {fileID: 2649070669843713506}
   - {fileID: 8449083020229961203}
+  - {fileID: 7571937375315589805}
   m_Father: {fileID: 743337883198676059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2088317991109438606
@@ -205,6 +206,7 @@ MonoBehaviour:
   _tableSpawnPointList:
   - {fileID: 2649070669843713506}
   - {fileID: 8449083020229961203}
+  - {fileID: 7571937375315589805}
   _initialTableCount: 1
 --- !u!1 &2662281981965283989
 GameObject:
@@ -251,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrencyManager
   IsDontDestroyOnLoad: 0
-  _initialMoney: 500
+  _initialMoney: 10000
 --- !u!1 &3503390375196499553
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,13 +447,23 @@ MonoBehaviour:
   _tableManager: {fileID: 651524392246781576}
   _levelDataList:
   - _tableCount: 1
-    _rent: 100
+    _rent: 200
     _upgradeCost: 0
+    _openingTime: 60
     _unlockObjectList: []
     _addObjectList: []
   - _tableCount: 2
-    _rent: 300
-    _upgradeCost: 500
+    _rent: 600
+    _upgradeCost: 3000
+    _openingTime: 90
+    _unlockObjectList:
+    - {fileID: 0}
+    _addObjectList:
+    - {fileID: 0}
+  - _tableCount: 3
+    _rent: 1000
+    _upgradeCost: 5000
+    _openingTime: 120
     _unlockObjectList:
     - {fileID: 0}
     _addObjectList:
@@ -588,4 +600,35 @@ Transform:
   - {fileID: 4028636397214345620}
   - {fileID: 1062732545939475548}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7864828934668724474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7571937375315589805}
+  m_Layer: 0
+  m_Name: Level3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7571937375315589805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7864828934668724474}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13, y: 0, z: 15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2914235498156878174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

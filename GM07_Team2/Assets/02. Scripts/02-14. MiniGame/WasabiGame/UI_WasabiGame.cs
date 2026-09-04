@@ -203,6 +203,7 @@ public class UI_WasabiGame : UI_MiniGameBase
         {
             _mosaicImage.SetActive(true);
         }
+        AudioManager.Instance.PlaySFX(EAudioType.WasabiGame_Squeeze);
         _state = EWasabiState.Filling;
     }
 
