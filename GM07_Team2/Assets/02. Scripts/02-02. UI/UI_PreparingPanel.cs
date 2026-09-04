@@ -34,6 +34,7 @@ public class UI_PreparingPanel : MonoBehaviour
     [SerializeField]
     private Restaurant _restaurant;
 
+    private CurrencyManager _currencyManager;
     private void Awake()
     {
         _recipeButton?.onClick.AddListener(OpenRecipePanel);
@@ -49,14 +50,23 @@ public class UI_PreparingPanel : MonoBehaviour
     private void OnEnable()
     {
         CloseAllPanels();
-        CurrencyManager.Instance.OnMoneyChanged += OnMoneyChanged;
-        _restaurant.OnRestaurantChanged += RefreshAlarms;
+        ConnectEvents();
+    }
+    private void Start()
+    {
+        ConnectEvents();
         RefreshAlarms();
     }
     private void OnDisable()
     {
-        CurrencyManager.Instance.OnMoneyChanged -= OnMoneyChanged;
-        _restaurant.OnRestaurantChanged -= RefreshAlarms;
+        if (_currencyManager != null) 
+        {
+            _currencyManager.OnMoneyChanged -= OnMoneyChanged; 
+        }
+        if (_restaurant != null)
+        {
+            _restaurant.OnRestaurantChanged -= RefreshAlarms;
+        }
         CloseAllPanels();
     }
     private void OnDestroy()
@@ -68,6 +78,24 @@ public class UI_PreparingPanel : MonoBehaviour
         _recipeExitButton?.onClick.RemoveListener(CloseRecipePanel);
         _staffExitButton?.onClick.RemoveListener(CloseStaffPanel);
         _storeExitButton?.onClick.RemoveListener(CloseStorePanel);
+    }
+    private void ConnectEvents()
+    {
+        CurrencyManager manager = CurrencyManager.Instance;
+        if (manager != null && manager != _currencyManager)
+        {
+            if (_currencyManager != null) _currencyManager.OnMoneyChanged -= OnMoneyChanged;
+            _currencyManager = manager;
+            _currencyManager.OnMoneyChanged += OnMoneyChanged;
+        }
+
+        if (_restaurant != null)
+        {
+            _restaurant.OnRestaurantChanged -= RefreshAlarms;
+            _restaurant.OnRestaurantChanged += RefreshAlarms;
+        }
+
+        RefreshAlarms();
     }
     private void OpenRecipePanel()
     {
@@ -131,13 +159,19 @@ public class UI_PreparingPanel : MonoBehaviour
     {
         _recipeAlarmImage?.SetActive(HasRecipeAlarm());
         _staffAlarmImage?.SetActive(HasStaffAlarm());
-        _storeAlarmImage?.SetActive(_restaurant.CanUpgrade());
+        _storeAlarmImage?.SetActive(_restaurant != null && _restaurant.CanUpgrade());
     }
     private bool HasRecipeAlarm()
     {
-        foreach(Recipe recipe in RecipeManager.Instance?.Recipes)
+        RecipeManager manager = RecipeManager.Instance;
+        if (manager == null || manager.Recipes == null)
         {
-            if(recipe!=null&& !recipe.Unlocked && recipe.CanUnlock())
+            return false;
+        }
+
+        foreach (Recipe recipe in manager.Recipes)
+        {
+            if (recipe != null && !recipe.Unlocked && recipe.CanUnlock())
             {
                 return true;
             }
@@ -146,7 +180,12 @@ public class UI_PreparingPanel : MonoBehaviour
     }
     private bool HasStaffAlarm()
     {
-        foreach(Staff staff in _restaurant.Staffs)
+        if (_restaurant == null || _restaurant.Staffs == null)
+        {
+            return false;
+        }
+
+        foreach (Staff staff in _restaurant.Staffs)
         {
             if (staff != null && staff.CanUpgrade())
             {

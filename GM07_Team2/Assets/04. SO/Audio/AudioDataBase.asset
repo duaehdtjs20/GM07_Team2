@@ -77,3 +77,7 @@ MonoBehaviour:
     _audioType: 14
     _volume: 1
     _pitch: 1
+  - _clip: {fileID: 8300000, guid: 81ec56823f0d8b541a5a1790ab4c6c2e, type: 3}
+    _audioType: 15
+    _volume: 1
+    _pitch: 1
