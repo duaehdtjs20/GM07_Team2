@@ -33,7 +33,7 @@ public class UI_SlicingGame : UI_MiniGameBase
     [SerializeField] private int _knifeStrikeRepeatCount = 3;
     [SerializeField] private float _knifeStrikeRepeatGap = 0.08f;
     [Header("Grade Scaling")]
-    [SerializeField] private int[] _beatCountsByGrade = new int[3] { 3, 5, 7 };
+    [SerializeField] private int[] _beatCountsByGrade = new int[3] { 3, 4, 5 };
     [SerializeField] private float[] _sweepDurationByGrade = new float[3] { 1.2f, 1.0f, 0.8f };
     [SerializeField] private float[] _hitWindowByGrade = new float[3] { 0.16f, 0.12f, 0.08f };
     [Header("Target Zone")]
@@ -41,9 +41,9 @@ public class UI_SlicingGame : UI_MiniGameBase
     [Header("Hit Judgement")]
     [Range(0f, 1f)]
     [SerializeField] private float _requiredOverlapRatio = 0.667f;
-    [Header("Quality (등급별로 따로 관리, Great는 항상 100% 성공 시에만)")]
-    [SerializeField] private float[] _normalThresholdByGrade = new float[3] { 0.15f, 0.30f, 0.35f };
-    [SerializeField] private float[] _goodThresholdByGrade = new float[3] { 0.60f, 0.70f, 0.65f };
+    [Header("Quality (성공개수 기준 등급 + 직원등급 보정)")]
+    [SerializeField] private int[] _normalStartCountByGrade = new int[3] { 1, 1, 1 }; // 이 개수부터 Normal
+    [SerializeField] private int[] _goodStartCountByGrade = new int[3] { 2, 3, 3 };   // 이 개수부터 Good
     [Header("Result")]
     [SerializeField] private float _resultDisplayDuration = 1.5f;
 
@@ -107,7 +107,6 @@ public class UI_SlicingGame : UI_MiniGameBase
         _currentCombo = 0;
         _isPlaying = true;
         UpdateProgressText();
-
         _currentStageSprites = ResolveStageSprites(order.Recipe.Data.IngredientIcon);
         if (_resultUI != null)
         {
@@ -363,16 +362,15 @@ public class UI_SlicingGame : UI_MiniGameBase
     {
         float successRatio = _totalBeats > 0 ? (float)_successCount / _totalBeats : 0f;
         float staffBonus = GetStaffBonus();
-        float finalScore = Mathf.Clamp01(successRatio + staffBonus);
-        EQuality quality = ScoreToQuality(finalScore);
+        EQuality quality = ScoreToQuality();
         if (_completeCoroutine != null)
         {
             StopCoroutine(_completeCoroutine);
             _completeCoroutine = null;
         }
-        _completeCoroutine = StartCoroutine(CompleteAfterDelayCo(quality, finalScore, staffBonus));
+        _completeCoroutine = StartCoroutine(CompleteAfterDelayCo(quality, successRatio, staffBonus));
     }
-    // 다른 미니게임들과 동일하게 Staff.QualityBonus를 그대로 사용
+    // 다른 미니게임들과 동일하게 Staff.QualityBonus를 그대로 사용 (결과창 표시용)
     private float GetStaffBonus()
     {
         if (_order.Staff == null)
@@ -381,15 +379,45 @@ public class UI_SlicingGame : UI_MiniGameBase
         }
         return _order.Staff.QualityBonus;
     }
-    // 등급별로 다른 문턱값 사용. Great는 항상 100% 성공(score >= 1.0)일 때만.
-    private EQuality ScoreToQuality(float score)
+    // 순수 성공개수로 매긴 등급(0=Fail,1=Normal,2=Good,3=Great)에서 직원등급만큼 보정.
+    // Lv1: Fail만 방지(최소 Normal 보장). Lv2: 생 결과보다 정확히 한 칸 위(Good→Great도 가능).
+    private EQuality ScoreToQuality()
     {
-        float normalThreshold = _normalThresholdByGrade[_currentGradeIndex];
-        float goodThreshold = _goodThresholdByGrade[_currentGradeIndex];
-        if (score < normalThreshold) { return EQuality.Fail; }
-        if (score < goodThreshold) { return EQuality.Normal; }
-        if (score < 1.0f) { return EQuality.Good; }
-        return EQuality.Great;
+        int rawTier = GetRawTier();
+        int staffLevel = GetStaffLevel();
+
+        int finalTier;
+        switch (staffLevel)
+        {
+            case 0: finalTier = rawTier; break;
+            case 1: finalTier = Mathf.Max(rawTier, 1); break;
+            default: finalTier = Mathf.Min(rawTier + 1, 3); break;
+        }
+
+        return TierToQuality(finalTier);
+    }
+    private int GetRawTier()
+    {
+        if (_successCount >= _totalBeats) { return 3; } // 진짜 100% 성공했을 때만 Great
+        if (_successCount >= _goodStartCountByGrade[_currentGradeIndex]) { return 2; }
+        if (_successCount >= _normalStartCountByGrade[_currentGradeIndex]) { return 1; }
+        return 0;
+    }
+    // Staff.QualityBonus(0/0.1/0.2)를 등급 인덱스(0/1/2)로 역산. Staff.cs는 건드리지 않음.
+    private int GetStaffLevel()
+    {
+        if (_order.Staff == null) { return 0; }
+        return Mathf.RoundToInt(_order.Staff.QualityBonus / 0.1f);
+    }
+    private EQuality TierToQuality(int tier)
+    {
+        switch (tier)
+        {
+            case 0: return EQuality.Fail;
+            case 1: return EQuality.Normal;
+            case 2: return EQuality.Good;
+            default: return EQuality.Great;
+        }
     }
     private IEnumerator CompleteAfterDelayCo(EQuality quality, float score, float staffBonus)
     {
