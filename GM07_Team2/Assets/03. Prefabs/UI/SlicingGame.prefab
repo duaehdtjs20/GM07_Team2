@@ -869,7 +869,7 @@ MonoBehaviour:
   _knifeStrikeDuration: 0.15
   _knifeStrikeRepeatCount: 4
   _knifeStrikeRepeatGap: 0.15
-  _beatCountsByGrade: 030000000500000007000000
+  _beatCountsByGrade: 030000000400000005000000
   _sweepDurationByGrade:
   - 1
   - 0.8
@@ -880,14 +880,8 @@ MonoBehaviour:
   - 0.065
   _targetMargin: 0.15
   _requiredOverlapRatio: 0.667
-  _normalThresholdByGrade:
-  - 0.15
-  - 0.3
-  - 0.35
-  _goodThresholdByGrade:
-  - 0.6
-  - 0.7
-  - 0.65
+  _normalStartCountByGrade: 010000000100000001000000
+  _goodStartCountByGrade: 020000000300000003000000
   _resultDisplayDuration: 1.5
   _orderIcon: {fileID: 784985736236664224}
   _menuName: {fileID: 7094236745468462112}
