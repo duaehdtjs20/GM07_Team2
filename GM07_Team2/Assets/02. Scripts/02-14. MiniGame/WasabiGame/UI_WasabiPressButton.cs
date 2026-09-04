@@ -20,8 +20,6 @@ public class UI_WasabiPressButton : MonoBehaviour, IPointerDownHandler, IPointer
         {
             _game.BeginSqueeze();
         }
-
-        AudioManager.Instance?.PlaySFX(EAudioType.WasabiGame_Squeeze);
     }
     public void OnPointerUp( PointerEventData eventData)
     {
