@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +36,7 @@ public class UI_PreparingPanel : MonoBehaviour
     private Restaurant _restaurant;
 
     private CurrencyManager _currencyManager;
+    private Coroutine _alarmRefreshCoroutine;
     private void Awake()
     {
         _recipeButton?.onClick.AddListener(OpenRecipePanel);
@@ -66,6 +68,11 @@ public class UI_PreparingPanel : MonoBehaviour
         if (_restaurant != null)
         {
             _restaurant.OnRestaurantChanged -= RefreshAlarms;
+        }
+        if (_alarmRefreshCoroutine != null)
+        {
+            StopCoroutine(_alarmRefreshCoroutine);
+            _alarmRefreshCoroutine = null;
         }
         CloseAllPanels();
     }
@@ -148,11 +155,22 @@ public class UI_PreparingPanel : MonoBehaviour
         {
             effect.Play();
         }
+        RefreshAlarms();
     }
 
     #region Alarm
     private void OnMoneyChanged(int money)
     {
+        if (_alarmRefreshCoroutine != null)
+        {
+            StopCoroutine(_alarmRefreshCoroutine);
+        }
+        _alarmRefreshCoroutine = StartCoroutine(RefreshAlarmsNextFrame());
+    }
+    private IEnumerator RefreshAlarmsNextFrame()
+    {
+        yield return null;
+        _alarmRefreshCoroutine = null;
         RefreshAlarms();
     }
     private void RefreshAlarms()
