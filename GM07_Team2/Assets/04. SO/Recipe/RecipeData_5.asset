@@ -16,7 +16,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: 150e25006fcdc484fa6a98f22d7f122a, type: 3}
   <IngredientIcon>k__BackingField: {fileID: 21300000, guid: f1d10234286b21a46be0028273d4244a, type: 3}
   <Name>k__BackingField: "\uCC38\uCE58\uCD08\uBC25"
-  <Cost>k__BackingField: 300
-  <Price>k__BackingField: 900
+  <Cost>k__BackingField: 1400
+  <Price>k__BackingField: 620
   <CookingTime>k__BackingField: 1
   <MenuGrade>k__BackingField: 1
